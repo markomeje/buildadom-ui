@@ -10,7 +10,7 @@
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
     "lint": "next lint",
-    "test": "npm run check-lint && npm run pretty"
+    "test": "npm run check-lint && npm run format"
   },
   "dependencies": {
     "@types/node": "18.15.4",
