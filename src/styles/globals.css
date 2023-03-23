@@ -1,3 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .wrapper {
+    @apply max-w-[1100px] mx-auto;
+  }
+
+  .card {
+    width: 446px;
+    min-height: 325px;
+    background: #ffffff;
+    box-shadow: 0px 36px 208px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    padding: 30px;
+  }
+
+  .backdrop {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)),
+      url('/assets/raleway.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .gradient {
+    background: linear-gradient(135deg, #f4ab00 0%, #fc5457 100%);
+  }
+
+  .support_bg {
+    background: url('/assets/support.png');
+    background-blend-mode: multiply;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .shadow {
+    background: #ffffff;
+    box-shadow: 0px 11px 91px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+  }
+}

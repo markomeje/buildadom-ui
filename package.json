@@ -13,6 +13,7 @@
     "test": "npm run check-lint && npm run format"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.4",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -20,9 +21,12 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "remixicon": "^2.5.0",
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.25",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "autoprefixer": "^10.4.14",
