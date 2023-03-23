@@ -1,6 +1,5 @@
 import Head from 'next/head'
 
-
 export default function Home() {
   return (
     <>
@@ -11,7 +10,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div><span className='text-green-400'>welcomr</span></div>
+        <div>
+          <span className="text-green-400">welcomr</span>
+        </div>
       </main>
     </>
   )

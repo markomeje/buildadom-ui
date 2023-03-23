@@ -3,17 +3,17 @@ import Footer from './Footer'
 import Navbar from './Navbar'
 
 type IProps = {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
-const SellerAuth = ({children}:IProps) => {
+const SellerAuth = ({ children }: IProps) => {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <main>{children}</main>
-    <Footer />
+      <Footer />
     </>
-    )
+  )
 }
 
 export default SellerAuth

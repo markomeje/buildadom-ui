@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pretty": "prettier --write src/**/*.ts",
+    "pretty": "prettier --write src/**/*[.tsx | .ts]",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "format": "prettier --write .",
+    "format": "prettier --write . --ext ts --ext tsx --ext js",
     "lint": "next lint",
     "test": "npm run check-lint && npm run format"
   },
