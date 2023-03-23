@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lints": "eslint src/**/*.ts",
     "lint-fix": "eslint --fix src/**/*.ts",
-    "pretty": "prettier --write 'src/**/*.tsx'",
+    "pretty": "prettier --write src/**/*.tsx",
     "prepare": "husky install",
     "test": "npm run lint-fix && npm run pretty",
     "prepush": "npm run lint"
