@@ -7,7 +7,9 @@ function Stepper() {
   return (
     <ol className="flex w-full justify-center my-6 items-center max-w-[500px] mx-auto">
       <li
-        className={`flex w-full items-center   after:content-[''] after:w-full before:content-[''] after:h-[2px] after:border-b after:border-[${ step > 1 ? '#0156FF' : '#CCCCCC'}] after:border-2 after:inline-block`}
+        className={`flex w-full items-center   after:content-[''] after:w-full before:content-[''] after:h-[2px] after:border-b after:border-[${
+          step > 1 ? '#0156FF' : '#CCCCCC'
+        }] after:border-2 after:inline-block`}
       >
         <span
           className={`min-w-[30px] min-h-[30px] flex items-center justify-center border-[#0156FF] border-2 rounded-[30px] ${

@@ -10,7 +10,8 @@
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write . --ext ts --ext tsx --ext js",
     "lint": "next lint",
-    "test": "npm run check-lint && npm run format"
+    "test": "npm run check-lint && npm run format",
+    "prepush": "npm run lint"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
