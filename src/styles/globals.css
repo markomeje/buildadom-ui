@@ -3,6 +3,24 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 @layer components {
   .wrapper {
     @apply max-w-[1100px] mx-auto;
@@ -40,5 +58,50 @@
     background: #ffffff;
     box-shadow: 0px 11px 91px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
+  }
+
+  .register_bg {
+    background: #ffffff;
+    border: 1px solid rgba(243, 243, 245, 0.3);
+    box-shadow: 0px 5px 100px 10px rgba(0, 0, 0, 0.02),
+      0px 5px 100px 10px rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+  }
+
+  .star:after {
+    content: '*';
+    color: red;
+    margin-left: 4px;
+  }
+  .container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 2, 3, 0.63);
+    backdrop-filter: blur(5px);
+  }
+  .modal {
+    z-index: 1;
+    min-width: 520px;
+    min-height: 380px;
+    background: white;
+    border-radius: 14px;
+    position: relative;
+    animation: animate 0.3s;
+  }
+  @keyframes animate {
+    from {
+      transform: scale(0.5);
+    }
+    to {
+      transform: scale(1);
+    }
   }
 }

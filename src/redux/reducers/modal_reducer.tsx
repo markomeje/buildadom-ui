@@ -29,6 +29,7 @@ export const modalSlice = createSlice({
       state.show = false
     },
     openModal: (state) => {
+      console.log('show')
       state.show = true
     },
   },
