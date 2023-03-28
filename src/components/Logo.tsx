@@ -1,8 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
+import { useRouter } from 'next/router'
 import React from 'react'
 
-const Logo = () => {
-  return <img src="/assets/logo.svg" alt="logo" className="w-[40px] h-[40px]" />
+const Logo = ({ img }: { img: string }) => {
+  const router = useRouter()
+  const redirect = () => {
+    router.push('/seller')
+  }
+  return (
+    <div className="h-auto w-[185px] cursor-pointer" onClick={redirect}>
+      <img src={img} alt="logo" className="w-fulll h-full" />
+    </div>
+  )
 }
 
 export default Logo
