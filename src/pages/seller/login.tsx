@@ -17,7 +17,7 @@ import { openModal } from '@/redux/reducers/modal_reducer'
 import ModalWraper from '@/modals'
 import EmailVerificationModal from '@/modals/EmailVerificationModal'
 
-function Login() {
+const LoginPage = () => {
   const dispatch = useAppDispatch()
   const [status, setStatus] = useState<string>('')
   const { show } = useAppSelector((state) => state.modal)
@@ -98,6 +98,6 @@ function Login() {
 
 export default Login
 
-Login.getLayout = function getLayout(page: ReactElement) {
+LoginPage.getLayout = function getLayout(page: ReactElement) {
   return <SellerAuth>{page}</SellerAuth>
 }
