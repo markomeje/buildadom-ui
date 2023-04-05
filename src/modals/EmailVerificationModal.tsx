@@ -1,23 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from '@/components/shared/Button'
+import { useAppDispatch } from '@/hooks/useReducer'
 import { AuthError } from '@/interface/errors'
+import { setUser } from '@/redux/reducers/authToken_reducer'
 import { useVerifyNumberMutation } from '@/redux/reducers/auth_reducer'
+import { incrementStepper } from '@/redux/reducers/step_reducer'
 import { VerificationCodeSchema } from '@/schema/auth/mechant'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-const EmailVerificationModal = () => {
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm({
+const EmailVerificationModal = ({ status }: { status?: string }) => {
+  const { register, handleSubmit } = useForm({
     resolver: yupResolver(VerificationCodeSchema),
   })
+  const dispatch = useAppDispatch()
   const [type, setType] = useState<string>('phone')
   const [verifyNumber, { isLoading }] = useVerifyNumberMutation()
+  useEffect(() => {
+    if (status) {
+      setType(status as string)
+    }
+  }, [status])
   const onSubmit = handleSubmit(async (info) => {
     try {
       const code = Object.values(info).join('')
@@ -25,6 +30,14 @@ const EmailVerificationModal = () => {
         const data = { type: 'phone', code: code }
         await verifyNumber(data).unwrap()
         setType('email')
+      }
+      if (type === 'email') {
+        const data = { type: 'email', code: code }
+        const res = await verifyNumber(data).unwrap()
+        if (res && res.user) {
+          dispatch(setUser({ token: res.user.token }))
+          dispatch(incrementStepper())
+        }
       }
     } catch (error) {
       toast.error((error as AuthError).data.message)

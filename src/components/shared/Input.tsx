@@ -13,7 +13,7 @@ type IProps = {
 const Input = ({ placeholder, title, name, type, register, error }: IProps) => {
   return (
     <div className="flex my-3  flex-col w-full">
-      <label className="font-poppins mb-3 text-[#333333] font-semibold leading-[27px] star text-[14px]">
+      <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
         {title}
       </label>
       <input

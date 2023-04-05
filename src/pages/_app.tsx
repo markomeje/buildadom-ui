@@ -6,6 +6,9 @@ import { Provider } from 'react-redux'
 import { store } from '../redux/store'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
+import 'react-phone-number-input/style.css'
+// import { useAppDispatch } from '@/hooks/useReducer'
+// import { setUser } from '@/redux/reducers/authToken_reducer'
 
 // define custom types for components with individual layouts
 type PageWithLayout = {
@@ -18,6 +21,11 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  // const dispatch = useAppDispatch()
+  // const token = JSON.parse(localStorage.getItem('loggedInUser') || '{}')
+  // useEffect(() => {
+  //   dispatch(setUser(token))
+  // }, [])
   const getLayout = Component.getLayout ?? ((page) => page)
   return getLayout(
     <>

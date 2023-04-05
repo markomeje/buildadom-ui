@@ -12,7 +12,7 @@ const RegisterBusiness = () => {
       <h1 className="font-poppins font-semibold leading-[60px] text-center text-[40px] text-bd-black">
         Create your business account
       </h1>
-      <Stepper />
+      <Stepper className="max-w-[500px] mx-auto" />
       <UseStepper step={step} stepObject={AuthStepper} />
     </div>
   )

@@ -46,9 +46,18 @@ const VerificationCodeSchema = yup.object({
   six: yup.string().length(1).required(),
 })
 
+const IndividualIDValidationSchema = yup.object({
+  address: yup.string().required('address is required'),
+  dob: yup.string().required('Date of Birth is required'),
+  id_number: yup.string().required('Id Number is required'),
+  id_type: yup.string().required('Id Type is required'),
+  expiry_date: yup.string().required('Expiry Data is required'),
+})
+
 export {
   IndividualAuthSchema,
   BusinessAuthSchema,
+  IndividualIDValidationSchema,
   BusinessPersonalSchema,
   VerificationCodeSchema,
   LoginSchema,

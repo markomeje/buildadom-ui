@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // auth service build
@@ -29,6 +30,11 @@ export const authApi = createApi({
         method: 'POST',
         body: data,
       }),
+      transformResponse: (
+        response: { response: { user: { token: string } } },
+        meta,
+        arg
+      ) => response.response.user.token,
     }),
   }),
 })

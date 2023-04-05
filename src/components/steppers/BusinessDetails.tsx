@@ -7,7 +7,7 @@ import Input from '../shared/Input'
 import { useForm } from 'react-hook-form'
 import { BusinessAuthSchema } from '@/schema/auth/mechant'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Form2 } from '@/interface/IForm'
+import { Form2 } from '@/interface/auth'
 import { addInfo, incrementStepper } from '@/redux/reducers/step_reducer'
 
 const BusinessDetails = () => {
