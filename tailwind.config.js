@@ -12,6 +12,7 @@ module.exports = {
         bd: {
           black: '#020202',
           blue: '#0156FF',
+          lightBlue: '#F5F7FF',
         },
       },
     },

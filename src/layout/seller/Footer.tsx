@@ -9,10 +9,7 @@ function Footer() {
       <div className="max-w-[1250px] mx-auto grid py-20 w-full grid-cols-6">
         <div className="col-span-3 flex flex-col">
           <div className="flex mb-6 items-center">
-            <Logo />
-            <h1 className="font-poppins text-white font-[500] text-[40px] leading-[53px] ml-3">
-              House Depot
-            </h1>
+            <Logo img="/assets/logo_white.png" />
           </div>
           <h2 className="font-poppins text-white font-[500] mb-2 text-[28px] leading-[37px]">
             Sign Up To Our Newsletter

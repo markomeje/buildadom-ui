@@ -3,10 +3,12 @@ import type { RootState } from '../store'
 
 interface modalState {
   step: number
+  info: object
 }
 
 const initialState: modalState = {
   step: 1,
+  info: {},
 }
 
 export const stepperSlice = createSlice({
@@ -23,13 +25,17 @@ export const stepperSlice = createSlice({
     decrementStepper: (state) => {
       state.step = state.step - 1
     },
+
+    addInfo: (state, action) => {
+      state.info = { ...state.info, ...action.payload }
+    },
   },
 })
 
 export const modalMode = (state: RootState) =>
   state && state.modal && state.modal
 
-export const { incrementStepper, decrementStepper, setStepper } =
+export const { incrementStepper, decrementStepper, setStepper, addInfo } =
   stepperSlice.actions
 
 export default stepperSlice.reducer

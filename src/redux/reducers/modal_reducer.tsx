@@ -3,14 +3,14 @@ import type { RootState } from '../store'
 
 interface modalState {
   show: boolean
-  type: string
-  modalDisplay: boolean
+  modalType: string
+  specificModal: boolean
 }
 
 const initialState: modalState = {
   show: false,
-  type: '',
-  modalDisplay: false,
+  modalType: '',
+  specificModal: false,
 }
 
 export const modalSlice = createSlice({
@@ -18,15 +18,16 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     toggle: (state, action: PayloadAction<string>) => {
-      ;(state.show = !state.show), (state.type = action.payload)
+      ;(state.show = !state.show), (state.modalType = action.payload)
     },
 
-    toggleDisplay: (state, action: PayloadAction<string>) => {
-      ;(state.modalDisplay = !state.modalDisplay), (state.type = action.payload)
+    specificModal: (state, action: PayloadAction<string>) => {
+      ;(state.specificModal = !state.specificModal),
+        (state.modalType = action.payload)
     },
 
     closeModal: (state) => {
-      state.show = false
+      ;(state.show = false), (state.specificModal = false)
     },
     openModal: (state) => {
       console.log('show')
@@ -38,7 +39,7 @@ export const modalSlice = createSlice({
 export const modalMode = (state: RootState) =>
   state && state.modal && state.modal
 
-export const { toggle, closeModal, openModal, toggleDisplay } =
+export const { toggle, closeModal, openModal, specificModal } =
   modalSlice.actions
 
 export default modalSlice.reducer

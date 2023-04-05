@@ -10,7 +10,7 @@ type Props = {
 }
 
 function ModalWraper({ children }: Props) {
-  const { show } = useAppSelector((state) => state.modal)
+  const { show, specificModal } = useAppSelector((state) => state.modal)
   const dispatch = useAppDispatch()
   // close the modal when clicking outside the modal.
   const modalRef = useRef<HTMLElement>()
@@ -20,7 +20,8 @@ function ModalWraper({ children }: Props) {
     }
   }
   useEffect(() => {
-    if (show) {
+    console.log(specificModal, 'modal')
+    if (show || specificModal) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
@@ -28,7 +29,7 @@ function ModalWraper({ children }: Props) {
     return () => {
       document.body.style.overflow = 'unset'
     }
-  }, [show])
+  }, [show, specificModal])
   return (
     <div
       className={`container w-full`}

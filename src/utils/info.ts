@@ -11,3 +11,26 @@ const info = [
 ]
 
 export default info
+
+export const Links = [
+  {
+    name: 'Store',
+    href: '/dashboard/store',
+  },
+  {
+    name: 'Categories',
+    href: '/dashboard/categories',
+  },
+  {
+    name: 'Explore',
+    href: '/dashboard/explore',
+  },
+  {
+    name: 'Services',
+    href: '/dashboard/services',
+  },
+  {
+    name: 'Track Order',
+    href: '/dashboard/track_order',
+  },
+]
