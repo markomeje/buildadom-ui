@@ -17,7 +17,7 @@ function Dashboard({ children }: IProps) {
     if (!token) {
       router.push('/seller')
     }
-  }, [router])
+  })
   return (
     <div>
       <DashboardNav />

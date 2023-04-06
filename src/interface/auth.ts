@@ -15,7 +15,7 @@ export interface Form2 {
   phone: string
 }
 
-export interface Login {
+export interface LoginProp {
   email: string
   password: string
 }

@@ -2,7 +2,6 @@
 import Button from '@/components/shared/Button'
 import Input from '@/components/shared/Input'
 import { AuthError } from '@/interface/errors'
-import { Login } from '@/interface/auth'
 import SellerAuth from '@/layout/seller/Auth'
 import { useUserLoginMutation } from '@/redux/reducers/auth_reducer'
 import { LoginSchema } from '@/schema/auth/mechant'
@@ -16,6 +15,7 @@ import { useRouter } from 'next/router'
 import { openModal } from '@/redux/reducers/modal_reducer'
 import ModalWraper from '@/modals'
 import EmailVerificationModal from '@/modals/EmailVerificationModal'
+import { LoginProp } from '@/interface/auth'
 
 const LoginPage = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +27,7 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Login>({
+  } = useForm<LoginProp>({
     resolver: yupResolver(LoginSchema),
   })
 
@@ -96,7 +96,7 @@ const LoginPage = () => {
   )
 }
 
-export default Login
+export default LoginPage
 
 LoginPage.getLayout = function getLayout(page: ReactElement) {
   return <SellerAuth>{page}</SellerAuth>
