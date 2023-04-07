@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Button from '@/ui/button/Button'
 import Logo from '@/ui/general/Logo'

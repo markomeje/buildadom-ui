@@ -1,10 +1,13 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import  {  AppProps } from 'next/app'
+import { wrapper } from '../redux/store'
 import { ReactElement, ReactNode } from 'react'
 import 'remixicon/fonts/remixicon.css'
 import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-phone-number-input/style.css'
 import { ToastContainer } from 'react-toastify'
+
+
 type PageWithLayout = {
   getLayout: (page: ReactElement) => ReactNode
 }
@@ -14,7 +17,7 @@ type AppPropsWithLayout = AppProps & {
   Component: PageWithLayout
 }
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+const  MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
   return getLayout(
     <>
@@ -30,9 +33,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         pauseOnHover
         theme="light"
       />
-        <Component {...pageProps} />
+      <Component {...pageProps} />
     </>
   )
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp)
+
+
+

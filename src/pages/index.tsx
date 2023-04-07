@@ -1,4 +1,3 @@
-
 import LandingPage from '@/layouts/LandingPage'
 import CallToAction from '@/sections/CallToAction'
 import FAQ from '@/sections/FAQ'
