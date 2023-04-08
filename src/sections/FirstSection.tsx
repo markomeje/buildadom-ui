@@ -4,15 +4,15 @@ import React from 'react'
 const FirstSection = () => {
   return (
     <div className="min-h-[500px] mt-16 flex  flex-col items-center justify-center w-full">
-      <div className="grid grid-cols-5  h-full items-center max-w-[980px] mx-auto justify-center">
-        <div className="col-span-3 h-full flex items-center justify-center">
+      <div className="grid md:grid-cols-5  h-full items-center max-w-full md:max-w-[980px] mx-auto justify-center">
+        <div className="col-span-1 md:col-span-3 px-2 h-full flex items-center justify-center">
           <img
             src="/assets/smiling-lady.png"
             alt="smiling-lady"
             className="object-fill"
           />
         </div>
-        <div className="col-span-2 flex -ml-6 flex-col">
+        <div className="col-span-1 md:col-span-2 flex  md:px-0 px-4 py-4 md:py-0 md:-ml-6 flex-col">
           <span className="font-poppins text-gray-800 text-[18px] leading-[32px]">
             Join manufacturers, distributors and dealers all over the world who
             are taking advantage of digital transformation opportunities to

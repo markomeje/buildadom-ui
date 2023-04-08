@@ -56,7 +56,7 @@ const DisplayState = ({ data }: { data: any }) => {
         title="Start ID Validation Now"
       />
     )
-  } else if (data !== null && data.image === null) {
+  } else if (data !== null && data?.images?.length === 0) {
     return (
       <Button
         classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"
@@ -86,7 +86,17 @@ const DisplayState = ({ data }: { data: any }) => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    store.dispatch(setUser(JSON.parse(token as string)))
+    if(token) {
+      store.dispatch(setUser(JSON.parse(token as string)))
+    }
+    if(!token) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
     return {
       props: {},
     }

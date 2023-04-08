@@ -12,14 +12,7 @@ const options = [
   { value: 'national identity card', label: 'National Identity Card' },
 ]
 
-const InputSelect = ({ control, errors }: any) => {
-  // const customStyles = {
-  //   option: (provided: any, state: any) => ({
-  //     ...provided,
-  //     height: '50px',
-  //     color: 'gray',
-  //   }),
-  // }
+const InputSelect = ({ control, errors, data }: any) => {
 
   const {
     field: { value: idValue, onChange: typeOnChange, ...restTypeField },
@@ -34,7 +27,7 @@ const InputSelect = ({ control, errors }: any) => {
         placeholder="select type"
         isClearable
         // styles={customStyles}
-        options={options}
+        options={data}
         value={idValue ? options.find((x) => x.value === idValue) : idValue}
         onChange={(option) => typeOnChange(option ? option.value : option)}
         {...restTypeField}

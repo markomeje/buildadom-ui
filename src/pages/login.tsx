@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { ReactElement, useState } from 'react'
@@ -9,13 +10,15 @@ import EmailVerificationModal from '@/modals/EmailVerificationModal'
 import LandingPage from '@/layouts/LandingPage'
 import { LoginSchema } from '@/validationschema/authSchema'
 import { LoginProp } from '@/interface/form.interface'
-import { useTypedDispatch, useTypedSelector } from '@/redux/store'
+import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
 import Input from '@/ui/input/TextInput'
 import Button from '@/ui/button/Button'
 import { useUserLoginMutation } from '@/redux/services/auth.service'
 import { AuthError } from '@/interface/error.interface'
 import { setToken } from '@/redux/reducer/tokenReducer'
 import { openModal } from '@/redux/reducer/modalReducer'
+import { getCookie } from 'cookies-next'
+import { GetServerSideProps } from 'next'
 
 const LoginPage = () => {
   const dispatch = useTypedDispatch()
@@ -105,3 +108,18 @@ export default LoginPage
 LoginPage.getLayout = function getLayout(page: ReactElement) {
   return <LandingPage>{page}</LandingPage>
 }
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    if(token) {
+      return {
+        redirect: {
+          destination: '/dashboard',
+          permanent: false,
+        },
+      }
+    }
+    return {
+      props: {},
+    }
+  })

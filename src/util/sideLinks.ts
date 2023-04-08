@@ -1,8 +1,8 @@
-const BASE_URL = '/seller/dashboard'
+const BASE_URL = '/dashboard'
 export const sideLinks = [
   {
     name: 'Account Dashboard',
-    link: `${BASE_URL}/my-store`,
+    link: `${BASE_URL}/store`,
   },
   {
     name: 'Account & Payment (Escrow)',

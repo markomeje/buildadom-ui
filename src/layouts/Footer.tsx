@@ -4,6 +4,7 @@ import Logo from '@/ui/general/Logo'
 import info from '@/util/info'
 
 function Footer() {
+
   return (
     <div className="bg-[#020203] w-full min-h-[500px] flex items-center">
       <div className="max-w-[1250px] mx-auto grid py-20 w-full grid-cols-6">

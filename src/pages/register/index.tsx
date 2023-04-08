@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 
 import LandingPage from '@/layouts/LandingPage'
+import { wrapper } from '@/redux/store'
 import Button from '@/ui/button/Button'
+import { getCookie } from 'cookies-next'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { ReactElement } from 'react'
 
@@ -50,3 +54,19 @@ export default Register
 Register.getLayout = function getLayout(page: ReactElement) {
   return <LandingPage>{page}</LandingPage>
 }
+
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    if(token) {
+      return {
+        redirect: {
+          destination: '/dashboard',
+          permanent: false,
+        },
+      }
+    }
+    return {
+      props: {},
+    }
+  })

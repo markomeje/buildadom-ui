@@ -16,9 +16,10 @@ const IdVerification = () => {
   const router = useRouter()
   useEffect(() => {
     if (router.query && router.query.stepper) {
-      dispatch(setStepper(router.query.stepper))
+      dispatch(setStepper(parseInt(router.query.stepper as string)))
     }
   }, [router.query, dispatch])
+  console.log(step, "stepppp")
   return (
     <div className="max-w-[800px] mx-auto py-16">
       <h1 className="font-poppins font-semibold leading-[60px] pb-4 text-center text-[32px] text-bd-black">
@@ -38,7 +39,17 @@ IdVerification.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
+    if(!token) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
+    if(token) {
     store.dispatch(setUser(JSON.parse(token as string)))
+    }
     return {
       props: {},
     }

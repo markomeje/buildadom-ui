@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import { removeUserCookie } from '@/hooks/useCookie'
 import Button from '@/ui/button/Button'
 import Logo from '@/ui/general/Logo'
 import { Links } from '@/util/info'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import TopNav from './TopNav'
 
@@ -45,6 +47,11 @@ const NavLinks = () => {
 }
 
 const IconRight = () => {
+  const router = useRouter();
+  const logout = () => {
+    removeUserCookie()
+    router.push('/')
+  }
   return (
     <div className="flex items-center justify-between">
       <i className="ri-search-2-line font-semibold text-[20px] mr-5"></i>
@@ -57,7 +64,8 @@ const IconRight = () => {
       <img
         src="/assets/profile.png"
         alt="profile"
-        className="w-[36px] h-[36px] rounded-[36px] object-cover"
+        className="w-[36px] h-[36px] rounded-[36px] object-cover cursor-pointer"
+        onClick={logout}
       />
     </div>
   )

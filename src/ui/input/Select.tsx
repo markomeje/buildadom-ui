@@ -90,7 +90,7 @@ const DropDown = ({
         ) : (countries as Country[]).filter((x: Country) =>
             x.name.toLowerCase().includes(input.toLowerCase())
           ).length === 0 ? (
-          <span className="py-2 text-gray-500 cursor-pointer w-[98%] hover:bg-blue-100 rounded-md mb-1 px-2 font-poppins flex items-start">
+          <span className="py-2 text-gray-500 cursor-pointer w-[98%] hover:bg-blue-100 rounded-md mb-1 px-2 font-clash flex items-start">
             No Result Found
           </span>
         ) : (

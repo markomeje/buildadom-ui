@@ -30,6 +30,7 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
         await verifyNumber(data).unwrap()
         toast.success('Phone verfication successfull, check you mail please ')
         setType('email')
+        setOtp('')
       }
       if (type === 'email') {
         const data = { type: 'email', code: otp }

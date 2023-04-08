@@ -1,6 +1,7 @@
 import { AuthError } from '@/interface/error.interface'
 import { IValidationForm } from '@/interface/form.interface'
 import { incrementStepper } from '@/redux/reducer/stepperReducer'
+import { useGetIDTypesQuery } from '@/redux/services/utility.slice'
 import { useAddValidationMutation } from '@/redux/services/validation.service'
 import { useTypedDispatch } from '@/redux/store'
 import Button from '@/ui/button/Button'
@@ -24,10 +25,14 @@ const IndividualIDValidation = () => {
 
   const dispatch = useTypedDispatch()
   const [addValidation, { isLoading }] = useAddValidationMutation()
+  const {data} = useGetIDTypesQuery()
+  console.log(data, "daaaaa")
   const onSubmit = handleSubmit(async (info) => {
     try {
       const res = await addValidation({ ...info, type: 'individual' }).unwrap()
       if (res) {
+        console.log(res);
+        toast.success('ID data updated successfully, upload ID')
         // router.push('/seller/dashboard/create-store')
         dispatch(incrementStepper())
       }
@@ -43,7 +48,7 @@ const IndividualIDValidation = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col  items-center">
-      <InputSelect control={control} errors={errors} />
+      <InputSelect data={data} control={control} errors={errors} />
       <div className="grid grid-cols-2 gap-x-6 w-full">
         <Input
           title="ID number"

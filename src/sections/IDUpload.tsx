@@ -39,7 +39,7 @@ function IdUpload() {
     try {
       const response = await imageUpload(formData)
       if (response) toast.success('ID uploaded successfully')
-      router.push('/seller/dashboard/create-store')
+      router.push('/dashboard')
     } catch (error) {
       console.log(error)
     }

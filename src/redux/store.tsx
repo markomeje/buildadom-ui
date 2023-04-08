@@ -10,6 +10,7 @@ import { tokenReducer, tokenSlice } from './reducer/tokenReducer'
 import { validationApi } from './services/validation.service'
 import countryReducer, { CountrySlice } from './reducer/countryReducer'
 import { storeApi } from './services/store.slice'
+import { utilityApi } from './services/utility.slice'
 
 const reducers = {
   [stepperSlice.name]: stepperReducer,
@@ -19,6 +20,7 @@ const reducers = {
   [authApi.reducerPath]: authApi.reducer,
   [validationApi.reducerPath]: validationApi.reducer,
   [storeApi.reducerPath]: storeApi.reducer,
+  [utilityApi.reducerPath]: utilityApi.reducer,
 }
 
 const combinedReducer: Reducer = combineReducers<typeof reducers>(reducers)
@@ -46,6 +48,7 @@ export const makeStore = (context: Context) =>
         authApi.middleware,
         validationApi.middleware,
         storeApi.middleware,
+        utilityApi.middleware
       ]),
     devTools: true,
   })

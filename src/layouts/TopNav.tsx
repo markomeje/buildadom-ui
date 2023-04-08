@@ -3,7 +3,7 @@ import React from 'react'
 
 function TopNav() {
   return (
-    <div className={`w-full bg-bd-black py-4`}>
+    <div className={`w-full hidden md:block bg-bd-black py-4`}>
       <div className="flex justify-between items-center wrapper h-full w-full">
         <div className="flex items-center">
           <span className="text-[#8C8C8C] font-poppins font-[800] leading-[18px] flex items-center">
