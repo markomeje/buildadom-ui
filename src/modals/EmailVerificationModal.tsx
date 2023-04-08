@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 
 const EmailVerificationModal = ({ status }: { status?: string }) => {
   const router = useRouter()
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState('')
   const [type, setType] = useState<string>('phone')
   const [verifyNumber, { isLoading }] = useVerifyNumberMutation()
   const dispatch = useTypedDispatch()
@@ -21,9 +21,9 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
       setType(status as string)
     }
   }, [status])
-  const onSubmit = (async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    if(otp.length !== 6) return toast('commplete code')
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    if (otp.length !== 6) return toast('commplete code')
     try {
       if (type === 'phone') {
         const data = { type: 'phone', code: otp }
@@ -35,16 +35,15 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
         const data = { type: 'email', code: otp }
         const res = await verifyNumber(data).unwrap()
         if (res && res.user) {
-        dispatch(setUser({ token: res.user.token }))
-        toast.success('Email verfication successfull')
-        router.push('/register/success')
+          dispatch(setUser({ token: res.user.token }))
+          toast.success('Email verfication successfull')
+          router.push('/register/success')
         }
       }
     } catch (error) {
       toast.error((error as AuthError).data.message)
-       
     }
-  })
+  }
 
   return (
     <div className="flex flex-col w-full h-full items-center p-[30px] justify-center">
@@ -58,7 +57,11 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
         </span>
       </span>
       <form className="w-full px-6" onSubmit={onSubmit}>
-      <OtpInput value={otp} valueLength={6} onChange={(value: string) => setOtp(value)} />
+        <OtpInput
+          value={otp}
+          valueLength={6}
+          onChange={(value: string) => setOtp(value)}
+        />
         <div className="flex w-full items-center justify-center">
           <Button
             title={isLoading ? 'loading...' : 'Submit'}

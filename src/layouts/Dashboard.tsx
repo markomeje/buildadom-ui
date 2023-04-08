@@ -10,7 +10,7 @@ type IProps = {
 
 function Dashboard({ children }: IProps) {
   const router = useRouter()
-  const {loggedUser} = useTypedSelector(state => state.authToken)
+  const { loggedUser } = useTypedSelector((state) => state.authToken)
   useEffect(() => {
     if (!loggedUser) {
       router.push('/')

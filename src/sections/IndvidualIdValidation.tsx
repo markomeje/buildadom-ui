@@ -26,7 +26,7 @@ const IndividualIDValidation = () => {
   const [addValidation, { isLoading }] = useAddValidationMutation()
   const onSubmit = handleSubmit(async (info) => {
     try {
-      const res = await addValidation({...info, type: 'individual'}).unwrap()
+      const res = await addValidation({ ...info, type: 'individual' }).unwrap()
       if (res) {
         // router.push('/seller/dashboard/create-store')
         dispatch(incrementStepper())

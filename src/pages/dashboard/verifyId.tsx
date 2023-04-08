@@ -6,7 +6,7 @@ import { setStepper } from '@/redux/reducer/stepperReducer'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
 import { useRouter } from 'next/router'
-import {getCookie} from 'cookies-next'
+import { getCookie } from 'cookies-next'
 import React, { ReactElement, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 
@@ -35,10 +35,11 @@ IdVerification.getLayout = function getLayout(page: ReactElement) {
   return <Dashboard>{page}</Dashboard>
 }
 
-export const getServerSideProps:GetServerSideProps =  wrapper.getServerSideProps((store) =>async ({req,res}) =>{
-    const token = getCookie('user', {req,res});
-    store.dispatch(setUser(JSON.parse(token as string)));
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    store.dispatch(setUser(JSON.parse(token as string)))
     return {
-      props: {}
-  }
+      props: {},
+    }
   })

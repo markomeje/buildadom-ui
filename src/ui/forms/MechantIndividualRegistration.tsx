@@ -26,7 +26,7 @@ const MechantIndividualRegistration = () => {
     try {
       await addUser({ ...info, type: 'individual' }).unwrap()
       dispatch(openModal())
-    }catch (err) {
+    } catch (err) {
       console.log(err)
       if ((err as AuthError).data?.errors) {
         for (const value of Object.values((err as AuthError).data?.errors)) {
@@ -106,7 +106,7 @@ const MechantIndividualRegistration = () => {
 
         <div className="flex items-end justify-end w-full mt-4">
           <Button
-            title={isLoading ? 'Loading...' :  'Submit'}
+            title={isLoading ? 'Loading...' : 'Submit'}
             classNames="w-[205px] h-[50px] rounded-[50px]"
           />
         </div>

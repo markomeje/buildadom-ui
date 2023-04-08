@@ -11,7 +11,6 @@ import { validationApi } from './services/validation.service'
 import countryReducer, { CountrySlice } from './reducer/countryReducer'
 import { storeApi } from './services/store.slice'
 
-
 const reducers = {
   [stepperSlice.name]: stepperReducer,
   [modalSlice.name]: modalReducer,
@@ -19,7 +18,7 @@ const reducers = {
   [tokenSlice.name]: tokenReducer,
   [authApi.reducerPath]: authApi.reducer,
   [validationApi.reducerPath]: validationApi.reducer,
-  [storeApi.reducerPath]: storeApi.reducer
+  [storeApi.reducerPath]: storeApi.reducer,
 }
 
 const combinedReducer: Reducer = combineReducers<typeof reducers>(reducers)
@@ -31,7 +30,7 @@ export const rootReducer = (
   if (action.type === HYDRATE) {
     const nextState = {
       ...state,
-      ...action.payload
+      ...action.payload,
     }
     return nextState
   } else {
@@ -43,11 +42,11 @@ export const makeStore = (context: Context) =>
   configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([
-      authApi.middleware,
-      validationApi.middleware,
-      storeApi.middleware
-    ]),
+      getDefaultMiddleware().concat([
+        authApi.middleware,
+        validationApi.middleware,
+        storeApi.middleware,
+      ]),
     devTools: true,
   })
 

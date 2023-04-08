@@ -3,7 +3,7 @@ import StoreLayout from '@/layouts/StoreLayout'
 import ModalWraper from '@/modals'
 import { useTypedSelector, wrapper } from '@/redux/store'
 import React, { ReactElement } from 'react'
-import {getCookie} from 'cookies-next'
+import { getCookie } from 'cookies-next'
 import AddProductModal from '@/modals/AddProductWrapper'
 import { products } from '@/util/products'
 import { GetServerSideProps } from 'next'
@@ -37,10 +37,11 @@ MyStore.getLayout = function getLayout(page: ReactElement) {
   return <StoreLayout>{page}</StoreLayout>
 }
 
-export const getServerSideProps:GetServerSideProps =  wrapper.getServerSideProps((store) =>async ({req,res}) =>{
-    const token = getCookie('user', {req,res});
-    store.dispatch(setUser(JSON.parse(token as string)));
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    store.dispatch(setUser(JSON.parse(token as string)))
     return {
-        props: {}
+      props: {},
     }
-})
+  })

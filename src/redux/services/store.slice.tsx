@@ -12,7 +12,7 @@ export const storeApi = createApi({
     baseUrl: 'https://api.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
     prepareHeaders: (headers, { getState, endpoint }) => {
-        const user = (getState() as RootState).authToken.loggedUser
+      const user = (getState() as RootState).authToken.loggedUser
       if (user && endpoint !== 'refresh') {
         headers.set('Authorization', `Bearer ${user}`)
       }

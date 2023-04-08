@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { wrapper } from '@/redux/store'
 import React, { ReactElement } from 'react'
-import {getCookie} from 'cookies-next'
+import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import Dashboard from '@/layouts/Dashboard'
@@ -18,27 +18,27 @@ const MerchantDashboard = () => {
 
   return (
     <div className="wrapper">
-    <CreateHeader>
-      <div className="flex flex-col">
-        <h1 className="font-semibold font-poppins text-[32px] mb-2 leading-[48px]">
-          Create Store
-        </h1>
-        <span className="max-w-[384px] text-bd-black text-[15px] font-poppins  leading-[24px]">
-          Kindly provide all informations below for us to help you create your
-          unique store
-        </span>
-      </div>
-      <DisplayState data={data} />
-    </CreateHeader>
-    <CreateStore />
-  </div>
+      <CreateHeader>
+        <div className="flex flex-col">
+          <h1 className="font-semibold font-poppins text-[32px] mb-2 leading-[48px]">
+            Create Store
+          </h1>
+          <span className="max-w-[384px] text-bd-black text-[15px] font-poppins  leading-[24px]">
+            Kindly provide all informations below for us to help you create your
+            unique store
+          </span>
+        </div>
+        <DisplayState data={data} />
+      </CreateHeader>
+      <CreateStore />
+    </div>
   )
 }
 
 export default MerchantDashboard
 MerchantDashboard.getLayout = function getLayout(page: ReactElement) {
   return <Dashboard>{page}</Dashboard>
-} 
+}
 
 const DisplayState = ({ data }: { data: any }) => {
   const router = useRouter()
@@ -83,10 +83,11 @@ const DisplayState = ({ data }: { data: any }) => {
   }
 }
 
-export const getServerSideProps:GetServerSideProps =  wrapper.getServerSideProps((store) =>async ({req,res}) =>{
-  const token = getCookie('user', {req,res});
-  store.dispatch(setUser(JSON.parse(token as string)));
-  return {
-    props: {}
-  }
-})
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    store.dispatch(setUser(JSON.parse(token as string)))
+    return {
+      props: {},
+    }
+  })

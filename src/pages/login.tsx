@@ -23,9 +23,9 @@ const LoginPage = () => {
   const { show } = useTypedSelector((state) => state.modal)
   const { token, loggedUser } = useTypedSelector((state) => state.authToken)
 
-  console.log(token, loggedUser ,"dddd")
+  console.log(token, loggedUser, 'dddd')
   const router = useRouter()
-    const [userLogin, { isLoading }] = useUserLoginMutation()
+  const [userLogin, { isLoading }] = useUserLoginMutation()
   const {
     register,
     handleSubmit,
@@ -37,21 +37,21 @@ const LoginPage = () => {
   const onSubmit = handleSubmit(async (info) => {
     try {
       console.log(info)
-        const result = await userLogin(info).unwrap()
-        dispatch(setToken({ token: result }))
+      const result = await userLogin(info).unwrap()
+      dispatch(setToken({ token: result }))
       toast.success('user logged in successfully')
       router.push('/dashboard')
     } catch (err) {
-        const error = (err as AuthError).data.message
-        const { type } = (err as AuthError).data.verification
-        toast.error(error)
-        if (type === 'phone') {
-          dispatch(openModal())
-          setStatus('phone')
-        } else {
-          dispatch(openModal())
-          setStatus('email')
-        }
+      const error = (err as AuthError).data.message
+      const { type } = (err as AuthError).data.verification
+      toast.error(error)
+      if (type === 'phone') {
+        dispatch(openModal())
+        setStatus('phone')
+      } else {
+        dispatch(openModal())
+        setStatus('email')
+      }
     }
   })
   return (
@@ -91,7 +91,7 @@ const LoginPage = () => {
             error={errors}
           />
           <Button
-            title={isLoading ? "Loading..." : "Login"}
+            title={isLoading ? 'Loading...' : 'Login'}
             classNames="w-full mt-4 h-[50px] rounded-[50px]"
           />
         </form>
