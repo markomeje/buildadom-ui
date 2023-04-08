@@ -24,13 +24,13 @@ const SignupSuccess = () => {
       </p>
       <div className="flex py-3">
         <Button
-          onClick={() => redirect('/seller/dashboard/create-store')}
+          onClick={() => redirect('/dashboard')}
           title="Skip"
           type="outlined"
           classNames="mr-6 py-4 rounded-[8px] w-[200px] "
         />
         <Button
-          onClick={() => redirect('/seller/dashboard/verify-id')}
+          onClick={() => redirect('/dashboard/verifyId')}
           title="Id Verification"
           classNames="py-4 rounded-[8px] w-[200px]"
         />

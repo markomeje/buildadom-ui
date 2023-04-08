@@ -45,10 +45,10 @@ export const storeApi = createApi({
       }),
     }),
     merchantStoreDetails: builder.query<IStore, void>({
-      query:() => ({url:'/marchant/store'}),
-      transformResponse: (response:{store:any}, meta, arg) => {
-       return  response.store
-      }
+      query: () => ({ url: '/marchant/store' }),
+      transformResponse: (response: { store: any }, meta, arg) => {
+        return response.store
+      },
     }),
   }),
 })
@@ -57,5 +57,5 @@ export const {
   useGetCountriesQuery,
   useGetCitiesQuery,
   useCreateStoreMutation,
-  useMerchantStoreDetailsQuery
+  useMerchantStoreDetailsQuery,
 } = storeApi
