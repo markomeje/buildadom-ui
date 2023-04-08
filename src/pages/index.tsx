@@ -11,9 +11,8 @@ import Safety from '@/sections/Safety'
 import Support from '@/sections/Support'
 import { GetServerSideProps } from 'next'
 import React, { ReactElement } from 'react'
-import {getCookie} from 'cookies-next'
+import { getCookie } from 'cookies-next'
 function HomePage() {
-  
   return (
     <>
       <HeroBg />
@@ -37,7 +36,7 @@ HomePage.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    if(token) {
+    if (token) {
       return {
         redirect: {
           destination: '/dashboard',

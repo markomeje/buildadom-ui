@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { City, Country } from '@/interface/general.interface'
+import { IStore } from '@/interface/store.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 
@@ -43,6 +44,12 @@ export const storeApi = createApi({
         body: data,
       }),
     }),
+    merchantStoreDetails: builder.query<IStore, void>({
+      query:() => ({url:'/marchant/store'}),
+      transformResponse: (response:{store:any}, meta, arg) => {
+       return  response.store
+      }
+    }),
   }),
 })
 
@@ -50,4 +57,5 @@ export const {
   useGetCountriesQuery,
   useGetCitiesQuery,
   useCreateStoreMutation,
+  useMerchantStoreDetailsQuery
 } = storeApi

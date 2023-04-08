@@ -47,7 +47,7 @@ const NavLinks = () => {
 }
 
 const IconRight = () => {
-  const router = useRouter();
+  const router = useRouter()
   const logout = () => {
     removeUserCookie()
     router.push('/')

@@ -111,7 +111,7 @@ LoginPage.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    if(token) {
+    if (token) {
       return {
         redirect: {
           destination: '/dashboard',

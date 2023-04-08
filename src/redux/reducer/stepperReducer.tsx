@@ -21,7 +21,7 @@ export const stepperSlice = createSlice({
 
     incrementStepper: (state) => {
       state.step = state.step + 1
-      console.log(state.step, "srtatddd")
+      console.log(state.step, 'srtatddd')
     },
     decrementStepper: (state) => {
       state.step = state.step - 1

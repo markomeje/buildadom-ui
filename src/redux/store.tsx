@@ -48,7 +48,7 @@ export const makeStore = (context: Context) =>
         authApi.middleware,
         validationApi.middleware,
         storeApi.middleware,
-        utilityApi.middleware
+        utilityApi.middleware,
       ]),
     devTools: true,
   })

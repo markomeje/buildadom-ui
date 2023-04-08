@@ -25,13 +25,13 @@ const IndividualIDValidation = () => {
 
   const dispatch = useTypedDispatch()
   const [addValidation, { isLoading }] = useAddValidationMutation()
-  const {data} = useGetIDTypesQuery()
-  console.log(data, "daaaaa")
+  const { data } = useGetIDTypesQuery()
+  console.log(data, 'daaaaa')
   const onSubmit = handleSubmit(async (info) => {
     try {
       const res = await addValidation({ ...info, type: 'individual' }).unwrap()
       if (res) {
-        console.log(res);
+        console.log(res)
         toast.success('ID data updated successfully, upload ID')
         // router.push('/seller/dashboard/create-store')
         dispatch(incrementStepper())

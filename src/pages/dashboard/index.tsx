@@ -86,10 +86,10 @@ const DisplayState = ({ data }: { data: any }) => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    if(token) {
+    if (token) {
       store.dispatch(setUser(JSON.parse(token as string)))
     }
-    if(!token) {
+    if (!token) {
       return {
         redirect: {
           destination: '/login',

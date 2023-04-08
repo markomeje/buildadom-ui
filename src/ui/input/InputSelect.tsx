@@ -13,7 +13,6 @@ const options = [
 ]
 
 const InputSelect = ({ control, errors, data }: any) => {
-
   const {
     field: { value: idValue, onChange: typeOnChange, ...restTypeField },
   } = useController({ name: 'id_type', control })

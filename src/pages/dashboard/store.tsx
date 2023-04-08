@@ -40,7 +40,7 @@ MyStore.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    if(!token) {
+    if (!token) {
       return {
         redirect: {
           destination: '/login',
@@ -48,8 +48,8 @@ export const getServerSideProps: GetServerSideProps =
         },
       }
     }
-    if(token) {
-    store.dispatch(setUser(JSON.parse(token as string)))
+    if (token) {
+      store.dispatch(setUser(JSON.parse(token as string)))
     }
     return {
       props: {},

@@ -8,7 +8,10 @@ const Logo = ({ img }: { img: string }) => {
     router.push('/')
   }
   return (
-    <div className="h-auto w-[140px] md:w-[185px] cursor-pointer" onClick={redirect}>
+    <div
+      className="h-auto w-[140px] md:w-[185px] cursor-pointer"
+      onClick={redirect}
+    >
       <img src={img} alt="logo" className="w-fulll h-full" />
     </div>
   )
