@@ -26,14 +26,12 @@ const IndividualIDValidation = () => {
   const dispatch = useTypedDispatch()
   const [addValidation, { isLoading }] = useAddValidationMutation()
   const { data } = useGetIDTypesQuery()
-  console.log(data, 'daaaaa')
   const onSubmit = handleSubmit(async (info) => {
     try {
       const res = await addValidation({ ...info, type: 'individual' }).unwrap()
       if (res) {
         console.log(res)
         toast.success('ID data updated successfully, upload ID')
-        // router.push('/seller/dashboard/create-store')
         dispatch(incrementStepper())
       }
     } catch (err) {
@@ -48,7 +46,7 @@ const IndividualIDValidation = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col  items-center">
-      <InputSelect data={data} control={control} errors={errors} />
+      <InputSelect data={data} control={control} errors={errors} label="ID Type"  name='id_type'/>
       <div className="grid grid-cols-2 gap-x-6 w-full">
         <Input
           title="ID number"

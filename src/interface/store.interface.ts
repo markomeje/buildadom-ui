@@ -2,6 +2,8 @@ export interface IStore {
   address: string
   city: string
   description: string
+  images?: { id: number; url: string }[]
   name: string
-  user_id: string
+  id: number
+  user_id: number
 }

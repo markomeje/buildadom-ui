@@ -15,3 +15,11 @@ export const IndividualIDValidationSchema = yup.object({
   id_type: yup.string().required('Id Type is required'),
   expiry_date: yup.string().required('Expiry Data is required'),
 })
+
+export const productSchema = yup.object({
+  name: yup.string().required('Product Name is required'),
+  description: yup.string().required('Product Description is required'),
+  price: yup.string().required('Product Price is required'),
+  quantity: yup.string().required('Quantity is required'),
+  category: yup.string().required('Product Category is required'),
+})

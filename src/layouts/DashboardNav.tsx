@@ -10,7 +10,7 @@ import TopNav from './TopNav'
 
 const DashboardNav = () => {
   return (
-    <div className="sticky top-0 z-40">
+    <div className="sticky top-0 z-20">
       <TopNav />
       <nav className="h-[92px] bg-white shadow-sm sticky top-0 w-full">
         <div className="wrapper flex items-center justify-between h-full">

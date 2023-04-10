@@ -26,7 +26,7 @@ const TextArea = ({
         {title}
       </label>
       <textarea
-        className="w-full border  border-[#8C8C8C] focus:outline-none h-[150px] rounded-[5px] px-4 py-4 text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
+        className="w-full border  border-[#8C8C8C] focus:outline-none h-[120px] rounded-[5px] px-4 py-4 text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
         type={type}
         placeholder={placeholder}
         {...register(name, { required: `${name} is required` })}

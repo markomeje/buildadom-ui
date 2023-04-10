@@ -32,3 +32,8 @@ export interface IProduct {
   description: string
   price: string
 }
+
+export interface ICategory {
+  id: number
+  name: string
+}

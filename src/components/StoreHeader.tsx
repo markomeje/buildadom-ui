@@ -1,35 +1,66 @@
 /* eslint-disable @next/next/no-img-element */
 import { useMerchantStoreDetailsQuery } from '@/redux/services/store.slice'
-import React from 'react'
+import { useImageUploadMutation } from '@/redux/services/validation.service';
+import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 const AboutStoreHeader = () => {
   const { data, isLoading } = useMerchantStoreDetailsQuery()
-  
-  // const fileTypes = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
-  // const fileLoad = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (!e.target.files) return;
+  console.log(data, "data")
+  const [previewLink, setPreviewLink] = useState<string>('');
+  const [imageUpload, { isLoading:fileLoading }] = useImageUploadMutation()
+  const [file, setFile] = useState<File | null>(null)
+  const fileTypes = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
+  const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0]
+    if (!fileTypes.includes(file.type))
+      return toast.error("upload required file type");
+      if(window !== undefined) {
+        setPreviewLink(window.URL.createObjectURL(file))
+        setFile(file);
+      }
+  };
+  const handleFileUpload = async () => {
+    const formData = new FormData()
 
-  //   if (!fileTypes.includes(e.target.files[0].type))
-  //     return toast.error("upload required file type");
-  //   if (e.target.files[0].size > 5120)
-  //     return toast.error("file size too large");
-  //   handleChange({ ...form, receipt: e.target.files[0] });
-  // };
-
+    if(!data) return
+    formData.append('model', 'store')
+    formData.append('model_id',  data.id.toString())
+    formData.append('role', 'cover')
+    formData.append('image', file as File)
+    try {
+      const response = await imageUpload(formData)
+      if (response) toast.success('Cover image set successfully')
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className="wrapper pt-12 pb-6">
       <div className="flex flex-col">
         <h1 className="font-semibold font-poppins pb-4 text-[32px] mb-2 leading-[48px]">
           My Store
         </h1>
-        <div className="w-full h-[201px] bg-[#4F4F4F] relative">
-          <label
+        <div className="w-full h-[201px]  relative">
+          {
+            (!previewLink &&  !data?.images) ? 
+          <div className='w-full h-full bg-[#4F4F4F]'></div>: <img src={previewLink || data?.images && data.images[0].url} alt="cover image" className='w-full h-full object-cover' />
+          }
+         
+        <div className='flex items-center  bottom-[40px] right-[50px] absolute'>
+        <label
             htmlFor="file-upload"
-            className="bg-[#333333] bottom-[40px] right-[50px] mix-blend-screen w-[174px] h-[43px] absolute flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"
+            className="bg-[#534f4f] z-10 cursor-pointer rounded-sm w-[174px] h-[43px]  flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"
           >
-            Upload Image
+          {previewLink ? "Change File" : "Upload Image"}
+          <input type="file" onChange={fileUpload} id="file-upload" className="hidden" />
           </label>
-          <input type="file" id='file-upload' className='hidden' />
+          {previewLink && <button 
+            onClick={handleFileUpload}
+            className="bg-[#534f4f] ml-3 z-10 rounded-sm cursor-pointer w-[174px] h-[43px]  flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"
+            >{fileLoading ? "Uploading..." : "Submit"}</button>}
+        </div>
         </div>
         <div className="pt-10 pb-4 flex items-center">
           <img
@@ -65,3 +96,5 @@ const AboutStoreHeader = () => {
 }
 
 export default AboutStoreHeader
+
+

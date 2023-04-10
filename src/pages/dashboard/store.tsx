@@ -4,19 +4,21 @@ import ModalWraper from '@/modals'
 import { useTypedSelector, wrapper } from '@/redux/store'
 import React, { ReactElement } from 'react'
 import { getCookie } from 'cookies-next'
-import AddProductModal from '@/modals/AddProductWrapper'
 import { products } from '@/util/products'
 import { GetServerSideProps } from 'next'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import ProductCategory from '@/components/ProductCategory'
 import EmptyState from '@/components/EmptyState'
+import UseStepper from '@/hooks/useStepper'
+import { AddProduct } from '@/lib/stepper'
 const MyStore = () => {
-  const { specificModal, modalType } = useTypedSelector((state) => state.modal)
+  const { specificModal, modalType } = useTypedSelector((state) => state.modal);
+  const {step} = useTypedSelector((state) => state.stepper)
   return (
     <>
       {specificModal && modalType === 'product' && (
         <ModalWraper>
-          <AddProductModal />
+            <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
       {products.length < 0 ? (
