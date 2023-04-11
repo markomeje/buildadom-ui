@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Country } from '@/interface/general.interface'
+import { Country, IProduct } from '@/interface/general.interface'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CountryState {
   country: Country
-  city: string
+  city: string, 
+  newProduct: IProduct
 }
 
 const initialState: CountryState = {
@@ -15,6 +16,14 @@ const initialState: CountryState = {
     capital: '',
   },
   city: '',
+  newProduct: {
+    id: 0,
+    img: '',
+    rating: 0,
+    reviews: '',
+    description: '',
+    price: ''
+  }
 }
 
 export const CountrySlice = createSlice({
@@ -28,9 +37,12 @@ export const CountrySlice = createSlice({
     setCity: (state, action: PayloadAction<any>) => {
       state.city = action.payload
     },
+    setAddedStepper: (state, action: PayloadAction<IProduct>) => {
+      state.newProduct = action.payload
+    }
   },
 })
 
-export const { setCountry, setCity } = CountrySlice.actions
+export const { setCountry, setCity, setAddedStepper } = CountrySlice.actions
 
 export default CountrySlice.reducer

@@ -12,13 +12,13 @@ import EmptyState from '@/components/EmptyState'
 import UseStepper from '@/hooks/useStepper'
 import { AddProduct } from '@/lib/stepper'
 const MyStore = () => {
-  const { specificModal, modalType } = useTypedSelector((state) => state.modal);
-  const {step} = useTypedSelector((state) => state.stepper)
+  const { specificModal, modalType } = useTypedSelector((state) => state.modal)
+  const { step } = useTypedSelector((state) => state.stepper)
   return (
     <>
       {specificModal && modalType === 'product' && (
         <ModalWraper>
-            <UseStepper step={step} stepObject={AddProduct} />
+          <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
       {products.length < 0 ? (

@@ -18,5 +18,5 @@ export const IDValidationStepper = {
 
 export const AddProduct = {
   1: <AddProductModal />,
-  2: <ProductUpload />
+  2: <ProductUpload />,
 }

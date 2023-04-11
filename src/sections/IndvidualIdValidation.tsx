@@ -46,7 +46,13 @@ const IndividualIDValidation = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col  items-center">
-      <InputSelect data={data} control={control} errors={errors} label="ID Type"  name='id_type'/>
+      <InputSelect
+        data={data}
+        control={control}
+        errors={errors}
+        label="ID Type"
+        name="id_type"
+      />
       <div className="grid grid-cols-2 gap-x-6 w-full">
         <Input
           title="ID number"
