@@ -1,16 +1,12 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { AppProps } from 'next/app'
+import { wrapper } from '../redux/store'
 import { ReactElement, ReactNode } from 'react'
 import 'remixicon/fonts/remixicon.css'
-import { Provider } from 'react-redux'
-import { store } from '../redux/store'
-import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-phone-number-input/style.css'
-// import { useAppDispatch } from '@/hooks/useReducer'
-// import { setUser } from '@/redux/reducers/authToken_reducer'
+import { ToastContainer } from 'react-toastify'
 
-// define custom types for components with individual layouts
 type PageWithLayout = {
   getLayout: (page: ReactElement) => ReactNode
 }
@@ -20,12 +16,7 @@ type AppPropsWithLayout = AppProps & {
   Component: PageWithLayout
 }
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  // const dispatch = useAppDispatch()
-  // const token = JSON.parse(localStorage.getItem('loggedInUser') || '{}')
-  // useEffect(() => {
-  //   dispatch(setUser(token))
-  // }, [])
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
   return getLayout(
     <>
@@ -41,11 +32,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         pauseOnHover
         theme="light"
       />
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
+      <Component {...pageProps} />
     </>
   )
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp)

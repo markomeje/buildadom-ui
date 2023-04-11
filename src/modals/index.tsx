@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 
-import { useAppDispatch, useAppSelector } from '@/hooks/useReducer'
-import { closeModal } from '@/redux/reducers/modal_reducer'
+import { closeModal } from '@/redux/reducer/modalReducer'
+import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import React, { useEffect, useRef } from 'react'
 
 type Props = {
@@ -10,8 +10,8 @@ type Props = {
 }
 
 function ModalWraper({ children }: Props) {
-  const { show, specificModal } = useAppSelector((state) => state.modal)
-  const dispatch = useAppDispatch()
+  const { show, specificModal } = useTypedSelector((state) => state.modal)
+  const dispatch = useTypedDispatch()
   // close the modal when clicking outside the modal.
   const modalRef = useRef<HTMLElement>()
   const modalClose = (e: React.MouseEvent<HTMLElement>) => {

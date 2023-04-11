@@ -1,48 +1,50 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Button from '@/components/shared/Button'
-import { useAppDispatch } from '@/hooks/useReducer'
-import { AuthError } from '@/interface/errors'
-import { setUser } from '@/redux/reducers/authToken_reducer'
-import { useVerifyNumberMutation } from '@/redux/reducers/auth_reducer'
-import { incrementStepper } from '@/redux/reducers/step_reducer'
-import { VerificationCodeSchema } from '@/schema/auth/mechant'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { AuthError } from '@/interface/error.interface'
+import OtpInput from '@/lib/OTPInput'
+import { setUser } from '@/redux/reducer/tokenReducer'
+import { useVerifyNumberMutation } from '@/redux/services/auth.service'
+import { useTypedDispatch } from '@/redux/store'
+import Button from '@/ui/button/Button'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 const EmailVerificationModal = ({ status }: { status?: string }) => {
-  const { register, handleSubmit } = useForm({
-    resolver: yupResolver(VerificationCodeSchema),
-  })
-  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const [otp, setOtp] = useState('')
   const [type, setType] = useState<string>('phone')
   const [verifyNumber, { isLoading }] = useVerifyNumberMutation()
+  const dispatch = useTypedDispatch()
+
   useEffect(() => {
     if (status) {
       setType(status as string)
     }
   }, [status])
-  const onSubmit = handleSubmit(async (info) => {
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    if (otp.length !== 6) return toast('commplete code')
     try {
-      const code = Object.values(info).join('')
       if (type === 'phone') {
-        const data = { type: 'phone', code: code }
+        const data = { type: 'phone', code: otp }
         await verifyNumber(data).unwrap()
+        toast.success('Phone verfication successfull, check you mail please ')
         setType('email')
+        setOtp('')
       }
       if (type === 'email') {
-        const data = { type: 'email', code: code }
+        const data = { type: 'email', code: otp }
         const res = await verifyNumber(data).unwrap()
         if (res && res.user) {
           dispatch(setUser({ token: res.user.token }))
-          dispatch(incrementStepper())
+          toast.success('Email verfication successfull')
+          router.push('/register/success')
         }
       }
     } catch (error) {
       toast.error((error as AuthError).data.message)
     }
-  })
+  }
 
   return (
     <div className="flex flex-col w-full h-full items-center p-[30px] justify-center">
@@ -56,17 +58,14 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
         </span>
       </span>
       <form className="w-full px-6" onSubmit={onSubmit}>
-        <div className="flex w-full mt-8 mb-8 items-center justify-between">
-          <Inputs name="one" register={register} />
-          <Inputs name="two" register={register} />
-          <Inputs name="three" register={register} />
-          <Inputs name="four" register={register} />
-          <Inputs name="five" register={register} />
-          <Inputs name="six" register={register} />
-        </div>
+        <OtpInput
+          value={otp}
+          valueLength={6}
+          onChange={(value: string) => setOtp(value)}
+        />
         <div className="flex w-full items-center justify-center">
           <Button
-            title={isLoading ? 'Loading...' : 'Submit'}
+            title={isLoading ? 'loading...' : 'Submit'}
             classNames="h-[48px] w-[200px] flex items-center justify-center rounded-[90px]"
           />
         </div>
@@ -76,15 +75,3 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
 }
 
 export default EmailVerificationModal
-
-const Inputs = ({ name, register }: { name: string; register: any }) => {
-  return (
-    <input
-      type={'text'}
-      min="1"
-      max="1"
-      className="w-[90px] h-[96px] bg-[#F4F5F6] mr-4 focus:outline-blue-300 px-4 text-center rounded-[8px] flex items-center justify-center font-popins font-semibold text-[23px]"
-      {...register(name, { required: `${name} is required` })}
-    />
-  )
-}
