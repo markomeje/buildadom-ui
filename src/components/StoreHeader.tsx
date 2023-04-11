@@ -50,7 +50,10 @@ const AboutStoreHeader = () => {
             <div className="w-full h-full bg-[#4F4F4F]"></div>
           ) : (
             <img
-              src={previewLink || (data?.images && data.images[0].url)}
+              src={
+                previewLink ||
+                (data?.images && data.images[0] && data.images[0].url)
+              }
               alt="cover image"
               className="w-full h-full object-cover"
             />
