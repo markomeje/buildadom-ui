@@ -11,7 +11,7 @@ const AboutStoreHeader = () => {
   const [previewLink, setPreviewLink] = useState<string>('')
   const [imageUpload, { isLoading: fileLoading }] = useImageUploadMutation()
   const [file, setFile] = useState<File | null>(null)
-  const router = useRouter();
+  const router = useRouter()
   const fileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf']
   const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
@@ -34,7 +34,7 @@ const AboutStoreHeader = () => {
     try {
       const response = await imageUpload(formData)
       if (response) toast.success('Cover image set successfully')
-     router.reload(window.location.pathname)
+      router.reload(window.location.pathname)
     } catch (error) {
       console.log(error)
     }

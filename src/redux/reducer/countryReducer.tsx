@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CountryState {
   country: Country
-  city: string, 
+  city: string
   newProduct: IProduct
 }
 
@@ -22,8 +22,8 @@ const initialState: CountryState = {
     rating: 0,
     reviews: '',
     description: '',
-    price: ''
-  }
+    price: '',
+  },
 }
 
 export const CountrySlice = createSlice({
@@ -39,7 +39,7 @@ export const CountrySlice = createSlice({
     },
     setAddedStepper: (state, action: PayloadAction<IProduct>) => {
       state.newProduct = action.payload
-    }
+    },
   },
 })
 

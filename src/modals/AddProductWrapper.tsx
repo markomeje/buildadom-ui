@@ -48,8 +48,8 @@ const AddProductModal = () => {
       formData.append('category_id', info.category)
       formData.append('store_id', storeInfo.id.toString())
       try {
-       const res = await addProduct(formData).unwrap()
-        console.log(res, "added product")
+        const res = await addProduct(formData).unwrap()
+        console.log(res, 'added product')
         dispatch(setAddedStepper(res))
         dispatch(setStepper(2))
       } catch (err) {

@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { City, Country, ICategory, IProduct } from '@/interface/general.interface'
+import {
+  City,
+  Country,
+  ICategory,
+  IProduct,
+} from '@/interface/general.interface'
 import { IStore } from '@/interface/store.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
@@ -56,7 +61,7 @@ export const storeApi = createApi({
       transformResponse: (response: { store: any }, meta, arg) => {
         return response.store
       },
-      providesTags: ['Store']
+      providesTags: ['Store'],
     }),
 
     imageUpload: builder.mutation({
@@ -83,9 +88,9 @@ export const storeApi = createApi({
         method: 'POST',
         body: data,
       }),
-      transformResponse: (response: {product : IProduct}, meta, arg) => {
+      transformResponse: (response: { product: IProduct }, meta, arg) => {
         return response.product
-      }, 
+      },
       invalidatesTags: ['Product'],
     }),
   }),
