@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { City, Country, ICategory } from '@/interface/general.interface'
+import {
+  City,
+  Country,
+  ICategory,
+  IProduct,
+} from '@/interface/general.interface'
 import { IStore } from '@/interface/store.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
@@ -20,7 +25,7 @@ export const storeApi = createApi({
       return headers
     },
   }),
-  tagTypes:['Product'],
+  tagTypes: ['Product', 'Store'],
   endpoints: (builder) => ({
     // QUERIES
     getCountries: builder.query<Country[], void>({
@@ -38,20 +43,33 @@ export const storeApi = createApi({
           return { id: city.id, name: city.name }
         }),
     }),
-    getProductsCategories: builder.query<{value:string, label:string}[], void>({
-      query: () => ({url:'/products/categories'}),
-      transformResponse: (response: {categories: ICategory[]}, meta, arg) => response.categories.map(category => {
-        return {
-          value: category.id.toString(),
-          label: category.name,
-        }
-      })
+    getProductsCategories: builder.query<
+      { value: string; label: string }[],
+      void
+    >({
+      query: () => ({ url: '/products/categories' }),
+      transformResponse: (response: { categories: ICategory[] }, meta, arg) =>
+        response.categories.map((category) => {
+          return {
+            value: category.id.toString(),
+            label: category.name,
+          }
+        }),
     }),
     merchantStoreDetails: builder.query<IStore, void>({
       query: () => ({ url: '/marchant/store' }),
       transformResponse: (response: { store: any }, meta, arg) => {
         return response.store
       },
+      providesTags: ['Store'],
+    }),
+
+    imageUpload: builder.mutation({
+      query: (data) => ({
+        url: '/marchant/image/upload',
+        method: 'POST',
+        body: data,
+      }),
     }),
 
     // MUTATION
@@ -61,6 +79,7 @@ export const storeApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Store'],
     }),
 
     addProduct: builder.mutation({
@@ -69,9 +88,11 @@ export const storeApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Product']
-    })
-
+      transformResponse: (response: { product: IProduct }, meta, arg) => {
+        return response.product
+      },
+      invalidatesTags: ['Product'],
+    }),
   }),
 })
 

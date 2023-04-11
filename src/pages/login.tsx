@@ -46,7 +46,8 @@ const LoginPage = () => {
       router.push('/dashboard')
     } catch (err) {
       console.log(err)
-      if(!(err as AuthError).data) return toast.error('Check yout network connection')
+      if (!(err as AuthError).data)
+        return toast.error('Check yout network connection')
       const error = (err as AuthError).data.message
       const { type } = (err as AuthError).data.verification
       toast.error(error)

@@ -26,6 +26,7 @@ export interface IReact {
 }
 
 export interface IProduct {
+  id?: number
   img: string
   rating: number
   reviews: string

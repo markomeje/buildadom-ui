@@ -10,14 +10,14 @@ const InputSelect = ({ control, errors, data, label, name }: any) => {
   return (
     <div className="flex my-3  flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
-          {label}
-        </label>
+        {label}
+      </label>
       <Select
         className="w-full  focus:outline-none h-[50px] rounded-[5px] text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
         placeholder="select type"
         isClearable
         options={data}
-        value={idValue ? data?.find((x:any) => x.value === idValue) : idValue}
+        value={idValue ? data?.find((x: any) => x.value === idValue) : idValue}
         onChange={(option) => typeOnChange(option ? option.value : option)}
         {...restTypeField}
       />
@@ -33,22 +33,22 @@ const InputSelect = ({ control, errors, data, label, name }: any) => {
 export default InputSelect
 
 export const CategorySelect = ({ control, errors, data, label, name }: any) => {
-  console.log(data, "datareturned")
+  console.log(data, 'datareturned')
   const {
     field: { value: idValue, onChange: typeOnChange, ...restTypeField },
   } = useController({ name: name, control })
-  console.log(idValue, "valuee")
+  console.log(idValue, 'valuee')
   return (
     <div className="flex my-3  flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
-          {label}
-        </label>
+        {label}
+      </label>
       <Select
         className="w-full  focus:outline-none h-[50px] rounded-[5px] text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
         placeholder="select type"
         isClearable
         options={data}
-        value={idValue ? data?.find((x:any) => x.value === idValue) : idValue}
+        value={idValue ? data?.find((x: any) => x.value === idValue) : idValue}
         onChange={(option) => typeOnChange(option ? option.value : option)}
         {...restTypeField}
       />
