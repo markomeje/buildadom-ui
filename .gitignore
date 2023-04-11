@@ -4,7 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
+<<<<<<< HEAD
 /.history/
+=======
+/.history
+>>>>>>> 34bdf2d03e05b870e02d1674b48b952d0d73fff6
 
 # testing
 /coverage
