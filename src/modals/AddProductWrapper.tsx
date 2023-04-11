@@ -7,26 +7,28 @@ import {
   useGetProductsCategoriesQuery,
   useMerchantStoreDetailsQuery,
 } from '@/redux/services/store.slice'
-import { useTypedDispatch } from '@/redux/store'
+import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import InputSelect from '@/ui/input/InputSelect'
 import TextArea from '@/ui/input/TextArea'
 import Input from '@/ui/input/TextInput'
 import { productSchema } from '@/validationschema/storeScema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 const AddProductModal = () => {
   const dispatch = useTypedDispatch()
-  const { data: storeInfo } = useMerchantStoreDetailsQuery()
+  const { data: storeInfo } = useMerchantStoreDetailsQuery()  
   const { data } = useGetProductsCategoriesQuery()
   const [addProduct, { isLoading }] = useAddProductMutation()
+  const {newProduct} = useTypedSelector(state => state.dashboard)
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     control,
   } = useForm({
@@ -36,6 +38,14 @@ const AddProductModal = () => {
   const closeProductModal = () => {
     dispatch(closeModal())
   }
+
+  useEffect(() => {
+    setValue('name', newProduct.name)
+    setValue('description', newProduct.description)
+    setValue('price', newProduct.price)
+    setValue('quantity', newProduct.quantity)
+    setValue('category', newProduct.category_id)
+  }, [newProduct, setValue])
 
   const onSubmit = handleSubmit(async (info) => {
     const formData = new FormData()

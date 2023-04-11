@@ -8,7 +8,7 @@ interface CountryState {
   newProduct: IProduct
 }
 
-const initialState: CountryState = {
+export const initialState: CountryState = {
   country: {
     id: 0,
     name: '',
