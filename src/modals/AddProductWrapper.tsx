@@ -20,10 +20,10 @@ import { toast } from 'react-toastify'
 
 const AddProductModal = () => {
   const dispatch = useTypedDispatch()
-  const { data: storeInfo } = useMerchantStoreDetailsQuery()  
+  const { data: storeInfo } = useMerchantStoreDetailsQuery()
   const { data } = useGetProductsCategoriesQuery()
   const [addProduct, { isLoading }] = useAddProductMutation()
-  const {newProduct} = useTypedSelector(state => state.dashboard)
+  const { newProduct } = useTypedSelector((state) => state.dashboard)
 
   const {
     register,
