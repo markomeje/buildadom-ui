@@ -8,6 +8,9 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
       },
 
+      backgroundImage: {
+        'home-banner': "url('/assets/banner.png')",
+      },
       colors: {
         bd: {
           black: '#020202',
