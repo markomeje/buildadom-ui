@@ -1,14 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { IProduct } from '@/interface/general.interface'
+// import { IProduct } from '@/interface/dashboard'
 import React from 'react'
 
-const ProductCard = ({
-  img,
-  description,
-  rating,
-  reviews,
-  price,
-}: IProduct) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ProductCard = ({ img, description, rating, reviews, price }: any) => {
   return (
     <div className="flex flex-col p-2">
       <img
