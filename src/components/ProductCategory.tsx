@@ -17,11 +17,13 @@ const ProductCategory = ({ header, products }: IProps) => {
         {products.map((product, index) => (
           <ProductCard
             key={index}
-            img={product.img}
-            price={product.price}
+            img={
+              (product.images && product.images[0]?.url) || '/assets/paint.png'
+            }
+            price={`$${product.price}`}
             description={product.description}
-            reviews={product.reviews}
-            rating={product.rating}
+            reviews={product.reviews || '0'}
+            rating={product.rating || 1}
           />
         ))}
       </div>

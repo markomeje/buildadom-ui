@@ -13,9 +13,7 @@ import { useGetValidationDetailsQuery } from '@/redux/services/validation.servic
 import CreateStore from '@/sections/CreateStore'
 
 const MerchantDashboard = () => {
-  const { data } = useGetValidationDetailsQuery()
-  console.log(data)
-
+  const { data, isLoading } = useGetValidationDetailsQuery()
   return (
     <div className="wrapper">
       <CreateHeader>
@@ -28,7 +26,7 @@ const MerchantDashboard = () => {
             unique store
           </span>
         </div>
-        <DisplayState data={data} />
+        <DisplayState data={data} loading={isLoading} />
       </CreateHeader>
       <CreateStore />
     </div>
@@ -40,8 +38,9 @@ MerchantDashboard.getLayout = function getLayout(page: ReactElement) {
   return <Dashboard>{page}</Dashboard>
 }
 
-const DisplayState = ({ data }: { data: any }) => {
+const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
   const router = useRouter()
+  if (loading) return null
   if (data == null) {
     return (
       <Button

@@ -28,6 +28,7 @@ export interface IReact {
 export interface IProduct {
   id?: number
   img: string
+  images?: { url: string }[]
   rating: number
   reviews: string
   description: string

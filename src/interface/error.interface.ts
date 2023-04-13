@@ -4,6 +4,7 @@ interface IAuthError {
   message: string
   errors: { [k: string]: string[] }
   verification?: any
+  name: string[]
 }
 
 export interface AuthError {
