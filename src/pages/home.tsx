@@ -18,7 +18,8 @@ const Home = () => {
       {!isLoading && (
         <div className="flex tiems-start gap-6 flex-wrap">
           {data &&
-            data.map((product) => (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            data.map((product: any) => (
               <ProductCard
                 key={product.id}
                 img={

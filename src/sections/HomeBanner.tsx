@@ -18,7 +18,10 @@ const HomeBanner = () => {
             title="Buy from Buildadom"
             classNames="bg-bd-blue w-[191px] h-[44px] mr-4 rounded-[50px] py-[8px] px-[26px] text-white font-poppins text-[13px]"
           />
-          <button className="bg-white font-semibold border-none text-bd-blue w-[191px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]" onClick={() => redirect('/')}>
+          <button
+            className="bg-white font-semibold border-none text-bd-blue w-[191px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]"
+            onClick={() => redirect('/')}
+          >
             Sell On Buildadom
           </button>
         </div>

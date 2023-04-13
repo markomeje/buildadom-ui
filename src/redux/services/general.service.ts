@@ -3,7 +3,6 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
-import { IProduct } from '@/interface/dashboard'
 
 // auth service build
 
@@ -16,7 +15,7 @@ export const generalApi = createApi({
   tagTypes: ['Product', 'Store'],
   endpoints: (builder) => ({
     // QUERIES
-    allProducts: builder.query<IProduct[], void>({
+    allProducts: builder.query<any, void>({
       query: () => ({
         url: '/products',
         keepUnusedDataFor: 0.0001,
