@@ -17,7 +17,7 @@ const ProductCard = ({
         className="w-[200px] h-[156px] object-cover"
       />
       <Rating rating={rating} review={reviews} />
-      <span className="font-poppis w-[190px] font-poppins text-[13px] leading-[20px]">
+      <span className="font-poppis w-[190px] min-h-[100px] font-poppins text-[13px] leading-[20px]">
         {description}
       </span>
       <h2 className="font-poppins leading-[25px] font-semibold text-[18px] py-4">

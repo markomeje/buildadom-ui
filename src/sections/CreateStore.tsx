@@ -33,8 +33,10 @@ const CreateStore = () => {
       console.log(response)
       router.push('/dashboard/store')
     } catch (err) {
-      console.log(err)
-      const error = (err as AuthError).data.message
+      console.log(err, 'erro')
+      const error = (err as AuthError).data.errors
+        ? (err as AuthError).data.errors.name[0]
+        : (err as AuthError).data.message
       toast.error(error)
     }
   })

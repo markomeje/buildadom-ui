@@ -56,9 +56,17 @@ export const storeApi = createApi({
           }
         }),
     }),
+    getMerchatProducts: builder.query<any, void>({
+      query: () => ({ url: '/marchant/products' }),
+      transformResponse: (response: { products: any }) => {
+        return response.products
+      },
+      providesTags: ['Product'],
+    }),
     merchantStoreDetails: builder.query<IStore, void>({
       query: () => ({ url: '/marchant/store' }),
       transformResponse: (response: { store: any }, meta, arg) => {
+        console.log(response, 'response')
         return response.store
       },
       providesTags: ['Store'],
@@ -70,6 +78,7 @@ export const storeApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Product', 'Store'],
     }),
 
     // MUTATION
@@ -97,6 +106,7 @@ export const storeApi = createApi({
 })
 
 export const {
+  useGetMerchatProductsQuery,
   useGetCountriesQuery,
   useAddProductMutation,
   useGetProductsCategoriesQuery,

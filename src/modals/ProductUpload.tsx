@@ -11,6 +11,7 @@ import { setStepper } from '@/redux/reducer/stepperReducer'
 import { toast } from 'react-toastify'
 import { useImageUploadMutation } from '@/redux/services/validation.service'
 import { initialState, setAddedStepper } from '@/redux/reducer/countryReducer'
+import { AuthError } from '@/interface/error.interface'
 
 function ProductUpload() {
   //   const router = useRouter()
@@ -47,12 +48,15 @@ function ProductUpload() {
     formData.append('image', file)
 
     try {
-      const response = await imageUpload(formData)
+      // console.log(formData.get('image'), 'image')
+      const response = await imageUpload(formData).unwrap()
       dispatch(setAddedStepper(initialState.newProduct))
+      console.log(response, 'response')
       if (response) toast.success('uploaded successfully')
       closeProductModal()
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      const error = (err as AuthError).data.message
+      toast.error(error)
     }
   }
 
@@ -81,7 +85,7 @@ function ProductUpload() {
             <img
               src={previewLink}
               alt="cover image"
-              className="w-full h-full object-cover"
+              className="w-full h-[300px] object-fill"
             />
           ) : (
             <div className="border-gray-300 border-dashed border-2 flex items-center justify-center flex-col  rounded-[12px] h-[180px]">
