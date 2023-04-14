@@ -6,11 +6,11 @@ const Materials = () => {
   return (
     <div className="min-h-[500px] mx-auto flex items-center justify-center mt-6 py-12">
       <div className="max-w-[950px] flex flex-col mx-auto">
-        <h2 className="text-bd-blue font-poppins font-[700] text-[40px] text-center mb-2 leading-[54px]">
+        <h2 className="text-bd-blue font-poppins font-[700] text-[28px] pl-4 ms:px-0 lg:text-[40px] md:text-center mb-2 leading-[40px] md:leading-[54px]">
           Whatever you want to achieve, our stack of solutions are designed to
           help you succeed{' '}
         </h2>
-        <div className="w-full grid mt-5 grid-cols-2 gap-10">
+        <div className="w-full grid mt-5 grid-cols-1 lg:grid-cols-2 md:gap-10">
           <Material
             contents={materials[0]}
             bg="bg-[#F9F9F9]"

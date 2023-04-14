@@ -13,13 +13,14 @@ import { AddProduct } from '@/lib/stepper'
 import { useGetMerchatProductsQuery } from '@/redux/services/store.slice'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { specificModal } from '@/redux/reducer/modalReducer'
+import Loader from '@/ui/general/Loader'
 const MyStore = () => {
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
   )
   const { step } = useTypedSelector((state) => state.stepper)
-  const { data } = useGetMerchatProductsQuery()
+  const { data, isLoading } = useGetMerchatProductsQuery()
   console.log(data, 'data')
   const handleClick = () => {
     dispatch(specificModal('product'))
@@ -32,7 +33,7 @@ const MyStore = () => {
           <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
-      {data && data.data && data.data.length > 0 ? (
+      {!isLoading && data.data.length > 0 ? (
         <>
           <div className="w-full flex items-end justify-end">
             <button
@@ -45,6 +46,8 @@ const MyStore = () => {
           <ProductCategory header={'Pipes'} products={data.data} />
           <ProductCategory header={'Paint'} products={data.data} />
         </>
+      ) : isLoading ? (
+        <Loader />
       ) : (
         <EmptyState />
       )}

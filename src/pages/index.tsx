@@ -1,50 +1,45 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import LandingPage from '@/layouts/LandingPage'
-import { wrapper } from '@/redux/store'
-import CallToAction from '@/sections/CallToAction'
-import FAQ from '@/sections/FAQ'
-import FirstSection from '@/sections/FirstSection'
-import HeroBg from '@/sections/HeroBg'
-import Materials from '@/sections/Material'
-import Property from '@/sections/Properties'
-import Safety from '@/sections/Safety'
-import Support from '@/sections/Support'
-import { GetServerSideProps } from 'next'
+import ProductCard from '@/components/Product'
+import MainLayout from '@/layouts/MainLAyout'
+import { useAllProductsQuery } from '@/redux/services/general.service'
+import HomeBanner from '@/sections/HomeBanner'
+import HomeProducts from '@/sections/HomeProducts'
+import Loader from '@/ui/general/Loader'
+// import { products } from '@/util/products'
 import React, { ReactElement } from 'react'
-import { getCookie } from 'cookies-next'
-function HomePage() {
+
+const Home = () => {
+  const { data, isLoading } = useAllProductsQuery()
   return (
-    <>
-      <HeroBg />
-      <FirstSection />
-      <Property />
-      <CallToAction />
-      <Materials />
-      <Safety />
-      <Support />
-      <FAQ />
-    </>
+    <div className="wrapper">
+      <HomeBanner />
+      <HomeProducts />
+
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <div className="flex tiems-start gap-6 flex-wrap">
+          {data &&
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            data.map((product: any) => (
+              <ProductCard
+                key={product.id}
+                img={
+                  (product.images && product.images[0]?.url) ||
+                  '/assets/paint.png'
+                }
+                price={`$${product.price}`}
+                description={product.description}
+                reviews={product.reviews || '0'}
+                rating={product.rating || 1}
+              />
+            ))}
+        </div>
+      )}
+    </div>
   )
 }
 
-export default HomePage
+export default Home
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
-  return <LandingPage>{page}</LandingPage>
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>
 }
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async ({ req, res }) => {
-    const token = getCookie('user', { req, res })
-    if (token) {
-      return {
-        redirect: {
-          destination: '/dashboard',
-          permanent: false,
-        },
-      }
-    }
-    return {
-      props: {},
-    }
-  })

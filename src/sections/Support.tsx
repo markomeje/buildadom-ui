@@ -4,7 +4,7 @@ import React from 'react'
 const Support = () => {
   return (
     <div className="bg-[#fefeff]  w-full h-[407px]">
-      <div className="max-w-[1000px] h-full mx-auto grid grid-cols-2">
+      <div className="max-w-[1000px] h-full mx-auto grid grid-cols-1 -order-1 lg:grid-cols-2">
         <div className="flex flex-col col-span-1 w-full h-full items-center justify-center">
           <Listings text="Product Support" />
           <Listings text="Our Policy" />

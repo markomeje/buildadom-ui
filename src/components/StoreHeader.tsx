@@ -2,16 +2,15 @@
 import { AuthError } from '@/interface/error.interface'
 import { useMerchantStoreDetailsQuery } from '@/redux/services/store.slice'
 import { useImageUploadMutation } from '@/redux/services/validation.service'
+import Loader from '@/ui/general/Loader'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
 const AboutStoreHeader = () => {
   const { data, isLoading } = useMerchantStoreDetailsQuery()
-  console.log(data, 'data')
   const [previewLink, setPreviewLink] = useState<string>('')
   const [storePreviewLink, setStorePreviewLink] = useState<string>('')
-
   const [imageUpload, { isLoading: fileLoading }] = useImageUploadMutation()
   const [file, setFile] = useState<File | null>(null)
   const router = useRouter()
@@ -30,7 +29,7 @@ const AboutStoreHeader = () => {
     if (!e.target.files) return
     const file = e.target.files[0]
     if (file) {
-      if (!fileTypes.includes(file.type))
+      if (!fileTypes.includes(file && file.type))
         return toast.error('upload required file type')
       if (window !== undefined) {
         setStorePreviewLink(window.URL.createObjectURL(file))
@@ -104,9 +103,7 @@ const AboutStoreHeader = () => {
               className="w-[204px] mr-8 h-[204px] cursor-pointer flex flex-col bg-gray-300 items-center justify-center"
             >
               <i className="ri-upload-cloud-line text-blue-400 text-[55px]"></i>
-              <span className="font-poppins block -mt-2 text-gray-700">
-                Upload Store Logo
-              </span>
+              <i className="ri-upload-cloud-line text-white hover:text-[18px] duration-300  rounded-[50%] cursor-pointer text-[22px]"></i>
               <input
                 type="file"
                 onChange={fileStoreUpload}
@@ -148,9 +145,7 @@ const AboutStoreHeader = () => {
           )}
 
           {isLoading ? (
-            <div className="flex items-center justify-center w-[300px]">
-              <span className="w-[40px] h-[40px] rounded-[40px] border-2 border-blue-500 animate-spin"></span>
-            </div>
+            <Loader />
           ) : data === null ? (
             <div>No Store Data</div>
           ) : (

@@ -20,7 +20,7 @@ const HomeBanner = () => {
           />
           <button
             className="bg-white font-semibold border-none text-bd-blue w-[191px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]"
-            onClick={() => redirect('/')}
+            onClick={() => redirect('/mechant')}
           >
             Sell On Buildadom
           </button>
