@@ -66,7 +66,6 @@ export const storeApi = createApi({
     merchantStoreDetails: builder.query<IStore, void>({
       query: () => ({ url: '/marchant/store' }),
       transformResponse: (response: { store: any }, meta, arg) => {
-        console.log(response, 'response')
         return response.store
       },
       providesTags: ['Store'],
