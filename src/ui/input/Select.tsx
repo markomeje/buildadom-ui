@@ -12,6 +12,7 @@ type IProps = {
 const Select = ({ title, error }: IProps) => {
   const [show, setShow] = useState<boolean>(false)
   const { data, isLoading, isSuccess } = useGetCountriesQuery()
+  console.log(data, 'data')
   const { country } = useTypedSelector((state) => state.dashboard)
   const toggle = () => {
     setShow(!show)
