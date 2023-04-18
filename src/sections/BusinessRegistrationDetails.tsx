@@ -37,7 +37,6 @@ const BusinessDetails = () => {
           toast.error(value[0])
         }
       }
-      console.log(err)
     }
   })
 
@@ -51,7 +50,10 @@ const BusinessDetails = () => {
       <span className="font-poppins  text-[18px] my-6 mx-auto max-w-[446px] leading-[27px] text-center">
         ID/Business Verification
       </span>
-      <form onSubmit={onSubmit} className="flex flex-col items-center">
+      <form
+        onSubmit={onSubmit}
+        className="flex px-4 lg:px-0 flex-col items-center"
+      >
         <Input
           title="Company name"
           name="business_name"
@@ -117,7 +119,7 @@ const BusinessDetails = () => {
           register={register}
           error={errors}
         />
-        <div className="flex items-end justify-end w-full mt-4">
+        <div className="flex lg:items-end lg:justify-end w-full mt-4">
           <Button
             title={`${isLoading ? 'Loading...' : 'Submit'}`}
             classNames="w-[205px] h-[50px] rounded-[50px]"

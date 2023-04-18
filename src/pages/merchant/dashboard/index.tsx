@@ -15,10 +15,10 @@ import CreateStore from '@/sections/CreateStore'
 const MerchantDashboard = () => {
   const { data, isLoading } = useGetValidationDetailsQuery()
   return (
-    <div className="wrapper">
+    <div className="px-4 lg:px-0 lg:wrapper">
       <CreateHeader>
         <div className="flex flex-col">
-          <h1 className="font-semibold font-poppins text-[32px] mb-2 leading-[48px]">
+          <h1 className="font-semibold font-poppins text-[28px] lg:text-[32px] mb-2 leading-[48px]">
             Create Store
           </h1>
           <span className="max-w-[384px] text-bd-black text-[15px] font-poppins  leading-[24px]">
@@ -46,7 +46,7 @@ const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
       <Button
         onClick={() =>
           router.push({
-            pathname: '/dashboard/verifyId',
+            pathname: '/merchant/dashboard/verifyId',
             query: { stepper: 1 },
           })
         }
@@ -61,7 +61,7 @@ const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
         classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"
         onClick={() =>
           router.push({
-            pathname: '/dashboard/verifyId',
+            pathname: '/merchant/dashboard/verifyId',
             query: { stepper: 2 },
           })
         }
@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps =
     if (!token) {
       return {
         redirect: {
-          destination: '/login',
+          destination: '/merchant/login',
           permanent: false,
         },
       }

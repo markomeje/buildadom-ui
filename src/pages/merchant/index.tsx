@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps =
     if (token) {
       return {
         redirect: {
-          destination: '/dashboard',
+          destination: '/merchant/dashboard',
           permanent: false,
         },
       }

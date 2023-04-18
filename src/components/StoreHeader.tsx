@@ -54,9 +54,9 @@ const AboutStoreHeader = () => {
     }
   }
   return (
-    <div className="wrapper pt-12 pb-6">
-      <div className="flex flex-col">
-        <h1 className="font-semibold font-poppins pb-4 text-[32px] mb-2 leading-[48px]">
+    <div className="lg:wrapper px-4 lg:p-0 pt-6 lg:pt-12 pb-6">
+      <div className="flex  flex-col">
+        <h1 className="font-semibold font-poppins pb-4 text-[24px] lg:text-[32px] mb-2 leading-[48px]">
           My Store
         </h1>
         <div className="w-full h-[201px]  relative">

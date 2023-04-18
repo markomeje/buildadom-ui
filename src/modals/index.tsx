@@ -20,7 +20,6 @@ function ModalWraper({ children }: Props) {
     }
   }
   useEffect(() => {
-    console.log(specificModal, 'modal')
     if (show || specificModal) {
       document.body.style.overflow = 'hidden'
     } else {

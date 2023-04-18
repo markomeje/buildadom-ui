@@ -35,12 +35,12 @@ const MyStore = () => {
       )}
       {!isLoading && data.data.length > 0 ? (
         <>
-          <div className="w-full flex items-end justify-end">
+          <div className="w-full flex items-end  justify-end">
             <button
-              className="w-[35px] h-[35px] rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
+              className="w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] mr-6 lg:mr-0  rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
               onClick={handleClick}
             >
-              <i className="ri-add-line text-white font-semibold text-[20px]"></i>
+              <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
             </button>
           </div>
           <ProductCategory header={'Pipes'} products={data.data} />
@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps =
     if (!token) {
       return {
         redirect: {
-          destination: '/login',
+          destination: '/merchant/login',
           permanent: false,
         },
       }

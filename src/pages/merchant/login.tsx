@@ -43,20 +43,21 @@ const LoginPage = () => {
       const result = await userLogin(info).unwrap()
       dispatch(setToken({ token: result }))
       toast.success('user logged in successfully')
-      router.push('/dashboard')
+      router.push('/merchant/dashboard')
     } catch (err) {
-      console.log(err)
       if (!(err as AuthError).data)
         return toast.error('Check yout network connection')
       const error = (err as AuthError).data.message
-      const { type } = (err as AuthError).data.verification
       toast.error(error)
-      if (type === 'phone') {
-        dispatch(openModal())
-        setStatus('phone')
-      } else {
-        dispatch(openModal())
-        setStatus('email')
+      const verifyError = (err as AuthError).data.verification
+      if (verifyError) {
+        if (verifyError.type === 'phone') {
+          dispatch(openModal())
+          setStatus('phone')
+        } else {
+          dispatch(openModal())
+          setStatus('email')
+        }
       }
     }
   })
@@ -70,15 +71,15 @@ const LoginPage = () => {
       <div className="max-w-[700px] mx-auto w-full flex flex-col items-center justify-center min-h-[600px] ">
         <img src="/assets/frame.png" alt="frame_image" className="mb-3" />
 
-        <h1 className="font-poppins font-semibold leading-[60px] text-center text-[40px] text-bd-black">
+        <h1 className="font-poppins font-semibold leading-[38px] lg:leading-[60px] text-center  text-[28px] lg:text-[40px] text-bd-black">
           Welcome Back
         </h1>
-        <span className="font-poppins  text-[18px] my-2 mx-auto max-w-[446px] leading-[27px] text-center">
+        <span className="font-poppins text-[16px] lg:text-[18px] px-3 lg:px-0  my-2 mx-auto max-w-[446px] leading-[27px] text-center">
           Input your correct details to login to your store
         </span>
         <form
           onSubmit={onSubmit}
-          className="flex flex-col items-center justify-center w-full py-4"
+          className="flex flex-col px-4 lg:px-0 items-center justify-center w-full py-4"
         >
           <Input
             title="Email Address"
@@ -117,7 +118,7 @@ export const getServerSideProps: GetServerSideProps =
     if (token) {
       return {
         redirect: {
-          destination: '/dashboard',
+          destination: '/merchant/dashboard',
           permanent: false,
         },
       }

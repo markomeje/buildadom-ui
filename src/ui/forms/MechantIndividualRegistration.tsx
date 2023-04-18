@@ -37,14 +37,17 @@ const MechantIndividualRegistration = () => {
   })
   return (
     <>
-      <h1 className="font-poppins font-semibold leading-[60px] text-center text-[40px] text-bd-black">
+      <h1 className="font-poppins font-semibold leading-[38px] lg:leading-[60px] text-center text-[28px] lg:text-[40px] text-bd-black">
         Create your Individual business account
       </h1>
-      <span className="font-poppins text-gray-[200]  text-[18px] mb-4 mt-3  mx-auto py-2 leading-[27px] text-center">
+      <span className="font-poppins text-gray-[200] text-[16px] lg:text-[18px] mb-4 mt-3 px-4 lg:px-0 mx-auto py-2 leading-[27px] text-center">
         Kindly provide all the following details to help us set up your store.
       </span>
-      <form onSubmit={onSubmit} className="flex flex-col  items-center">
-        <div className="grid grid-cols-2 gap-x-6 w-full">
+      <form
+        onSubmit={onSubmit}
+        className="flex flex-col px-4 lg:px-0 items-center"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6 w-full">
           <Input
             title="First Name"
             name="firstname"
@@ -104,7 +107,7 @@ const MechantIndividualRegistration = () => {
           error={errors}
         />
 
-        <div className="flex items-end justify-end w-full mt-4">
+        <div className="flex lg:items-end lg:justify-end w-full mt-4">
           <Button
             title={isLoading ? 'Loading...' : 'Submit'}
             classNames="w-[205px] h-[50px] rounded-[50px]"

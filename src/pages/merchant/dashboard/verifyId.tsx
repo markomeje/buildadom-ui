@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps =
     if (!token) {
       return {
         redirect: {
-          destination: '/login',
+          destination: '/merchant/login',
           permanent: false,
         },
       }

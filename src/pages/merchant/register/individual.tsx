@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 
 const RegisterIndividual = () => {
   return (
-    <div className="max-w-[900px] mx-auto w-full flex flex-col py-16">
+    <div className="lg:max-w-[900px] mx-auto w-full flex flex-col py-16">
       <IndividualDetails />
     </div>
   )

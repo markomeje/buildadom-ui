@@ -8,7 +8,7 @@ const IsLogged = () => {
 
   useEffect(() => {
     if (loggedUser) {
-      router.push('/dashboard')
+      router.push('/merchant/dashboard')
     }
   }, [router, loggedUser])
 }

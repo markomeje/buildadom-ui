@@ -6,9 +6,9 @@ import TopNav from './TopNav'
 
 function Navbar() {
   const router = useRouter()
-  const isReg = router.pathname === '/register'
+  const isReg = router.pathname === '/merchant/register'
   const redirect = () => {
-    router.push(`/${isReg ? 'login' : 'register'}`)
+    router.push(`/merchant/${isReg ? 'login' : 'register'}`)
   }
   return (
     <div className={` `}>

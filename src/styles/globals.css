@@ -144,10 +144,26 @@ input[type='number'] {
     background: rgba(2, 2, 3, 0.63);
     backdrop-filter: blur(5px);
   }
+
+  .container2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 30;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+
+    background: rgba(2, 2, 3, 0.63);
+    backdrop-filter: blur(5px);
+  }
   .modal {
     z-index: 10;
     min-width: 520px;
-    height: 380px;
     height: auto;
     background: white;
     border-radius: 14px;
@@ -161,5 +177,23 @@ input[type='number'] {
     to {
       transform: scale(1);
     }
+  }
+
+  .slider {
+    animation: slide 0.3s;
+  }
+
+  /* @keyframes slide {
+    from {
+      translat
+    }
+  } */
+}
+
+@media screen and (max-width: 500px) {
+  .modal {
+    width: 92%;
+    min-width: auto;
+    margin: auto;
   }
 }
