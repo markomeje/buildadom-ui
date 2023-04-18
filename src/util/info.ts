@@ -15,22 +15,22 @@ export default info
 export const Links = [
   {
     name: 'Store',
-    href: '/dashboard/store',
+    href: '/merchant/dashboard/store',
   },
   {
     name: 'Categories',
-    href: '/dashboard/categories',
+    href: '/merchant/dashboard/categories',
   },
   {
     name: 'Explore',
-    href: '/dashboard/explore',
+    href: '/merchant/dashboard/explore',
   },
   {
     name: 'Services',
-    href: '/dashboard/services',
+    href: '/merchant/dashboard/services',
   },
   {
     name: 'Track Order',
-    href: '/dashboard/track_order',
+    href: '/merchant/dashboard/track_order',
   },
 ]

@@ -10,7 +10,9 @@ type IProps = {
 
 const Material = ({ icon, header, bg, contents }: IProps) => {
   return (
-    <div className={`${bg} flex min-h-[400px] rouned-lg flex-col p-8`}>
+    <div
+      className={`${bg} flex min-h-[400px] mb-4 md:mb-0 rouned-lg flex-col p-8`}
+    >
       <img
         src={icon}
         alt="svg-1"

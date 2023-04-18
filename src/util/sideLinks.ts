@@ -1,4 +1,4 @@
-const BASE_URL = '/dashboard'
+const BASE_URL = '/merchant/dashboard'
 export const sideLinks = [
   {
     name: 'Account Dashboard',

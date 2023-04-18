@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const FAQ = () => {
   return (
-    <div className="min-h-[450px] pt-12 pb-6 flex flex-col items-center justify-center">
+    <div className="min-h-[450px] pt-8 px-4 md:px -0 md:pt-12 pb-6 flex flex-col items-center justify-center">
       <h1 className="font-poppins font-semibold text-[44px] leading-[130px]">
         FAQs
       </h1>
@@ -37,26 +37,26 @@ const Question = ({ text, content }: { text: string; content: string }) => {
   }
   return (
     <div
-      className={`w-full flex flex-col mb-6 cursor-pointer shadow duration-500 items-center justify-between pl-[26px]  border border-[#CCCCCC] pr-[28px]`}
+      className={`w-full flex flex-col mb-6 cursor-pointer lg:shadow duration-500 items-center justify-between pl-[26px]  border border-[#CCCCCC] pr-[28px]`}
+      onClick={handleToggle}
     >
-      <div className="flex h-[74px] items-center justify-between w-full">
-        <h2 className="font-[600] font-poppins text-[22px] leading-[32px] text-[#313131]">
+      <div className="flex min-h-[74px] items-center justify-between w-full">
+        <h2 className="font-[600] font-poppins text-[15px] lg:text-[22px] leading-[32px] text-[#313131]">
           {text}
         </h2>
         <i
           className={`ri-arrow-${show ? 'down' : 'right'}-s-line text-[20px]`}
-          onClick={handleToggle}
         ></i>
       </div>
       <div
         className={`${
-          show ? 'h-[146px] border-t border-[#ababab36]' : 'h-0'
-        } flex  w-full items-center justify-center duration-300`}
+          show ? 'min-h-[146px] py-4 border-t border-[#ababab36]' : 'h-0'
+        } flex  w-full items-center  justify-center duration-300`}
       >
         <span
           className={`${
             show ? 'block' : 'hidden'
-          } font-poppins text-[18px] leading-[29px] text-[#2B2B2B]`}
+          } font-poppins text-[15px] md:text-[18px] leading-[29px] text-[#2B2B2B]`}
         >
           {content}
         </span>

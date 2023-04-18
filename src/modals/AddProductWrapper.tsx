@@ -78,7 +78,10 @@ const AddProductModal = () => {
           onClick={closeProductModal}
         ></i>
       </h1>
-      <form onSubmit={onSubmit} className="pt-4 h-[520px] px-1 overflow-scroll">
+      <form
+        onSubmit={onSubmit}
+        className="pt-4 lg:h-[520px] px-1 overflow-scroll"
+      >
         <Input
           title="Product Name"
           placeholder="enter product name"

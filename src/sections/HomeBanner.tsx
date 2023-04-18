@@ -9,18 +9,18 @@ const HomeBanner = () => {
   }
   return (
     <div className="wrapper ">
-      <div className="w-full h-[328px] bg-home-banner flex flex-col justify-center items-center">
-        <h2 className="w-[501px] font-poppins font-semibold leading-[48px] text-[36px] text-white text-center mx-auto">
+      <div className="w-full h-[60vh] lg:h-[328px] bg-home-banner px-6 lg:px-0 flex flex-col justify-center items-center">
+        <h2 className="w-full lg:w-[501px] font-poppins font-semibold lg:leading-[48px] text-[32px] lg:text-[36px] text-white text-center mx-auto">
           Bringing the market to the customer
         </h2>
-        <div className="flex items-center mt-7 justify-center">
+        <div className="flex lg:flex-row w-full flex-col items-center mt-7 justify-center">
           <Button
             title="Buy from Buildadom"
-            classNames="bg-bd-blue w-[191px] h-[44px] mr-4 rounded-[50px] py-[8px] px-[26px] text-white font-poppins text-[13px]"
+            classNames="bg-bd-blue mb-5 lg:mb-0 w-[280px] lg:w-[191px] h-[44px] mr-4 rounded-[50px] py-[8px] px-[26px] text-white font-poppins text-[13px]"
           />
           <button
-            className="bg-white font-semibold border-none text-bd-blue w-[191px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]"
-            onClick={() => redirect('/')}
+            className="bg-white font-semibold border-none text-bd-blue w-[280px] lg:w-[191px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]"
+            onClick={() => redirect('/merchant')}
           >
             Sell On Buildadom
           </button>

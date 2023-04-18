@@ -1,5 +1,5 @@
-import DashboardNav from './DashboardNav'
 import Footer from './Footer'
+import MerchantNav from './MerchantNav'
 
 type IProps = {
   children: React.ReactNode
@@ -8,7 +8,7 @@ type IProps = {
 function Dashboard({ children }: IProps) {
   return (
     <div>
-      <DashboardNav />
+      <MerchantNav />
       <main>{children}</main>
       <Footer />
     </div>

@@ -1,50 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import LandingPage from '@/layouts/LandingPage'
-import { wrapper } from '@/redux/store'
-import CallToAction from '@/sections/CallToAction'
-import FAQ from '@/sections/FAQ'
-import FirstSection from '@/sections/FirstSection'
-import HeroBg from '@/sections/HeroBg'
-import Materials from '@/sections/Material'
-import Property from '@/sections/Properties'
-import Safety from '@/sections/Safety'
-import Support from '@/sections/Support'
-import { GetServerSideProps } from 'next'
+import MainLayout from '@/layouts/MainLAyout'
+import HomeBanner from '@/sections/HomeBanner'
+import HomeProducts from '@/sections/HomeProducts'
+// import { products } from '@/util/products'
 import React, { ReactElement } from 'react'
-import { getCookie } from 'cookies-next'
-function HomePage() {
+
+const Home = () => {
   return (
-    <>
-      <HeroBg />
-      <FirstSection />
-      <Property />
-      <CallToAction />
-      <Materials />
-      <Safety />
-      <Support />
-      <FAQ />
-    </>
+    <div className="wrapper">
+      <HomeBanner />
+      <HomeProducts />
+    </div>
   )
 }
 
-export default HomePage
+export default Home
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
-  return <LandingPage>{page}</LandingPage>
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>
 }
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async ({ req, res }) => {
-    const token = getCookie('user', { req, res })
-    if (token) {
-      return {
-        redirect: {
-          destination: '/dashboard',
-          permanent: false,
-        },
-      }
-    }
-    return {
-      props: {},
-    }
-  })

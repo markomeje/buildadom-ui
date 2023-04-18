@@ -61,7 +61,7 @@ function ProductUpload() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-6 lg:p-8">
       <div className="flex w-full items-center justify-between">
         <i
           className="ri-arrow-left-line text-[18px] text-gray-500 cursor-pointer"
@@ -90,7 +90,7 @@ function ProductUpload() {
           ) : (
             <div className="border-gray-300 border-dashed border-2 flex items-center justify-center flex-col  rounded-[12px] h-[180px]">
               <i className="ri-upload-cloud-2-line text-blue-500 text-3xl"></i>
-              <p className="font-poppins py-4 text-gray-500">
+              <p className="font-poppins py-4 text-center px-4 lg:px-0 text-gray-500">
                 Drag and drop your file(s) or <span>browse to upload</span>
               </p>
             </div>

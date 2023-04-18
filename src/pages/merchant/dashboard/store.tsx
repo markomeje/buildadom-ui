@@ -13,13 +13,14 @@ import { AddProduct } from '@/lib/stepper'
 import { useGetMerchatProductsQuery } from '@/redux/services/store.slice'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { specificModal } from '@/redux/reducer/modalReducer'
+import Loader from '@/ui/general/Loader'
 const MyStore = () => {
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
   )
   const { step } = useTypedSelector((state) => state.stepper)
-  const { data } = useGetMerchatProductsQuery()
+  const { data, isLoading } = useGetMerchatProductsQuery()
   console.log(data, 'data')
   const handleClick = () => {
     dispatch(specificModal('product'))
@@ -32,19 +33,21 @@ const MyStore = () => {
           <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
-      {data && data.data && data.data.length > 0 ? (
+      {!isLoading && data.data.length > 0 ? (
         <>
-          <div className="w-full flex items-end justify-end">
+          <div className="w-full flex items-end  justify-end">
             <button
-              className="w-[35px] h-[35px] rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
+              className="w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] mr-6 lg:mr-0  rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
               onClick={handleClick}
             >
-              <i className="ri-add-line text-white font-semibold text-[20px]"></i>
+              <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
             </button>
           </div>
           <ProductCategory header={'Pipes'} products={data.data} />
           <ProductCategory header={'Paint'} products={data.data} />
         </>
+      ) : isLoading ? (
+        <Loader />
       ) : (
         <EmptyState />
       )}
@@ -64,7 +67,7 @@ export const getServerSideProps: GetServerSideProps =
     if (!token) {
       return {
         redirect: {
-          destination: '/login',
+          destination: '/merchant/login',
           permanent: false,
         },
       }

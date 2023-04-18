@@ -5,15 +5,15 @@ import React from 'react'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProductCard = ({ img, description, rating, reviews, price }: any) => {
   return (
-    <div className="flex flex-col p-2">
+    <div className="flex w-full lg:w-auto mb-8 lg:border-none border-b border-r border-gray-200 p-2  flex-col">
       <img
         src={img}
         alt="product image"
-        className="w-[200px] h-[156px] object-cover"
+        className="w-[100%] lg:w-[200px] h-[200px] lg:h-[156px] object-cover"
       />
       <Rating rating={rating} review={reviews} />
-      <span className="font-poppis w-[190px] min-h-[100px] font-poppins text-[13px] leading-[20px]">
-        {description}
+      <span className="font-poppis w-[90%] lg:w-[190px] min-h-[100px] font-poppins text-[13px] leading-[20px]">
+        {description && description.substr(0, 120) + '...'}
       </span>
       <h2 className="font-poppins leading-[25px] font-semibold text-[18px] py-4">
         {price}

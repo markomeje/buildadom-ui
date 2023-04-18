@@ -12,9 +12,10 @@ const DashboardNav = () => {
   return (
     <div className="sticky top-0 z-20">
       <TopNav />
-      <nav className="h-[92px] bg-white shadow-sm sticky top-0 w-full">
-        <div className="wrapper flex items-center justify-between h-full">
+      <nav className="h-[92px] px-5 lg:px-0  bg-white shadow-sm sticky top-0 w-full">
+        <div className="lg:wrapper flex items-center justify-between h-full">
           <Logo img="/assets/logo.png" />
+          <i className="ri-menu-3-fill text-[28px] block lg:hidden"></i>
           <NavLinks />
           <IconRight />
         </div>
@@ -27,7 +28,7 @@ export default DashboardNav
 
 const NavLinks = () => {
   return (
-    <ul className="flex items-center justify-between">
+    <ul className="lg:flex hidden items-center justify-between">
       {Links.map((link, index) => (
         <Link
           key={index}
@@ -53,7 +54,7 @@ const IconRight = () => {
     router.push('/')
   }
   return (
-    <div className="flex items-center justify-between">
+    <div className="lg:flex hidden items-center justify-between">
       <i className="ri-search-2-line font-semibold text-[20px] mr-5"></i>
       <div className="relative">
         <i className="ri-shopping-cart-line mr-5 text-[20px] font-semibold"></i>

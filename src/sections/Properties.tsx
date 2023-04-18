@@ -3,7 +3,7 @@ import React from 'react'
 
 const Property = () => {
   return (
-    <div className="flex min-h-[350px] h-full max-w-[1250px] mt-8 mx-auto justify-between items-center">
+    <div className="flex flex-col md:flex-row min-h-[350px] h-full w-full lg:max-w-[1250px] mt-8 mx-auto lg:justify-between items-center">
       <Properties
         title="Secured Transactions"
         content="We sincerely care about how you make your transactions and hence made it easier. Payments are guaranteed through an escrow account to ensure that all parties are happy and satisfied."
