@@ -27,7 +27,6 @@ const MechantIndividualRegistration = () => {
       await addUser({ ...info, type: 'individual' }).unwrap()
       dispatch(openModal())
     } catch (err) {
-      console.log(err)
       if ((err as AuthError).data?.errors) {
         for (const value of Object.values((err as AuthError).data?.errors)) {
           toast.error(value[0])

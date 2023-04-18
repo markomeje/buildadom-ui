@@ -1,93 +1,69 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { wrapper } from '@/redux/store'
+/* eslint-disable @next/next/no-img-element */
+import StoreLayout from '@/layouts/StoreLayout'
+import ModalWraper from '@/modals'
+import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
 import React, { ReactElement } from 'react'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import { setUser } from '@/redux/reducer/tokenReducer'
-import Dashboard from '@/layouts/Dashboard'
-import CreateHeader from '@/components/CreateHeader'
-import Button from '@/ui/button/Button'
-import { useRouter } from 'next/router'
-// import { validationApi } from '@/redux/services/validation.service'
-import { useGetValidationDetailsQuery } from '@/redux/services/validation.service'
-import CreateStore from '@/sections/CreateStore'
-
-const MerchantDashboard = () => {
-  const { data, isLoading } = useGetValidationDetailsQuery()
+import ProductCategory from '@/components/ProductCategory'
+import EmptyState from '@/components/EmptyState'
+import UseStepper from '@/hooks/useStepper'
+import { AddProduct } from '@/lib/stepper'
+import { useGetMerchatProductsQuery } from '@/redux/services/store.slice'
+import { setStepper } from '@/redux/reducer/stepperReducer'
+import { specificModal } from '@/redux/reducer/modalReducer'
+import Loader from '@/ui/general/Loader'
+const MyStore = () => {
+  const dispatch = useTypedDispatch()
+  const { specificModal: modal, modalType } = useTypedSelector(
+    (state) => state.modal
+  )
+  const { step } = useTypedSelector((state) => state.stepper)
+  const { data, isLoading } = useGetMerchatProductsQuery()
+  console.log(data, 'data')
+  const handleClick = () => {
+    dispatch(specificModal('product'))
+    dispatch(setStepper(1))
+  }
   return (
-    <div className="px-4 lg:px-0 lg:wrapper">
-      <CreateHeader>
-        <div className="flex flex-col">
-          <h1 className="font-semibold font-poppins text-[28px] lg:text-[32px] mb-2 leading-[48px]">
-            Create Store
-          </h1>
-          <span className="max-w-[384px] text-bd-black text-[15px] font-poppins  leading-[24px]">
-            Kindly provide all informations below for us to help you create your
-            unique store
-          </span>
-        </div>
-        <DisplayState data={data} loading={isLoading} />
-      </CreateHeader>
-      <CreateStore />
-    </div>
+    <>
+      {modal && modalType === 'product' && (
+        <ModalWraper>
+          <UseStepper step={step} stepObject={AddProduct} />
+        </ModalWraper>
+      )}
+      {!isLoading && data.data.length > 0 ? (
+        <>
+          <div className="w-full flex items-end  justify-end">
+            <button
+              className="w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] mr-6 lg:mr-0  rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
+              onClick={handleClick}
+            >
+              <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
+            </button>
+          </div>
+          <ProductCategory header={'Pipes'} products={data.data} />
+          <ProductCategory header={'Paint'} products={data.data} />
+        </>
+      ) : isLoading ? (
+        <Loader />
+      ) : (
+        <EmptyState />
+      )}
+    </>
   )
 }
 
-export default MerchantDashboard
-MerchantDashboard.getLayout = function getLayout(page: ReactElement) {
-  return <Dashboard>{page}</Dashboard>
-}
+export default MyStore
 
-const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
-  const router = useRouter()
-  if (loading) return null
-  if (data == null) {
-    return (
-      <Button
-        onClick={() =>
-          router.push({
-            pathname: '/merchant/dashboard/verifyId',
-            query: { stepper: 1 },
-          })
-        }
-        classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"
-        type="outlined"
-        title="Start ID Validation Now"
-      />
-    )
-  } else if (data !== null && data?.images?.length === 0) {
-    return (
-      <Button
-        classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"
-        onClick={() =>
-          router.push({
-            pathname: '/merchant/dashboard/verifyId',
-            query: { stepper: 2 },
-          })
-        }
-        type="outlined"
-        title="Upload Verification ID"
-      />
-    )
-  } else if (data !== null && data.verified === 0) {
-    return (
-      <Button
-        type="outlined"
-        title="Wait For Admin ID Verification "
-        classNames="py-4 px-6 border-gray-300 rounded-[50px] hover:border-bd-blue"
-      />
-    )
-  } else {
-    return null
-  }
+MyStore.getLayout = function getLayout(page: ReactElement) {
+  return <StoreLayout>{page}</StoreLayout>
 }
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    if (token) {
-      store.dispatch(setUser(JSON.parse(token as string)))
-    }
     if (!token) {
       return {
         redirect: {
@@ -95,6 +71,9 @@ export const getServerSideProps: GetServerSideProps =
           permanent: false,
         },
       }
+    }
+    if (token) {
+      store.dispatch(setUser(JSON.parse(token as string)))
     }
     return {
       props: {},

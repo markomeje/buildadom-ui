@@ -183,11 +183,14 @@ input[type='number'] {
     animation: slide 0.3s;
   }
 
-  /* @keyframes slide {
+  @keyframes slide {
     from {
-      translat
+      transform: translateX(-100%);
     }
-  } */
+    to {
+      transform: translateX(0);
+    }
+  }
 }
 
 @media screen and (max-width: 500px) {

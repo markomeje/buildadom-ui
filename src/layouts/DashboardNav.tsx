@@ -5,21 +5,33 @@ import Logo from '@/ui/general/Logo'
 import { Links } from '@/util/info'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import TopNav from './TopNav'
+import { IDropdown } from '@/interface/dashboard'
 
 const DashboardNav = () => {
+  const [mobileDisplay, setMobileDisplay] = useState(false)
+  const toggle = () => {
+    setMobileDisplay(!mobileDisplay)
+  }
   return (
     <div className="sticky top-0 z-20">
       <TopNav />
       <nav className="h-[92px] px-5 lg:px-0  bg-white shadow-sm sticky top-0 w-full">
         <div className="lg:wrapper flex items-center justify-between h-full">
           <Logo img="/assets/logo.png" />
-          <i className="ri-menu-3-fill text-[28px] block lg:hidden"></i>
+          <i
+            className="ri-menu-3-fill text-[28px] block lg:hidden"
+            onClick={toggle}
+          ></i>
           <NavLinks />
           <IconRight />
         </div>
       </nav>
+      <MobileDropDown
+        show={mobileDisplay}
+        close={() => setMobileDisplay(false)}
+      />
     </div>
   )
 }
@@ -68,6 +80,36 @@ const IconRight = () => {
         className="w-[36px] h-[36px] rounded-[36px] object-cover cursor-pointer"
         onClick={logout}
       />
+    </div>
+  )
+}
+
+const MobileDropDown = ({ show, close }: IDropdown) => {
+  const router = useRouter()
+  return (
+    <div className={`w-full shadow-lg`}>
+      <div
+        className={`${
+          show ? 'flex' : 'hidden'
+        } flex-col bg-gray-600 h-[300px] px-2 sldier justify-center absolute  w-full`}
+      >
+        {Links.map((link, index) => {
+          const active = router.pathname === link.href
+          return (
+            <Link
+              href={link.name}
+              onClick={close}
+              key={index}
+              className={`py-2  mb-2 ${
+                active && 'text-[16px] font-semibold'
+              }  pl-4 font-poppins text-[17px] leading-[22px] text-white`}
+            >
+              {' '}
+              {link.name}{' '}
+            </Link>
+          )
+        })}
+      </div>
     </div>
   )
 }

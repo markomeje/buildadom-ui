@@ -30,3 +30,8 @@ export interface IProduct {
   description: string
   price: string
 }
+
+export interface IDropdown {
+  close: () => void
+  show: boolean
+}

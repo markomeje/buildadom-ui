@@ -72,8 +72,8 @@ const AboutStoreHeader = () => {
               className="w-full h-full object-cover"
             />
           )}
-
-          <div className="flex items-center  bottom-[40px] right-[50px] absolute">
+          {/* web  label */}
+          <div className="lg:flex items-center hidden bottom-[40px] right-[50px] absolute">
             <label
               htmlFor="file-upload"
               className="bg-[#747272] z-10 cursor-pointer rounded-sm w-[174px] h-[43px]  flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"
@@ -95,12 +95,16 @@ const AboutStoreHeader = () => {
               </button>
             )}
           </div>
+
+          {/* mobile store store */}
+
+          {/* mobile stroe */}
         </div>
-        <div className="pt-10 pb-4 flex items-center">
+        <div className="lg:pt-10 pb-4 flex items-center">
           {!storePreviewLink && !data?.images?.['1'] ? (
             <label
               htmlFor="store-logo"
-              className="w-[204px] mr-8 h-[204px] cursor-pointer flex flex-col bg-gray-300 items-center justify-center"
+              className="w-[204px] mr-8 h-[204px] cursor-pointer hidden lg:flex flex-col bg-gray-300 items-center justify-center"
             >
               <i className="ri-upload-cloud-line text-blue-400 text-[55px]"></i>
               <i className="ri-upload-cloud-line text-white hover:text-[18px] duration-300  rounded-[50%] cursor-pointer text-[22px]"></i>
@@ -112,7 +116,7 @@ const AboutStoreHeader = () => {
               />
             </label>
           ) : (
-            <div className="relative">
+            <div className="hidden lg:block relative">
               <label htmlFor="store-logo" className="cursor-pointer">
                 <img
                   src={
@@ -149,11 +153,11 @@ const AboutStoreHeader = () => {
           ) : data === null ? (
             <div>No Store Data</div>
           ) : (
-            <div className="flex flex-col justify-center">
-              <h1 className="font-semibold font-poppins pb-2 text-[24px] leading-[38px]">
+            <div className="flex flex-col mt-4 lg:mt-0 w-full lg:w-auto justify-center">
+              <h1 className="font-semibold font-poppins lg:pb-2 text-[18px] lg:text-[24px] leading-[30px] lg:leading-[38px]">
                 {data && data.name}
               </h1>
-              <p className="w-[550px] font-poppins text-[15px]  leading-[27px]">
+              <p className=" w-full lg:w-[550px] font-poppins text-[15px]  leading-[27px]">
                 {data && data.description}
               </p>
               <div className="w-[262px] my-4 bg-[#CCCCCC] h-[1px]"></div>
