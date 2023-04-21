@@ -24,7 +24,7 @@ const SignupSuccess = () => {
       </p>
       <div className="flex flex-col lg:flex-row w-full px-4 lg:px-0 py-3">
         <Button
-          onClick={() => redirect('/merchant/dashboard')}
+          onClick={() => redirect('/merchant/dashboard/create-store')}
           title="Skip"
           type="outlined"
           classNames="mr-6 py-4 rounded-[8px] w-full md:w-[200px] "

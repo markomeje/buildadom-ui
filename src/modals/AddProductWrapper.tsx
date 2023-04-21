@@ -59,11 +59,9 @@ const AddProductModal = () => {
       formData.append('store_id', storeInfo.id.toString())
       try {
         const res = await addProduct(formData).unwrap()
-        console.log(res, 'added product')
         dispatch(setAddedStepper(res))
         dispatch(setStepper(2))
       } catch (err) {
-        console.log(err, 'error')
         const error = (err as AuthError).data.message
         toast.error(error)
       }

@@ -9,7 +9,7 @@ interface IProps {
 
 const ProductCategory = ({ header, products }: IProps) => {
   return (
-    <div className="w-full -ml-6 mt-3  lg:mt-0 lg:ml-0 mb-4">
+    <div className="w-full mb-4">
       <h1 className="leading-[36px] text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
         {header}
       </h1>

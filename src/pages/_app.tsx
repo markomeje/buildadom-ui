@@ -1,11 +1,12 @@
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
 import { wrapper } from '../redux/store'
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, Suspense } from 'react'
 import 'remixicon/fonts/remixicon.css'
 import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-phone-number-input/style.css'
 import { ToastContainer } from 'react-toastify'
+import AppSuspense from '@/ui/skeletonLoader/AppSuspense'
 
 type PageWithLayout = {
   getLayout: (page: ReactElement) => ReactNode
@@ -20,6 +21,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
   return getLayout(
     <>
+      <Suspense fallback={<AppSuspense />} />
       <ToastContainer
         position="top-right"
         autoClose={5000}

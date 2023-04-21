@@ -30,14 +30,13 @@ const Rating = ({ rating, review }: { rating: number; review: string }) => {
       {[...Array(5)].map((start, index) => {
         index + 1
         return (
-          <>
+          <div key={index}>
             <i
-              key={index}
               className={`ri-star-s-fill mr-2 ${
                 index < rating ? 'text-[#E9A426]' : 'text-gray-500'
               }`}
             ></i>
-          </>
+          </div>
         )
       })}
       <span className="text-[#8C8C8C] font-poppins text-[12px] leading-[25px]">

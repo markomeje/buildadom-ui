@@ -1,31 +1,27 @@
 import { sideLinks } from '@/util/sideLinks'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 
 const SideLinks = () => {
-  const [displaySideModal, setDisplaySideModal] = useState<boolean>(false)
+  // const [displaySideModal, setDisplaySideModal] = useState<boolean>(false)
   const router = useRouter()
-  const toggle = () => {
-    setDisplaySideModal(!displaySideModal)
-  }
+  // const toggle = () => {
+  //   setDisplaySideModal(!displaySideModal)
+  // }
   return (
     <div className="relative">
-      <i
+      {/* <i
         className="ri-menu-fill lg:hidden text-[20px] pl-2"
         onClick={toggle}
-      ></i>
+      ></i> */}
       <div
-        className={`min-w-[290px] bg-bd-lightBlue mr-4  absolute lg:relative top-0 h-[300px] pr-3 lg:flex flex-col py-[14px] ${
-          displaySideModal
-            ? 'flex  translate-x-0 duration-300'
-            : 'lg:translate-x-0 -translate-x-[430px]'
-        }`}
+        className={`min-w-[290px] bg-bd-lightBlue mr-4  relative top-0 h-[300px] pr-3 lg:flex hidden lg:flex-col py-[14px] `}
       >
-        <i
+        {/* <i
           className="ri-close-fill absolute right-0 text-gray-500 top-1 lg:hidden text-[20px] pr-2"
           onClick={() => setDisplaySideModal(false)}
-        ></i>
+        ></i> */}
         {sideLinks.map((link, index) => {
           const active = router.pathname === link.link
           return (

@@ -10,6 +10,14 @@ import { openModal } from '@/redux/reducer/modalReducer'
 import { useAdduserMutation } from '@/redux/services/auth.service'
 import { AuthError } from '@/interface/error.interface'
 import { toast } from 'react-toastify'
+import dynamic from 'next/dynamic'
+
+const CountryCodeSelector = dynamic(
+  () => import('../input/PhoneCountryCodeInput'),
+  {
+    ssr: false,
+  }
+)
 
 const MechantIndividualRegistration = () => {
   const dispatch = useTypedDispatch()
@@ -27,7 +35,6 @@ const MechantIndividualRegistration = () => {
       await addUser({ ...info, type: 'individual' }).unwrap()
       dispatch(openModal())
     } catch (err) {
-      console.log(err)
       if ((err as AuthError).data?.errors) {
         for (const value of Object.values((err as AuthError).data?.errors)) {
           toast.error(value[0])
@@ -73,14 +80,15 @@ const MechantIndividualRegistration = () => {
           register={register}
           error={errors}
         />
-        <Input
+        {/* <Input
           title="Phone Number"
           name="phone"
           type="text"
           placeholder="enter phone number"
           register={register}
           error={errors}
-        />
+        /> */}
+        <CountryCodeSelector />
         <Input
           title="Address"
           name="address"

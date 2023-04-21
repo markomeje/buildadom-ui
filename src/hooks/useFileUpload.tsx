@@ -22,7 +22,7 @@ function useFileUpload() {
     try {
       const response = await imageUpload(formData)
       if (response) toast.success('ID uploaded successfully')
-      router.push('/dashboard')
+      router.push('/merchant/create-store')
     } catch (error) {
       console.log(error)
     }
