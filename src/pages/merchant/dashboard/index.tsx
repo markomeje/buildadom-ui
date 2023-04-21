@@ -13,7 +13,7 @@ import { AddProduct } from '@/lib/stepper'
 import { useGetMerchatProductsQuery } from '@/redux/services/store.slice'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { specificModal } from '@/redux/reducer/modalReducer'
-import Loader from '@/ui/general/Loader'
+import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 const MyStore = () => {
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
@@ -47,7 +47,7 @@ const MyStore = () => {
           <ProductCategory header={'Paint'} products={data.data} />
         </>
       ) : isLoading ? (
-        <Loader />
+        <ProductSkeleton amount={10} className="lg:grid-cols-4" />
       ) : (
         <EmptyState />
       )}

@@ -2,7 +2,7 @@
 import { AuthError } from '@/interface/error.interface'
 import { useMerchantStoreDetailsQuery } from '@/redux/services/store.slice'
 import { useImageUploadMutation } from '@/redux/services/validation.service'
-import Loader from '@/ui/general/Loader'
+import StoreInfoSkeleton from '@/ui/skeletonLoader/StoreInfoSkeleton'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
@@ -61,7 +61,7 @@ const AboutStoreHeader = () => {
         </h1>
         <div className="w-full h-[201px]  relative">
           {!previewLink && !data?.images ? (
-            <div className="w-full h-full bg-[#4F4F4F]"></div>
+            <div className="w-full h-full bg-gray-200"></div>
           ) : (
             <img
               src={
@@ -104,7 +104,7 @@ const AboutStoreHeader = () => {
           {!storePreviewLink && !data?.images?.['1'] ? (
             <label
               htmlFor="store-logo"
-              className="w-[204px] mr-8 h-[204px] cursor-pointer hidden lg:flex flex-col bg-gray-300 items-center justify-center"
+              className="w-[204px] mr-8 h-[204px] cursor-pointer hidden lg:flex flex-col bg-gray-100 rounded-[20px] items-center justify-center"
             >
               <i className="ri-upload-cloud-line text-blue-400 text-[55px]"></i>
               <i className="ri-upload-cloud-line text-white hover:text-[18px] duration-300  rounded-[50%] cursor-pointer text-[22px]"></i>
@@ -149,7 +149,7 @@ const AboutStoreHeader = () => {
           )}
 
           {isLoading ? (
-            <Loader />
+            <StoreInfoSkeleton />
           ) : data === null ? (
             <div>No Store Data</div>
           ) : (

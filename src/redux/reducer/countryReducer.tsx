@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Country, IProduct } from '@/interface/general.interface'
+import { IPhone } from '@/ui/input/PhoneCountryCodeInput'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CountryState {
   country: Country
   city: string
   newProduct: IProduct
+  countryCode: IPhone
 }
 
 export const initialState: CountryState = {
@@ -24,6 +26,12 @@ export const initialState: CountryState = {
     description: '',
     price: '',
   },
+  countryCode: {
+    dial_code: '',
+    flag: '',
+    code: '',
+    name: '',
+  },
 }
 
 export const CountrySlice = createSlice({
@@ -31,7 +39,6 @@ export const CountrySlice = createSlice({
   initialState,
   reducers: {
     setCountry: (state, action: PayloadAction<Country>) => {
-      console.log(action.payload, 'payload')
       state.country = action.payload
     },
     setCity: (state, action: PayloadAction<any>) => {
@@ -40,9 +47,13 @@ export const CountrySlice = createSlice({
     setAddedStepper: (state, action: PayloadAction<IProduct>) => {
       state.newProduct = action.payload
     },
+    setCountryCode: (state, action: PayloadAction<IPhone>) => {
+      state.countryCode = action.payload
+    },
   },
 })
 
-export const { setCountry, setCity, setAddedStepper } = CountrySlice.actions
+export const { setCountry, setCity, setAddedStepper, setCountryCode } =
+  CountrySlice.actions
 
 export default CountrySlice.reducer

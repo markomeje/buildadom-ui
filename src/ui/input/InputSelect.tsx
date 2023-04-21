@@ -33,7 +33,6 @@ const InputSelect = ({ control, errors, data, label, name }: any) => {
 export default InputSelect
 
 export const CategorySelect = ({ control, errors, data, label, name }: any) => {
-  console.log(data, 'datareturned')
   const {
     field: { value: idValue, onChange: typeOnChange, ...restTypeField },
   } = useController({ name: name, control })

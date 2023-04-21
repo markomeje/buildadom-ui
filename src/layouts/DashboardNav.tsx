@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import TopNav from './TopNav'
 import { IDropdown } from '@/interface/dashboard'
+import IsLogged from '@/hooks/isLoggedIn'
 
 const DashboardNav = () => {
   const [mobileDisplay, setMobileDisplay] = useState(false)
@@ -61,6 +62,7 @@ const NavLinks = () => {
 
 const IconRight = () => {
   const router = useRouter()
+  const [isLog] = IsLogged()
   const logout = () => {
     removeUserCookie()
     router.push('/')
@@ -74,12 +76,19 @@ const IconRight = () => {
           2
         </span>
       </div>
-      <img
-        src="/assets/profile.png"
-        alt="profile"
-        className="w-[36px] h-[36px] rounded-[36px] object-cover cursor-pointer"
-        onClick={logout}
-      />
+      {isLog ? (
+        <img
+          src="/assets/profile.png"
+          alt="profile"
+          className="w-[36px] h-[36px] rounded-[36px] object-cover cursor-pointer"
+          onClick={logout}
+        />
+      ) : (
+        <Button
+          title="Register / Login"
+          classNames="w-[150px]  h-[37px] ml-4 text-[12px] tracking-wider font-400  rounded-[50px]"
+        />
+      )}
     </div>
   )
 }
