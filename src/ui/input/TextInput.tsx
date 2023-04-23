@@ -1,16 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
-type IProps = {
+export type TextProps = {
   placeholder: string
   name: string
   type: string
   title: string
   register: any
+  setValue?: any
   error: any
 }
 
-const Input = ({ placeholder, title, name, type, register, error }: IProps) => {
+const Input = ({
+  placeholder,
+  title,
+  name,
+  type,
+  register,
+  error,
+}: TextProps) => {
   return (
     <div className="flex my-3  flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">

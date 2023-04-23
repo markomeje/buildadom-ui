@@ -4,12 +4,7 @@ import CountryList from 'country-list-with-dial-code-and-flag'
 import CountryFlagSvg from 'country-list-with-dial-code-and-flag/dist/flag-svg'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import { setCountryCode } from '@/redux/reducer/countryReducer'
-
-// type IProps = {
-//   name: string
-//   //   register: any
-//   //   error: any
-// }
+import { TextProps } from './TextInput'
 
 export type IPhone = {
   dial_code: string
@@ -27,7 +22,14 @@ const getSvg = (country: string) => {
   return flagSvg
 }
 
-const PhoneCountryCodeInput = () => {
+const PhoneCountryCodeInput = ({
+  register,
+  error,
+  name,
+  placeholder,
+  type,
+  title,
+}: TextProps) => {
   const [show, setShow] = useState<boolean>(false)
   const [selected, setSelected] = useState<string>('+234')
   const { countryCode: data } = useTypedSelector((state) => state.dashboard)
@@ -40,12 +42,12 @@ const PhoneCountryCodeInput = () => {
   return (
     <div className="flex  relative my-3 flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
-        Phone Number
+        {title}
       </label>
       <div className="w-full flex items-center">
         <div
           onClick={() => setShow(!show)}
-          className="w-[30%] cursor-pointer mr-4 mb-3 flex items-center focus:outline-none bg-transparent justify-center  text-[#F3FBF8] font-raleWay text-[18px] border border-[#F3FBF8] rounded-l-[8px] py-[20px] h-[56px]"
+          className="w-[25%] cursor-pointer mr-2  flex items-center focus:outline-none bg-transparent justify-center  text-gray-800 font-raleWay text-[18px] border border-[#8C8C8C] rounded-l-[8px] h-[50px]"
         >
           <div
             className=" w-[25px] hidden md:block md:w-[30px] mt-2 h-[25px] md:h-[30px]"
@@ -53,11 +55,17 @@ const PhoneCountryCodeInput = () => {
               __html: getSvg(data?.code as string) as unknown as string,
             }}
           ></div>
-          <span className="text-[12px]  ml-1 font-clash">
+          <span className="ml-1 font-clash py-5 text-[12px] text-gray-600">
             {data?.dial_code}
           </span>
           <i className="ri-arrow-down-s-line text-[20px] font-clash ml-1"></i>
         </div>
+        <input
+          className="w-full border block  border-[#8C8C8C] focus:outline-none h-[50px] rounded-r-[5px] px-4 text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
+          type={type}
+          placeholder={placeholder}
+          {...register('phone', { required: `${name} is required` })}
+        />
       </div>
       {/* Drop-down */}
       {show && (
@@ -67,39 +75,13 @@ const PhoneCountryCodeInput = () => {
           setShow={() => setShow(false)}
         />
       )}
+      <span className="mt-1 block font-poppins text-red-400 text-[13px]">
+        {error && error[`${name}`]?.message}
+      </span>
     </div>
   )
 }
 
-// <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
-//           Phone Number
-//         </label>
-//         <div className="w-full flex items-center">
-//           <div
-//             onClick={() => setShow(!show)}
-//             className="w-[30%] cursor-pointer mr-4 mb-3 flex items-center focus:outline-none bg-transparent justify-center  text-[#F3FBF8] font-raleWay text-[18px] border border-[#F3FBF8] rounded-l-[8px] py-[20px] h-[56px]"
-//           >
-//             <div
-//               className=" w-[25px] hidden md:block md:w-[30px] mt-2 h-[25px] md:h-[30px]"
-//               dangerouslySetInnerHTML={{
-//                 __html: getSvg(data?.code as string) as unknown as string,
-//               }}
-//             ></div>
-//             <span className="text-[12px]  ml-1 font-clash">
-//               {data?.dial_code}
-//             </span>
-//             <i className="ri-arrow-down-s-line text-[20px] font-clash ml-1"></i>
-//           </div>
-//           <input
-//             className="w-full border  border-[#8C8C8C] focus:outline-none h-[50px] rounded-[5px] px-4 text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
-//             type="text"
-//             placeholder="Enter phone number"
-//             //   {...register(name, { required: `${name} is required` })}
-//           />
-//           {/* <span className="mt-1 font-poppins text-red-400 text-[13px]">
-//             {/* {error && error[`${name}`]?.message} */}
-//           </span> */}
-//         </div>
 export default PhoneCountryCodeInput
 
 const DropDown = ({
@@ -117,18 +99,18 @@ const DropDown = ({
   }
   const [input, setInput] = useState<string>('')
   return (
-    <div className="absolute z-10 border-[#F3FBF8]  h-[150px] rounded-[8px] w-full mt-1 top-[60px] z-10 w-[100%] lg:w-[30%] bg-white">
+    <div className="absolute z-10 h-[250px] rounded-[8px] w-full mt-1 top-[100px] lg:w-[30%] bg-white">
       <div className="sticky top-0  mb-2">
         <input
           type="text"
           onChange={(e) => setInput(e.target.value)}
           value={input}
           placeholder="search country, city"
-          className="w-full h-[20px] leading-[10px] shadow-sm font-clash py-5 text-[12px] text-gray-600 bg-[#fff]  rounded-[4px] outline-none px-4"
+          className="w-full h-[20px] leading-[10px] border-gray-200 border-b-2 font-poppins py-5 text-[12px] text-gray-600 bg-[#fff]  rounded-[4px] outline-none px-4"
         />
         <i className="ri-search-2-line text-[13px] text-gray-400 absolute right-3 top-[10px]"></i>
       </div>
-      <div className="px-4 bg-white h-[120px] overflow-scroll">
+      <div className="px-4 bg-white h-[230px] overflow-y-scroll">
         {data.length > 0 &&
         data.filter((x) => x.name.toLowerCase().includes(input.toLowerCase()))
           .length === 0 ? (
@@ -157,7 +139,7 @@ const DropDown = ({
                           dangerouslySetInnerHTML={{ __html: flagSvg }}
                         ></div>
                       </div>
-                      <span className="text-[10px] ml-2 font-clash">
+                      <span className="ml-2  font-poppins text-[10px] text-gray-600">
                         <span className="font-500 mr-1">{country.name}</span>(
                         {country.dial_code})
                       </span>

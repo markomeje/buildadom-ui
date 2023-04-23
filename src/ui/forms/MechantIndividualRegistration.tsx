@@ -5,7 +5,7 @@ import { IndividualAuthSchema } from '@/validationschema/authSchema'
 import { IndividalMechant } from '@/interface/form.interface'
 import Input from '../input/TextInput'
 import Button from '../button/Button'
-import { useTypedDispatch } from '@/redux/store'
+import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import { openModal } from '@/redux/reducer/modalReducer'
 import { useAdduserMutation } from '@/redux/services/auth.service'
 import { AuthError } from '@/interface/error.interface'
@@ -22,6 +22,7 @@ const CountryCodeSelector = dynamic(
 const MechantIndividualRegistration = () => {
   const dispatch = useTypedDispatch()
   const [addUser, { isLoading }] = useAdduserMutation()
+  const { countryCode } = useTypedSelector((state) => state.dashboard)
 
   const {
     register,
@@ -32,7 +33,12 @@ const MechantIndividualRegistration = () => {
   })
   const onSubmit = handleSubmit(async (info) => {
     try {
-      await addUser({ ...info, type: 'individual' }).unwrap()
+      const formData = {
+        ...info,
+        phone: countryCode.dial_code + info.phone,
+        type: 'individual',
+      }
+      await addUser(formData).unwrap()
       dispatch(openModal())
     } catch (err) {
       if ((err as AuthError).data?.errors) {
@@ -80,15 +86,14 @@ const MechantIndividualRegistration = () => {
           register={register}
           error={errors}
         />
-        {/* <Input
-          title="Phone Number"
-          name="phone"
-          type="text"
-          placeholder="enter phone number"
+        <CountryCodeSelector
           register={register}
           error={errors}
-        /> */}
-        <CountryCodeSelector />
+          title="Phone Number"
+          name="phone"
+          type="number"
+          placeholder="enter phone number"
+        />
         <Input
           title="Address"
           name="address"

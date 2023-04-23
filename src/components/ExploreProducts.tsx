@@ -1,4 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
+import { useAllProductsQuery } from '@/redux/services/general.service'
+import HomeProducts from '@/sections/HomeProducts'
+import { useTypedDispatch } from '@/redux/store'
+import { setDisplayType } from '@/redux/reducer/modalReducer'
 
 const DropSearch = ({ header, text }: { header: string; text: string }) => {
   return (
@@ -11,11 +16,35 @@ const DropSearch = ({ header, text }: { header: string; text: string }) => {
 }
 
 const ExploreProducts = () => {
+  const dispatch = useTypedDispatch()
+  const { data, isLoading } = useAllProductsQuery()
+
+  const setDisplay = (type: string) => {
+    dispatch(setDisplayType(type))
+  }
+
   return (
-    <div className="w-full">
+    <div className="basis-[80%]">
       <div className="items-center flex">
         <DropSearch header="Sort By:" text="All" />
         <DropSearch header="Sort By:" text="All" />
+        <div className="flex ml-8">
+          <img
+            src="/assets/sidebar.png"
+            className="mr-3 cursor-pointer"
+            alt=""
+            onClick={() => setDisplay('grid')}
+          />
+          <img
+            src="/assets/bars.png"
+            className="cursor-pointer"
+            alt=""
+            onClick={() => setDisplay('list')}
+          />
+        </div>
+      </div>
+      <div className="w-full my-8">
+        <HomeProducts isLoading={isLoading} data={data} />
       </div>
     </div>
   )

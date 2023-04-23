@@ -1,4 +1,5 @@
 import { useGetProductsCategoriesQuery } from '@/redux/services/store.slice'
+import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 import React, { useState } from 'react'
 
 const ExploreFilter = () => {
@@ -7,8 +8,8 @@ const ExploreFilter = () => {
   const { data, isLoading } = useGetProductsCategoriesQuery()
 
   return (
-    <div className="w-[235px]">
-      <h1 className="text-[32px] leading-[48px] font-poppins font-semibold">
+    <div className="basis-[20%]  mr-[50px]">
+      <h1 className="text-[28px] leading-[48px] font-poppins font-semibold">
         Market Place
       </h1>
       <div className="w-full bg-[#F5F7FF] py-3 px-6 mt-4 min-h-[80px]">
@@ -27,20 +28,26 @@ const ExploreFilter = () => {
               onClick={toggle}
             ></i>
           </div>
-          {expandCategory && isLoading ? (
-            <span>Loading...</span>
-          ) : (
-            expandCategory &&
-            data &&
-            data.map((category, index) => (
-              <span
-                key={index}
-                className="block font-poppins text-[13px] leading-[31px] py-1 cursor-pointer hover:font-semibold"
-              >
-                {category.label}
-              </span>
-            ))
-          )}
+          <div
+            className={`flex flex-col ${
+              expandCategory && 'h-[250px]'
+            } overflow-y-scroll`}
+          >
+            {expandCategory && isLoading ? (
+              <ListSkeleton />
+            ) : (
+              expandCategory &&
+              data &&
+              data.map((category, index) => (
+                <span
+                  key={index}
+                  className="block font-poppins text-[13px] leading-[31px] py-1 cursor-pointer hover:font-[600]"
+                >
+                  {category.label}
+                </span>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

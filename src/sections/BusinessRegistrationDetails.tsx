@@ -12,11 +12,19 @@ import { openModal } from '@/redux/reducer/modalReducer'
 import { useAdduserMutation } from '@/redux/services/auth.service'
 import { AuthError } from '@/interface/error.interface'
 import { toast } from 'react-toastify'
+import dynamic from 'next/dynamic'
+const CountryCodeSelector = dynamic(
+  () => import('../ui/input/PhoneCountryCodeInput'),
+  {
+    ssr: false,
+  }
+)
 
 const BusinessDetails = () => {
   const dispatch = useTypedDispatch()
   const { show } = useTypedSelector((state) => state.modal)
   const [addUser, { isLoading }] = useAdduserMutation()
+  const { countryCode } = useTypedSelector((state) => state.dashboard)
 
   const {
     register,
@@ -27,9 +35,13 @@ const BusinessDetails = () => {
   })
 
   const onSubmit = handleSubmit(async (info) => {
-    const result = { ...info, type: 'business' }
+    const formData = {
+      ...info,
+      phone: countryCode.dial_code + info.phone,
+      type: 'business',
+    }
     try {
-      await addUser(result).unwrap()
+      await addUser(formData).unwrap()
       dispatch(openModal())
     } catch (err) {
       if ((err as AuthError).data?.errors) {
@@ -70,13 +82,21 @@ const BusinessDetails = () => {
           placeholder="enter company email"
           register={register}
         />
-        <Input
+        {/* <Input
           title="Company phone number"
           name="phone"
           type="number"
           error={errors}
           placeholder="enter phone number"
           register={register}
+        /> */}
+        <CountryCodeSelector
+          register={register}
+          error={errors}
+          title="Phone Number"
+          name="phone"
+          type="number"
+          placeholder="enter phone number"
         />
         <Input
           title="Website"

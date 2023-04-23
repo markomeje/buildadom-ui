@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthError } from '@/interface/error.interface'
 import OtpInput from '@/lib/OTPInput'
-import { setUser } from '@/redux/reducer/tokenReducer'
+import { setToken, setUser } from '@/redux/reducer/tokenReducer'
 import { useVerifyNumberMutation } from '@/redux/services/auth.service'
 import { useTypedDispatch } from '@/redux/store'
 import Button from '@/ui/button/Button'
@@ -36,9 +36,10 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
         const data = { type: 'email', code: otp }
         const res = await verifyNumber(data).unwrap()
         if (res && res.user) {
+          dispatch(setToken({ token: res.user.token }))
           dispatch(setUser({ token: res.user.token }))
           toast.success('Email verfication successfull')
-          router.push('/register/success')
+          router.push('/merchant/register/success')
         }
       }
     } catch (error) {

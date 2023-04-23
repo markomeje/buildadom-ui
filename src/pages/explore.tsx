@@ -1,4 +1,5 @@
 import ExploreFilter from '@/components/ExploreFilter'
+import ExploreProducts from '@/components/ExploreProducts'
 // import ExploreProducts from '@/components/ExploreProducts'
 import MainLayout from '@/layouts/MainLAyout'
 import ExploreSearch from '@/ui/input/MarketSearch'
@@ -10,9 +11,9 @@ const Explore = () => {
       <div className="flex w-full  justify-end items-end">
         <ExploreSearch />
       </div>
-      <div className="my-8 flex">
+      <div className="my-6 w-full sticky  flex">
         <ExploreFilter />
-        {/* <ExploreProducts /> */}
+        <ExploreProducts />
       </div>
     </div>
   )
