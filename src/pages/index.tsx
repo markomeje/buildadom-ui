@@ -14,7 +14,7 @@ const Home = () => {
     dispatch(setDisplayType('grid'))
   }, [dispatch])
   return (
-    <div className="wrapper">
+    <div className="lg:wrapper">
       <HomeBanner />
       <div className="flex flex-col  px-6 lg:px-0 items-start py-8">
         <h2 className="text-[22px] leading-[33px] mb-6 font-poppins font-semibold">

@@ -41,6 +41,10 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+body {
+  width: 100%;
+}
+
 @layer components {
   @keyframes spinner {
     0% {

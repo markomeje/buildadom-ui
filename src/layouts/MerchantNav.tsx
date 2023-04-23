@@ -20,7 +20,7 @@ const MerchantNav = () => {
     router.push('/')
   }
   return (
-    <div className="sticky top-0 z-20">
+    <div className="sticky w-full top-0 z-20">
       <TopNav />
       <nav className="h-[92px] px-5 lg:px-0  bg-white shadow-sm sticky top-0 w-full">
         <div className="lg:wrapper flex items-center justify-between h-full">
