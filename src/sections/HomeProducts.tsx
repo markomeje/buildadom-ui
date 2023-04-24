@@ -37,7 +37,6 @@ const HomeProducts = ({ isLoading, data }: IProps) => {
                 reviews={product.reviews || '0'}
                 rating={product.rating || 1}
               />
-              // <d iv key={index}>hsaa</d>
             ))}
         </div>
       )}

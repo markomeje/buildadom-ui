@@ -1,21 +1,16 @@
-import ExploreFilter from '@/components/ExploreFilter'
-import ExploreProducts from '@/components/ExploreProducts'
-// import ExploreProducts from '@/components/ExploreProducts'
 import MainLayout from '@/layouts/MainLAyout'
-import ExploreSearch from '@/ui/input/MarketSearch'
+import ProductLayout from '@/layouts/ProdutLayout'
+import { useAllProductsQuery } from '@/redux/services/general.service'
+import HomeProducts from '@/sections/HomeProducts'
 import React, { ReactElement } from 'react'
 
 const Explore = () => {
+  const { data, isLoading } = useAllProductsQuery()
+
   return (
-    <div className="mt-12 wrapper w-full pb-12">
-      <div className="flex w-full  justify-end items-end">
-        <ExploreSearch />
-      </div>
-      <div className="my-6 w-full sticky  flex">
-        <ExploreFilter />
-        <ExploreProducts />
-      </div>
-    </div>
+    <ProductLayout>
+      <HomeProducts isLoading={isLoading} data={data} />
+    </ProductLayout>
   )
 }
 

@@ -75,6 +75,10 @@ body {
     padding: 30px;
   }
 
+  .backGround {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.14);
+  }
+
   .backdrop {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87)),
       url('/assets/raleway.png');

@@ -33,7 +33,7 @@ const MyStore = () => {
           <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
-      {!isLoading && data.data.length > 0 ? (
+      {!isLoading && data && data?.data?.length > 0 ? (
         <>
           <div className="w-full flex items-end  justify-end">
             <button
