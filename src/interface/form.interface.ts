@@ -2,7 +2,7 @@ export interface IndividalMechant {
   firstname: string
   lastname: string
   email: string
-  phonenumber: string
+  phone: string
   password: string
   confirm_password: string
 }

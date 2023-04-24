@@ -22,7 +22,7 @@ const SignupSuccess = () => {
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, odio.
         Nam, dolore. Quaerat totam maiores nostrum, fugit deserunt nam enim.
       </p>
-      <div className="flex flex-col lg:flex-row w-full px-4 lg:px-0 py-3">
+      <div className="flex flex-col items-center justify-center lg:flex-row w-full px-4 lg:px-0 py-3">
         <Button
           onClick={() => redirect('/merchant/dashboard/create-store')}
           title="Skip"

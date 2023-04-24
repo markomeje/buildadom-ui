@@ -1,4 +1,4 @@
-import LandingPage from '@/layouts/LandingPage'
+import MainLayout from '@/layouts/MainLAyout'
 import React, { ReactElement } from 'react'
 
 const CustomNotFound = () => {
@@ -15,5 +15,5 @@ const CustomNotFound = () => {
 export default CustomNotFound
 
 CustomNotFound.getLayout = function getLayout(page: ReactElement) {
-  return <LandingPage>{page}</LandingPage>
+  return <MainLayout>{page}</MainLayout>
 }

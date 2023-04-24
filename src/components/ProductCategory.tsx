@@ -20,6 +20,7 @@ const ProductCategory = ({ header, products }: IProps) => {
             img={
               (product.images && product.images[0]?.url) || '/assets/paint.png'
             }
+            name={product.name}
             price={`$${product.price}`}
             description={product.description}
             reviews={product.reviews || '0'}

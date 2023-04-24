@@ -19,6 +19,7 @@ export const initialState: CountryState = {
   },
   city: '',
   newProduct: {
+    name: '',
     id: 0,
     img: '',
     rating: 0,

@@ -29,6 +29,7 @@ export interface IProduct {
   reviews: string
   description: string
   price: string
+  name: string
 }
 
 export interface IDropdown {
