@@ -23,9 +23,11 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
   }, [status])
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (otp.length !== 6) return toast('commplete code')
+    if (otp.length !== 6) return toast.error('complete code')
     try {
       if (type === 'phone') {
+        console.log('logg')
+
         const data = { type: 'phone', code: otp }
         await verifyNumber(data).unwrap()
         toast.success('Phone verfication successfull, check you mail please ')

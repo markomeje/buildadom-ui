@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { IProduct } from '@/interface/dashboard'
 import { useTypedSelector } from '@/redux/store'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,10 +13,15 @@ const ProductCard = ({
   name,
   price,
 }: IProduct) => {
+  const router = useRouter()
+  const redirect = (id: string) => {
+    router.push(`/product/${id}`)
+  }
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
   return (
     <div
+      onClick={() => redirect('1')}
       className={`flex w-full lg:w-auto mb-4 lg:border-none border-b border-r border-gray-200 p-2  ${
         isGrid
           ? 'flex-col'
@@ -26,7 +32,7 @@ const ProductCard = ({
         <img
           src={img}
           alt="product image"
-          className={`w-[100%] object-center  h-[200px] ${
+          className={`w-[100%] object-center cursor-pointer  h-[200px] ${
             isGrid ? 'lg:h-[156px] lg:w-[200px]' : 'h-[250px] w-[250px]'
           } object-cover`}
         />
@@ -89,7 +95,13 @@ const ProductCard = ({
 
 export default ProductCard
 
-const Rating = ({ rating, review }: { rating: number; review: string }) => {
+export const Rating = ({
+  rating,
+  review,
+}: {
+  rating: number
+  review: string
+}) => {
   return (
     <div className="pt-2 flex items-center">
       {[...Array(5)].map((start, index) => {
