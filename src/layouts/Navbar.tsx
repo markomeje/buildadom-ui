@@ -17,8 +17,8 @@ function Navbar() {
         <div className="wrapper flex items-center justify-between h-full">
           <Logo img="/assets/logo.png" />
           <Button
-            title={`${isReg ? 'login' : 'Register'}`}
-            classNames="px-[30px] py-[8px] md:py-[12px] text-[11px] md:text-[14px] font-poppins leading-[21px] rounded-[50px]"
+            title={`Register / Login`}
+            classNames="px-[30px] py-[8px] md:py-[12px] text-[11px] md:text-[12px] font-poppins leading-[21px] rounded-[50px]"
             onClick={redirect}
           />
         </div>

@@ -5,14 +5,15 @@ import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 import React from 'react'
 
 type IProps = {
-  isLoading: boolean
-  data: IProduct[]
+  isLoading: boolean | undefined
+  data: IProduct[] | undefined
 }
 
 const HomeProducts = ({ isLoading, data }: IProps) => {
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
   console.log(data)
+  console.log(data, ' ddd')
 
   return (
     <>
@@ -20,7 +21,7 @@ const HomeProducts = ({ isLoading, data }: IProps) => {
       {!isLoading && (
         <div
           className={`flex w-full ${
-            isGrid ? 'flex-row lg:gap-6 flex-wrap' : 'flex-col lg:gap-3'
+            isGrid ? 'flex-row  flex-wrap' : 'flex-col lg:gap-3'
           } my-4 lg:my-0 items-start `}
         >
           {data &&

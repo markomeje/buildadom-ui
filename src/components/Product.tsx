@@ -53,7 +53,9 @@ const ProductCard = ({
       >
         <h2
           className={`text-[15px] ${
-            isGrid ? 'text-bd-blue && mb-1' : 'text-[24px] mb-3 leading-[36px]'
+            isGrid
+              ? 'text-bd-blue w-[220px] mb-1'
+              : 'text-[24px] mb-3 leading-[36px]'
           } font-poppins font-semibold`}
         >
           {name}
@@ -100,7 +102,7 @@ export const Rating = ({
   review,
 }: {
   rating: number
-  review: string
+  review?: string
 }) => {
   return (
     <div className="pt-2 flex items-center">
@@ -116,7 +118,11 @@ export const Rating = ({
           </div>
         )
       })}
-      <span className="text-[#8C8C8C] font-poppins text-[12px] leading-[25px]">
+      <span
+        className={`text-[#8C8C8C] font-poppins text-[12px] leading-[25px] ${
+          review ? 'block' : 'hidden'
+        }`}
+      >
         Reviews ({review})
       </span>
     </div>

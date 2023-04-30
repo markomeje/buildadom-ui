@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Button from '@/ui/button/Button'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Slider from 'react-slick'
@@ -77,12 +76,12 @@ const HomeBanner = () => {
                   Bringing the market to the customer
                 </h2>
                 <div className="flex lg:flex-row w-full flex-col items-center mt-7 justify-center">
-                  <Button
+                  {/* <Button
                     title="Buy from Buildadom"
                     classNames="bg-bd-blue mb-5 lg:mb-0 w-[280px] lg:w-[191px] h-[44px] mr-4 rounded-[50px] py-[8px] px-[26px] text-white font-poppins text-[13px]"
-                  />
+                  /> */}
                   <button
-                    className="bg-white font-semibold border-none text-bd-blue w-[280px] lg:w-[191px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]"
+                    className="text-white font-semibold hover:bg-white hover:text-bd-blue duration-500 border-none bg-bd-blue w-[280px] lg:w-[280px] h-[44px] rounded-[50px]  py-[8px] px-[26px] font-poppins text-[13px]"
                     onClick={() => redirect('/merchant')}
                   >
                     Sell On Buildadom

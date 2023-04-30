@@ -19,6 +19,7 @@ input::-webkit-inner-spin-button {
 /* width */
 ::-webkit-scrollbar {
   width: 0px;
+  height: 0px;
 }
 
 /* Track */
@@ -33,7 +34,7 @@ input::-webkit-inner-spin-button {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: transparent;
 }
 
 /* Firefox */
@@ -61,6 +62,10 @@ body {
     border-top: 10px solid #0156ff; /* Black */
     border-radius: 50%;
     animation: spinner 1.5s linear infinite;
+  }
+
+  .backG {
+    background: rgba(2, 2, 3, 0.3);
   }
 
   .wrapper {

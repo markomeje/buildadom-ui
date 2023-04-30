@@ -29,12 +29,15 @@ const MerchantNav = () => {
             className={`ri-menu-3-fill text-[28px] block lg:hidden`}
             onClick={toggle}
           ></i>
-          <img
-            src="/assets/profile.png"
-            alt="profile"
-            className="w-[36px] h-[36px] hidden lg:block rounded-[36px] object-cover cursor-pointer"
-            onClick={logout}
-          />
+          <div className="flex item-center justify-center">
+            <img
+              src="/assets/profile.png"
+              alt="profile"
+              className="w-[36px] h-[36px] mr-2 hidden lg:block rounded-[36px] object-cover cursor-pointer"
+              onClick={logout}
+            />
+            <i className="ri-arrow-down-s-line text-gray-500 mt-4 text-[16px]"></i>
+          </div>
         </div>
       </nav>
 

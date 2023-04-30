@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { IProduct } from '@/interface/general.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // auth service build
@@ -22,7 +23,15 @@ export const generalApi = createApi({
         return response.products
       },
     }),
+    getQueryByCategory: builder.query<any, { category: number }>({
+      query: (category) => ({
+        url: `products?limit=10&category=${category}`,
+      }),
+      transformResponse: (response: { products: IProduct[] }) => {
+        return response.products
+      },
+    }),
   }),
 })
 
-export const { useAllProductsQuery } = generalApi
+export const { useAllProductsQuery, useGetQueryByCategoryQuery } = generalApi

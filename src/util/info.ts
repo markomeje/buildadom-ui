@@ -15,7 +15,7 @@ export default info
 export const Links = [
   {
     name: 'Store',
-    href: '/store',
+    href: '/stores',
   },
   {
     name: 'Categories',
