@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { AuthError } from '@/interface/error.interface'
-import { useMerchantStoreDetailsQuery } from '@/redux/services/store.slice'
+import { useMerchantStoreDetailsQuery } from '@/redux/services/merchant'
 import { useImageUploadMutation } from '@/redux/services/validation.service'
 import StoreInfoSkeleton from '@/ui/skeletonLoader/StoreInfoSkeleton'
 import { useRouter } from 'next/router'

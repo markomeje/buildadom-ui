@@ -9,7 +9,7 @@ import { authApi } from './services/auth.service'
 import { tokenReducer, tokenSlice } from './reducer/tokenReducer'
 import { validationApi } from './services/validation.service'
 import countryReducer, { CountrySlice } from './reducer/countryReducer'
-import { storeApi } from './services/store.slice'
+import { storeApi } from './services/merchant'
 import { utilityApi } from './services/utility.slice'
 import { generalApi } from './services/general.service'
 

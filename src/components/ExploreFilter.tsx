@@ -1,5 +1,5 @@
 import { setCategotyId } from '@/redux/reducer/countryReducer'
-import { useGetProductsCategoriesQuery } from '@/redux/services/store.slice'
+import { useGetProductsCategoriesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 import React, { useState } from 'react'

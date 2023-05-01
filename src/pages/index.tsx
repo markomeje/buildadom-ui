@@ -1,16 +1,14 @@
 import MainLayout from '@/layouts/MainLAyout'
 import HomeBanner from '@/sections/HomeBanner'
 import HomeProducts from '@/sections/HomeProducts'
-import { useAllProductsQuery } from '@/redux/services/general.service'
-
 import React, { ReactElement, useEffect } from 'react'
 import { useTypedDispatch } from '@/redux/store'
 import { setDisplayType } from '@/redux/reducer/modalReducer'
 import Banner from '@/components/Banner'
 import Link from 'next/link'
-import { stores } from '@/sections/StorePageBody'
 import StoreCollections from '@/sections/StoreCollections'
 import Subscriptions from '@/sections/Subscriptions'
+import { useAllProductsQuery } from '@/redux/services/general.service'
 
 const Home = () => {
   const { data, isLoading } = useAllProductsQuery()
@@ -37,12 +35,7 @@ const Home = () => {
           <HomeProducts isLoading={isLoading} data={data && data.slice(0, 5)} />
         </div>
         <Banner />
-        {stores &&
-          stores.slice(0, 4).map((store, index) => {
-            return (
-              <StoreCollections key={index} name={store.name} img={store.img} />
-            )
-          })}
+        <StoreCollections />
         <Subscriptions />
       </div>
     </div>

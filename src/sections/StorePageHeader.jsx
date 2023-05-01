@@ -1,5 +1,5 @@
 import CategoryGroups from '@/components/CategoryBar'
-import { useGetProductsCategoriesQuery } from '@/redux/services/store.slice'
+import { useGetProductsCategoriesQuery } from '@/redux/services/merchant'
 import ExploreSearch from '@/ui/input/MarketSearch'
 import React from 'react'
 

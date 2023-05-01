@@ -6,7 +6,7 @@ import {
   useAddProductMutation,
   useGetProductsCategoriesQuery,
   useMerchantStoreDetailsQuery,
-} from '@/redux/services/store.slice'
+} from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import InputSelect from '@/ui/input/InputSelect'

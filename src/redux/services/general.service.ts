@@ -14,15 +14,27 @@ export const generalApi = createApi({
   }),
   endpoints: (builder) => ({
     // QUERIES
-    allProducts: builder.query<any, void>({
+    allProducts: builder.query<IProduct[], void>({
       query: () => ({
         url: '/products',
         keepUnusedDataFor: 0.0001,
       }),
-      transformResponse: (response: { products: any }, meta, arg) => {
+      transformResponse: (response: { products: IProduct[] }, meta, arg) => {
         return response.products
       },
     }),
+
+    allStores: builder.query<any, number>({
+      query: (limit: number) => ({
+        url: `stores?limit=${limit}`,
+      }),
+      transformResponse: (response: { stores: { data: any } }, meta, arg) => {
+        console.log(response, 'dddd')
+
+        return response.stores.data
+      },
+    }),
+
     getQueryByCategory: builder.query<any, { category: number }>({
       query: (category) => ({
         url: `products?limit=10&category=${category}`,
@@ -34,4 +46,8 @@ export const generalApi = createApi({
   }),
 })
 
-export const { useAllProductsQuery, useGetQueryByCategoryQuery } = generalApi
+export const {
+  useAllProductsQuery,
+  useGetQueryByCategoryQuery,
+  useAllStoresQuery,
+} = generalApi

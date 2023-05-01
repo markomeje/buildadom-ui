@@ -1,7 +1,7 @@
 import CategoryGroups from '@/components/CategoryBar'
 import { Rating } from '@/components/Product'
 import { IStore } from '@/components/StoreModel'
-import { useGetProductsCategoriesQuery } from '@/redux/services/store.slice'
+import { useGetProductsCategoriesQuery } from '@/redux/services/merchant'
 import Button from '@/ui/button/Button'
 import ExploreSearch from '@/ui/input/MarketSearch'
 import Image from 'next/image'
