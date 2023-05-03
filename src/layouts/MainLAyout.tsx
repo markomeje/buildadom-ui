@@ -7,11 +7,11 @@ type IProps = {
 
 function MainLayout({ children }: IProps) {
   return (
-    <div>
+    <section>
       <DashboardNav />
       <main>{children}</main>
       <Footer />
-    </div>
+    </section>
   )
 }
 

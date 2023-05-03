@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
-
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.buildadom.net/api/v1',
+    baseUrl: 'https://dev.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
   }),
   extractRehydrationInfo(action, { reducerPath }) {

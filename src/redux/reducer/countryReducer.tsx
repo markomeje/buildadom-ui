@@ -8,6 +8,7 @@ interface CountryState {
   city: string
   newProduct: IProduct
   countryCode: IPhone
+  categoryId: string
 }
 
 export const initialState: CountryState = {
@@ -27,6 +28,7 @@ export const initialState: CountryState = {
     description: '',
     price: '',
   },
+  categoryId: '',
   countryCode: {
     dial_code: '',
     flag: '',
@@ -51,10 +53,18 @@ export const CountrySlice = createSlice({
     setCountryCode: (state, action: PayloadAction<IPhone>) => {
       state.countryCode = action.payload
     },
+    setCategotyId: (state, action: PayloadAction<string>) => {
+      state.categoryId = action.payload
+    },
   },
 })
 
-export const { setCountry, setCity, setAddedStepper, setCountryCode } =
-  CountrySlice.actions
+export const {
+  setCountry,
+  setCity,
+  setAddedStepper,
+  setCategotyId,
+  setCountryCode,
+} = CountrySlice.actions
 
 export default CountrySlice.reducer

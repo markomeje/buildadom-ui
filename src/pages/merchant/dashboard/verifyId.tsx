@@ -22,7 +22,7 @@ const IdVerification = () => {
   return (
     <div className="max-w-[800px] mx-auto py-16">
       <h1 className="font-poppins font-semibold leading-[60px] pb-4 text-center text-[32px] text-bd-black">
-        Merchant Id Validation
+        Merchant ID Validation
       </h1>
       {<UseStepper step={step} stepObject={IDValidationStepper} />}
     </div>

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { AuthError } from '@/interface/error.interface'
 import Button from '@/ui/button/Button'
 import { useTypedSelector } from '@/redux/store'
-import { useCreateStoreMutation } from '@/redux/services/store.slice'
+import { useCreateStoreMutation } from '@/redux/services/merchant'
 import SearchInput from '@/ui/input/SelectInput'
 import Input from '@/ui/input/TextInput'
 import TextArea from '@/ui/input/TextArea'
@@ -31,7 +31,7 @@ const CreateStore = () => {
     try {
       const response = await createStore(data).unwrap()
       console.log(response)
-      router.push('/dashboard')
+      router.push('/merchant/dashboard')
     } catch (err) {
       const error = (err as AuthError).data.errors
         ? (err as AuthError).data.errors.name[0]

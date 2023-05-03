@@ -7,7 +7,13 @@ import ExploreSearch from '@/ui/input/MarketSearch'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const DropSearch = ({ header, text }: { header: string; text: string }) => {
+export const DropSearch = ({
+  header,
+  text,
+}: {
+  header: string
+  text: string
+}) => {
   return (
     <div className="min-w-[176px] mr-2 h-[50px] flex items-center justify-center border-[2px] border-[#CCCCCC] rounded-[2px]">
       <b className="text-[13px] font-semibold font-poppins">{header}</b>{' '}

@@ -9,8 +9,8 @@ import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import { openModal } from '@/redux/reducer/modalReducer'
 import { useAdduserMutation } from '@/redux/services/auth.service'
 import { AuthError } from '@/interface/error.interface'
-import { toast } from 'react-toastify'
 import dynamic from 'next/dynamic'
+import { setValidationErrors } from '@/redux/reducer/errorReducer'
 
 const CountryCodeSelector = dynamic(
   () => import('../input/PhoneCountryCodeInput'),
@@ -42,9 +42,7 @@ const MechantIndividualRegistration = () => {
       dispatch(openModal())
     } catch (err) {
       if ((err as AuthError).data?.errors) {
-        for (const value of Object.values((err as AuthError).data?.errors)) {
-          toast.error(value[0])
-        }
+        dispatch(setValidationErrors((err as AuthError).data.errors))
       }
     }
   })

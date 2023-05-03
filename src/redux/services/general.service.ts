@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { IProduct } from '@/interface/general.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // auth service build
@@ -8,21 +9,45 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const generalApi = createApi({
   reducerPath: 'generalApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.buildadom.net/api/v1',
+    baseUrl: 'https://dev.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
   }),
   endpoints: (builder) => ({
     // QUERIES
-    allProducts: builder.query<any, void>({
+    allProducts: builder.query<IProduct[], void>({
       query: () => ({
         url: '/products',
         keepUnusedDataFor: 0.0001,
       }),
-      transformResponse: (response: { products: any }, meta, arg) => {
+      transformResponse: (response: { products: IProduct[] }, meta, arg) => {
+        return response.products
+      },
+    }),
+
+    allStores: builder.query<any, number>({
+      query: (limit: number) => ({
+        url: `stores?limit=${limit}`,
+      }),
+      transformResponse: (response: { stores: { data: any } }, meta, arg) => {
+        console.log(response, 'dddd')
+
+        return response.stores.data
+      },
+    }),
+
+    getQueryByCategory: builder.query<any, { category: number }>({
+      query: (category) => ({
+        url: `products?limit=10&category=${category}`,
+      }),
+      transformResponse: (response: { products: IProduct[] }) => {
         return response.products
       },
     }),
   }),
 })
 
-export const { useAllProductsQuery } = generalApi
+export const {
+  useAllProductsQuery,
+  useGetQueryByCategoryQuery,
+  useAllStoresQuery,
+} = generalApi

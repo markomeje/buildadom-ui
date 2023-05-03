@@ -15,8 +15,13 @@ function TopNav() {
           </span>
         </div>
         <div className="flex text-[#ACACAC] items-center">
-          <span>For advert placements & store features on House Depot</span>
-          <Link href={''} className="font-bold ml-2 text-white underline ">
+          <span className="font-poppins">
+            For advert placements & store features on Buildadom
+          </span>
+          <Link
+            href={''}
+            className="font-bold font-poppins ml-2 text-white underline "
+          >
             Contact Us
           </Link>
         </div>

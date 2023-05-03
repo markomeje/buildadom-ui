@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { City } from '@/interface/general.interface'
 import { setCity } from '@/redux/reducer/countryReducer'
-import { useGetCitiesQuery } from '@/redux/services/store.slice'
+import { useGetCitiesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import React, { useState } from 'react'
 

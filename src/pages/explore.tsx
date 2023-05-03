@@ -1,15 +1,29 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import MainLayout from '@/layouts/MainLAyout'
 import ProductLayout from '@/layouts/ProdutLayout'
-import { useAllProductsQuery } from '@/redux/services/general.service'
+import {
+  useAllProductsQuery,
+  useGetQueryByCategoryQuery,
+} from '@/redux/services/general.service'
+import { useTypedSelector } from '@/redux/store'
 import HomeProducts from '@/sections/HomeProducts'
 import React, { ReactElement } from 'react'
 
 const Explore = () => {
-  const { data, isLoading } = useAllProductsQuery()
-
+  let loading, info
+  const { categoryId } = useTypedSelector((state) => state.dashboard)
+  if (!categoryId) {
+    const res = useAllProductsQuery()
+    loading = res.isLoading
+    info = res.data
+  } else {
+    const res = useGetQueryByCategoryQuery(categoryId)
+    loading = res.isLoading
+    info = res.data
+  }
   return (
     <ProductLayout>
-      <HomeProducts isLoading={isLoading} data={data} />
+      <HomeProducts isLoading={loading} data={info} />
     </ProductLayout>
   )
 }

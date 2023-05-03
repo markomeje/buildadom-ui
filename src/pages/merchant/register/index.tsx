@@ -39,7 +39,7 @@ const Register = () => {
             onClick={() => redirect('/merchant/register/individual')}
           />
           <Button
-            title="Register as an business"
+            title="Register as a business"
             classNames="w-full  py-[14px] px-[51px] rounded-[50px]"
             onClick={() => redirect('/merchant/register/business')}
           />

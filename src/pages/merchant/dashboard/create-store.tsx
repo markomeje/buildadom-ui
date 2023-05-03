@@ -39,6 +39,7 @@ MerchantDashboard.getLayout = function getLayout(page: ReactElement) {
 }
 
 const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
+  console.log(data, 'dataa mercgat')
   const router = useRouter()
   if (loading) return null
   if (data == null) {
@@ -55,7 +56,10 @@ const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
         title="Start ID Validation Now"
       />
     )
-  } else if (data !== null && data?.images?.length === 0) {
+  } else if (
+    (data !== null && data?.image === null) ||
+    data?.image === undefined
+  ) {
     return (
       <Button
         classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"

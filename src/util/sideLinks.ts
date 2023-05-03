@@ -2,7 +2,7 @@ const BASE_URL = '/merchant/dashboard'
 export const sideLinks = [
   {
     name: 'Account Dashboard',
-    link: `${BASE_URL}/store`,
+    link: `${BASE_URL}`,
   },
   {
     name: 'Account & Payment (Escrow)',

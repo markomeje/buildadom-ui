@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useTypedSelector } from '@/redux/store'
 import React from 'react'
 
 type IProps = {
@@ -20,6 +21,9 @@ const TextArea = ({
   register,
   error,
 }: IProps) => {
+  const { validationErrors } = useTypedSelector(
+    (state) => state.validationError
+  )
   return (
     <div className="flex my-3  flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
@@ -39,6 +43,11 @@ const TextArea = ({
       <span className="mt-1 font-poppins text-red-400 text-[13px]">
         {error && error[`${name}`]?.message}
       </span>
+      {validationErrors[name] && (
+        <p className="font-poppins text-red-400 text-[13px]">
+          {validationErrors[name].join(',')}
+        </p>
+      )}
     </div>
   )
 }

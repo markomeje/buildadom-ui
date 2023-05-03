@@ -31,6 +31,11 @@ const PhoneCountryCodeInput = ({
   title,
 }: TextProps) => {
   const [show, setShow] = useState<boolean>(false)
+  const { validationErrors } = useTypedSelector(
+    (state) => state.validationError
+  )
+  const isErr =
+    validationErrors[name] && validationErrors[name].length > 0 ? true : false
   const [selected, setSelected] = useState<string>('+234')
   const { countryCode: data } = useTypedSelector((state) => state.dashboard)
   const dispatch = useTypedDispatch()
@@ -47,7 +52,9 @@ const PhoneCountryCodeInput = ({
       <div className="w-full flex items-center">
         <div
           onClick={() => setShow(!show)}
-          className="w-[25%] cursor-pointer mr-2  flex items-center focus:outline-none bg-transparent justify-center  text-gray-800 font-raleWay text-[18px] border border-[#8C8C8C] rounded-l-[8px] h-[50px]"
+          className={`w-[25%] cursor-pointer mr-2  flex items-center focus:outline-none bg-transparent justify-center  text-gray-800 font-raleWay text-[18px] border  rounded-l-[8px] h-[50px] ${
+            isErr ? 'border-red-400' : ' border-[#8C8C8C]'
+          }`}
         >
           <div
             className=" w-[25px] hidden md:block md:w-[30px] mt-2 h-[25px] md:h-[30px]"
@@ -61,7 +68,9 @@ const PhoneCountryCodeInput = ({
           <i className="ri-arrow-down-s-line text-[20px] font-clash ml-1"></i>
         </div>
         <input
-          className="w-full border block  border-[#8C8C8C] focus:outline-none h-[50px] rounded-r-[5px] px-4 text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
+          className={`w-full border block   ${
+            isErr ? 'border-red-300' : 'border-[#8C8C8C]'
+          } focus:outline-none h-[50px] rounded-r-[5px] px-4 text-gray-800 placeholder:text-[#8C8C8C] font-poppins`}
           type={type}
           placeholder={placeholder}
           {...register('phone', { required: `${name} is required` })}
@@ -78,6 +87,11 @@ const PhoneCountryCodeInput = ({
       <span className="mt-1 block font-poppins text-red-400 text-[13px]">
         {error && error[`${name}`]?.message}
       </span>
+      {validationErrors[name] && (
+        <p className="font-poppins text-red-400 text-[13px]">
+          {validationErrors[name].join(',')}
+        </p>
+      )}
     </div>
   )
 }

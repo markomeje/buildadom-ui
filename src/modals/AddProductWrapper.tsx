@@ -1,12 +1,14 @@
 import { AuthError } from '@/interface/error.interface'
 import { setAddedStepper } from '@/redux/reducer/countryReducer'
+import { setValidationErrors } from '@/redux/reducer/errorReducer'
 import { closeModal } from '@/redux/reducer/modalReducer'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import {
   useAddProductMutation,
   useGetProductsCategoriesQuery,
   useMerchantStoreDetailsQuery,
-} from '@/redux/services/store.slice'
+} from '@/redux/services/merchant'
+import { useGetCurrenciesQuery } from '@/redux/services/utility.slice'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import InputSelect from '@/ui/input/InputSelect'
@@ -16,12 +18,12 @@ import { productSchema } from '@/validationschema/storeScema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 
 const AddProductModal = () => {
   const dispatch = useTypedDispatch()
   const { data: storeInfo } = useMerchantStoreDetailsQuery()
   const { data } = useGetProductsCategoriesQuery()
+  const { data: currencies } = useGetCurrenciesQuery()
   const [addProduct, { isLoading }] = useAddProductMutation()
   const { newProduct } = useTypedSelector((state) => state.dashboard)
 
@@ -45,9 +47,11 @@ const AddProductModal = () => {
     setValue('price', newProduct.price)
     setValue('quantity', newProduct.quantity)
     setValue('category', newProduct.category_id)
+    setValue('currency_id', newProduct.currency_id)
   }, [newProduct, setValue])
 
   const onSubmit = handleSubmit(async (info) => {
+    console.log(info, 'infooo')
     const formData = new FormData()
     if (storeInfo) {
       console.log(storeInfo, info)
@@ -56,14 +60,21 @@ const AddProductModal = () => {
       formData.append('price', info.price)
       formData.append('quantity', info.quantity)
       formData.append('category_id', info.category)
+      formData.append('currency_id', info.currency_id)
       formData.append('store_id', storeInfo.id.toString())
       try {
+        // // if (newProduct && Object.keys(newProduct).length > 0) {
+        //   const res = await updateProduct(formData).unwrap()
+        //   dispatch(setAddedStepper(res))
+        //   dispatch(setStepper(2))
+        // } else {
         const res = await addProduct(formData).unwrap()
         dispatch(setAddedStepper(res))
         dispatch(setStepper(2))
+        // }
       } catch (err) {
-        const error = (err as AuthError).data.message
-        toast.error(error)
+        console.log(err, 'errorsss')
+        dispatch(setValidationErrors((err as AuthError).data.errors))
       }
     }
   })
@@ -112,6 +123,13 @@ const AddProductModal = () => {
           errors={errors}
           label="Prdouct Category"
           name="category"
+        />
+        <InputSelect
+          data={currencies && currencies}
+          control={control}
+          errors={errors}
+          label="Select Currency"
+          name="currency_id"
         />
         <TextArea
           title="Description"

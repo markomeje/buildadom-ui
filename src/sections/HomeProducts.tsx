@@ -1,3 +1,4 @@
+import EmptyState from '@/components/EmptyState'
 import ProductCard from '@/components/Product'
 import { IProduct } from '@/interface/general.interface'
 import { useTypedSelector } from '@/redux/store'
@@ -5,25 +6,26 @@ import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 import React from 'react'
 
 type IProps = {
-  isLoading: boolean
-  data: IProduct[]
+  isLoading: boolean | undefined
+  data: IProduct[] | undefined
 }
 
 const HomeProducts = ({ isLoading, data }: IProps) => {
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
   console.log(data)
+  console.log(data, ' ddd')
 
   return (
-    <>
+    <div className="w-full">
       {isLoading && <ProductSkeleton amount={10} className="lg:grid-cols-5" />}
       {!isLoading && (
         <div
           className={`flex w-full ${
-            isGrid ? 'flex-row lg:gap-6 flex-wrap' : 'flex-col lg:gap-3'
+            isGrid ? 'flex-row  flex-wrap' : 'flex-col lg:gap-3'
           } my-4 lg:my-0 items-start `}
         >
-          {data &&
+          {data && data.length > 0 ? (
             data.map((product: IProduct) => (
               <ProductCard
                 key={product.id}
@@ -37,10 +39,15 @@ const HomeProducts = ({ isLoading, data }: IProps) => {
                 reviews={product.reviews || '0'}
                 rating={product.rating || 1}
               />
-            ))}
+            ))
+          ) : (
+            <div className="w-full py-4 flex">
+              <EmptyState showButton={false} message="NO PRODUCTS UPLOADED" />
+            </div>
+          )}
         </div>
       )}
-    </>
+    </div>
   )
 }
 

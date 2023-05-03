@@ -9,16 +9,38 @@ import Link from 'next/link'
 import { sideLinks } from '@/util/sideLinks'
 import { IDropdown } from '@/interface/dashboard'
 
-const MerchantNav = () => {
-  const [mobileDisplay, setMobileDisplay] = useState(false)
-  const toggle = () => {
-    setMobileDisplay(!mobileDisplay)
-  }
+const LogoutModal = ({ close }: { close: () => void }) => {
   const router = useRouter()
   const logout = () => {
+    close()
     removeUserCookie()
     router.push('/')
   }
+  return (
+    <button
+      className="w-[180px] py-2 shadow-md absolute right-4 bg-white border border-gray-200 px-4 flex items-center"
+      onClick={logout}
+    >
+      <i className="ri-logout-circle-r-line "></i>
+      <span className="font-poppins ml-2 text-[16px]  font-[500]">Logout</span>
+    </button>
+  )
+}
+
+const MerchantNav = () => {
+  const [mobileDisplay, setMobileDisplay] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
+  const toggle = () => {
+    setMobileDisplay(!mobileDisplay)
+  }
+  const logoutToggle = () => {
+    setLogoutModal(!logoutModal)
+  }
+
+  const closeLogoutModal = () => {
+    setLogoutModal(false)
+  }
+
   return (
     <div className="sticky w-full top-0 z-20">
       <TopNav />
@@ -29,14 +51,20 @@ const MerchantNav = () => {
             className={`ri-menu-3-fill text-[28px] block lg:hidden`}
             onClick={toggle}
           ></i>
-          <img
-            src="/assets/profile.png"
-            alt="profile"
-            className="w-[36px] h-[36px] hidden lg:block rounded-[36px] object-cover cursor-pointer"
-            onClick={logout}
-          />
+          <div className="hidden lg:flex items-center ">
+            <img
+              src="/assets/profile.png"
+              alt="profile"
+              className="w-[36px] h-[36px] mr-2 hidden lg:block rounded-[36px] object-cover cursor-pointer"
+            />
+            <i
+              className="ri-arrow-down-s-line hidden lg:block  cursor-pointer text-gray-500  text-[20px]"
+              onClick={logoutToggle}
+            ></i>
+          </div>
         </div>
       </nav>
+      {logoutModal && <LogoutModal close={closeLogoutModal} />}
 
       <MobileDropDown
         show={mobileDisplay}

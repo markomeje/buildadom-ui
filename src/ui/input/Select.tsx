@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Country } from '@/interface/general.interface'
 import { setCountry } from '@/redux/reducer/countryReducer'
-import { useGetCountriesQuery } from '@/redux/services/store.slice'
+import { useGetCountriesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import React, { useState } from 'react'
 type IProps = {
