@@ -15,7 +15,7 @@ import { RootState } from '../store'
 export const storeApi = createApi({
   reducerPath: 'storeApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.buildadom.net/api/v1',
+    baseUrl: 'https://dev.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
     prepareHeaders: (headers, { getState, endpoint }) => {
       const user = (getState() as RootState).authToken.loggedUser
@@ -66,7 +66,7 @@ export const storeApi = createApi({
 
     merchantStoreDetails: builder.query<IStore, void>({
       query: () => ({ url: '/marchant/store' }),
-      transformResponse: (response: { store: any }, meta, arg) => {
+      transformResponse: (response: { store: IStore }, meta, arg) => {
         return response.store
       },
       providesTags: ['Store'],
@@ -102,6 +102,18 @@ export const storeApi = createApi({
       },
       invalidatesTags: ['Product'],
     }),
+
+    updateProduct: builder.mutation<any, any>({
+      query: (data: any, id: any) => ({
+        url: `/marchant/product/update/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      transformResponse: (response: { product: IProduct }, meta, arg) => {
+        return response.product
+      },
+      invalidatesTags: ['Product'],
+    }),
   }),
 })
 
@@ -111,6 +123,7 @@ export const {
   useAddProductMutation,
   useGetProductsCategoriesQuery,
   useGetCitiesQuery,
+  useUpdateProductMutation,
   useCreateStoreMutation,
   useMerchantStoreDetailsQuery,
 } = storeApi

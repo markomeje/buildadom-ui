@@ -14,6 +14,7 @@ import { useGetMerchatProductsQuery } from '@/redux/services/merchant'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { specificModal } from '@/redux/reducer/modalReducer'
 import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
+import { locateMerchantProducts } from '@/util/locateImg'
 const MyStore = () => {
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
@@ -21,7 +22,6 @@ const MyStore = () => {
   )
   const { step } = useTypedSelector((state) => state.stepper)
   const { data, isLoading } = useGetMerchatProductsQuery()
-  console.log(data, 'data')
   const handleClick = () => {
     dispatch(specificModal('product'))
     dispatch(setStepper(1))
@@ -33,7 +33,7 @@ const MyStore = () => {
           <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
-      {!isLoading && data && data?.data?.length > 0 ? (
+      {!isLoading && data && locateMerchantProducts(data).length > 0 ? (
         <>
           <div className="w-full flex items-end  justify-end">
             <button
@@ -43,13 +43,20 @@ const MyStore = () => {
               <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
             </button>
           </div>
-          <ProductCategory header={'Pipes'} products={data.data} />
-          <ProductCategory header={'Paint'} products={data.data} />
+          <div className="h-[500px] overflow-y-scroll">
+            {locateMerchantProducts(data).map((product, index) => (
+              <ProductCategory
+                key={index}
+                header={product}
+                products={data[product]}
+              />
+            ))}
+          </div>
         </>
       ) : isLoading ? (
-        <ProductSkeleton amount={10} className="lg:grid-cols-4" />
+        <ProductSkeleton amount={10} className="lg:grid-cols-4 my-5" />
       ) : (
-        <EmptyState />
+        <EmptyState message="You have no product on your store at this time" />
       )}
     </>
   )
@@ -73,7 +80,8 @@ export const getServerSideProps: GetServerSideProps =
       }
     }
     if (token) {
-      store.dispatch(setUser(JSON.parse(token as string)))
+      const parsedData = JSON.parse(token as string)
+      store.dispatch(setUser(parsedData))
     }
     return {
       props: {},

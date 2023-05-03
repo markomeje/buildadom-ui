@@ -31,7 +31,7 @@ const CreateStore = () => {
     try {
       const response = await createStore(data).unwrap()
       console.log(response)
-      router.push('/dashboard')
+      router.push('/merchant/dashboard')
     } catch (err) {
       const error = (err as AuthError).data.errors
         ? (err as AuthError).data.errors.name[0]

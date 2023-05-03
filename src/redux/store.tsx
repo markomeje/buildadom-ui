@@ -12,10 +12,12 @@ import countryReducer, { CountrySlice } from './reducer/countryReducer'
 import { storeApi } from './services/merchant'
 import { utilityApi } from './services/utility.slice'
 import { generalApi } from './services/general.service'
+import { errorReducer, errorSlice } from './reducer/errorReducer'
 
 const reducers = {
   [stepperSlice.name]: stepperReducer,
   [modalSlice.name]: modalReducer,
+  [errorSlice.name]: errorReducer,
   [CountrySlice.name]: countryReducer,
   [tokenSlice.name]: tokenReducer,
   [authApi.reducerPath]: authApi.reducer,

@@ -9,9 +9,11 @@ import Link from 'next/link'
 import StoreCollections from '@/sections/StoreCollections'
 import Subscriptions from '@/sections/Subscriptions'
 import { useAllProductsQuery } from '@/redux/services/general.service'
+import EmptyState from '@/components/EmptyState'
 
 const Home = () => {
   const { data, isLoading } = useAllProductsQuery()
+
   const dispatch = useTypedDispatch()
   useEffect(() => {
     dispatch(setDisplayType('grid'))
@@ -31,8 +33,12 @@ const Home = () => {
             see all products
           </Link>
         </div>
-        <div className="ml-5 mt-4">
-          <HomeProducts isLoading={isLoading} data={data && data.slice(0, 5)} />
+        <div className="ml-5 w-full mt-4">
+          {data && data.length > 0 ? (
+            <HomeProducts isLoading={isLoading} data={data.slice(0, 5)} />
+          ) : (
+            <EmptyState showButton={false} message="No avaialble products" />
+          )}
         </div>
         <Banner />
         <StoreCollections />

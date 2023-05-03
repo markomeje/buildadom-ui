@@ -3,10 +3,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 
+export interface ICurrency {
+  id: number
+  name: string
+  symbol: string
+  code: string
+  active: boolean
+}
+
+export interface IResponse {
+  label: string
+  value: string | number
+}
+
 export const utilityApi = createApi({
   reducerPath: 'utilityApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.buildadom.net/api/v1',
+    baseUrl: 'https://dev.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
   }),
   extractRehydrationInfo(action, { reducerPath }) {
@@ -15,7 +28,7 @@ export const utilityApi = createApi({
     }
   },
   endpoints: (builder) => ({
-    getIDTypes: builder.query<any, void>({
+    getIDTypes: builder.query<IResponse[], void>({
       query: () => ({
         url: '/identification/types',
         method: 'GET',
@@ -28,7 +41,21 @@ export const utilityApi = createApi({
           }
         }),
     }),
+
+    getCurrencies: builder.query<IResponse[], void>({
+      query: () => ({
+        url: '/currencies',
+        method: 'GET',
+      }),
+      transformResponse: (response: { currencies: ICurrency[] }, meta, arg) =>
+        response.currencies.map((currency: ICurrency) => {
+          return {
+            value: currency.id,
+            label: `${currency.code} (${currency.symbol})`,
+          }
+        }),
+    }),
   }),
 })
 
-export const { useGetIDTypesQuery } = utilityApi
+export const { useGetIDTypesQuery, useGetCurrenciesQuery } = utilityApi

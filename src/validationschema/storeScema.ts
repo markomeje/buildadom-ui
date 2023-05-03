@@ -22,4 +22,5 @@ export const productSchema = yup.object({
   price: yup.string().required('Product Price is required'),
   quantity: yup.string().required('Quantity is required'),
   category: yup.string().required('Product Category is required'),
+  currency_id: yup.number().required('Product Currency ID is required'),
 })

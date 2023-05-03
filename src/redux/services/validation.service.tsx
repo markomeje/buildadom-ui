@@ -7,7 +7,7 @@ import { RootState } from '../store'
 export const validationApi = createApi({
   reducerPath: 'IdValidation',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.buildadom.net/api/v1',
+    baseUrl: 'https://dev.buildadom.net/api/v1',
     prepareHeaders: (headers, { getState, endpoint }) => {
       const user = (getState() as RootState).authToken.loggedUser
       if (user && endpoint !== 'refresh') {
@@ -45,6 +45,7 @@ export const validationApi = createApi({
         method: 'GET',
       }),
       transformResponse: (response: any, meta, arg) => {
+        console.log(response, 'verify')
         return response.details
       },
     }),

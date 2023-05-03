@@ -1,17 +1,21 @@
-import Image from 'next/image'
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 interface IStoreImg {
   name: string
   img: string
+  id?: number
   like?: boolean
 }
 
-const StoreImg = ({ name, img, like }: IStoreImg) => {
+const StoreImg = ({ name, img, id, like }: IStoreImg) => {
+  const router = useRouter()
+  console.log(router, 'router')
   return (
     <div className="w-[232px] h-[350px] relative">
-      <Image
+      <img
         src={img}
         alt="store-img"
         width={232}
@@ -29,7 +33,7 @@ const StoreImg = ({ name, img, like }: IStoreImg) => {
             </div>
           )}
           <Link
-            href={'/stores/1/products'}
+            href={`/stores/${id}/products`}
             className="capitalize text-[14px] text-gray-200 underline absolute bottom-6 font-poppins"
           >
             see all products

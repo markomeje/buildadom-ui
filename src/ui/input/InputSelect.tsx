@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useTypedSelector } from '@/redux/store'
 import React from 'react'
 import { useController } from 'react-hook-form'
 import Select from 'react-select'
 
 const InputSelect = ({ control, errors, data, label, name }: any) => {
+  const { validationErrors } = useTypedSelector(
+    (state) => state.validationError
+  )
   const {
     field: { value: idValue, onChange: typeOnChange, ...restTypeField },
   } = useController({ name: name, control })
@@ -24,6 +28,11 @@ const InputSelect = ({ control, errors, data, label, name }: any) => {
       {errors[name] && (
         <p className="mt-1 font-poppins text-red-400 text-[13px]">
           {errors[name].message}
+        </p>
+      )}
+      {validationErrors[name] && (
+        <p className="font-poppins text-red-400 text-[13px]">
+          {validationErrors[name].join(',')}
         </p>
       )}
     </div>

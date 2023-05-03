@@ -8,6 +8,8 @@ interface IProps {
 }
 
 const ProductCategory = ({ header, products }: IProps) => {
+  console.log(products && products, 'images')
+
   return (
     <div className="w-full mb-4">
       <h1 className="leading-[36px] text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">

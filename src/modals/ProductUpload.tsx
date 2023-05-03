@@ -48,6 +48,8 @@ function ProductUpload() {
     formData.append('image', file)
 
     try {
+      console.log(formData, 'formm')
+
       // console.log(formData.get('image'), 'image')
       const response = await imageUpload(formData).unwrap()
       dispatch(setAddedStepper(initialState.newProduct))

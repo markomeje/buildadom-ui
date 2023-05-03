@@ -2,18 +2,27 @@
 import { AuthError } from '@/interface/error.interface'
 import { useMerchantStoreDetailsQuery } from '@/redux/services/merchant'
 import { useImageUploadMutation } from '@/redux/services/validation.service'
-import StoreInfoSkeleton from '@/ui/skeletonLoader/StoreInfoSkeleton'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import CoverBanner from './CoverBanner'
+import { locateImg } from '@/util/locateImg'
+import StoreHeaderSkeleton from '@/ui/skeletonLoader/StoreHeaderSkeleton'
+import LogoHolder from './LogoHolder'
+import StoreInfo from './StoreInfo'
 
 const AboutStoreHeader = () => {
+  const router = useRouter()
   const { data, isLoading } = useMerchantStoreDetailsQuery()
+  if (!isLoading && data === undefined) {
+    router.push('/merchant/dashboard/create-store')
+  }
   const [previewLink, setPreviewLink] = useState<string>('')
   const [storePreviewLink, setStorePreviewLink] = useState<string>('')
   const [imageUpload, { isLoading: fileLoading }] = useImageUploadMutation()
+  console.log(data, 'datta')
+
   const [file, setFile] = useState<File | null>(null)
-  const router = useRouter()
   const fileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf']
   const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
@@ -54,124 +63,41 @@ const AboutStoreHeader = () => {
     }
   }
   return (
-    <div className="lg:wrapper px-4 lg:p-0 pt-6 lg:pt-12 pb-6">
-      <div className="flex  flex-col">
-        <h1 className="font-semibold font-poppins pb-4 text-[24px] lg:text-[32px] mb-2 leading-[48px]">
-          My Store
-        </h1>
-        <div className="w-full h-[201px]  relative">
-          {!previewLink && !data?.images ? (
-            <div className="w-full h-full bg-gray-200"></div>
-          ) : (
-            <img
-              src={
-                previewLink ||
-                (data?.images && data.images[0] && data.images[0].url)
-              }
-              alt="cover image"
-              className="w-full h-full object-cover"
+    <>
+      {isLoading ? (
+        <StoreHeaderSkeleton />
+      ) : (
+        <div className="lg:wrapper px-4 lg:p-0 pt-6 lg:pt-12 pb-6">
+          <div className="flex  flex-col">
+            <h1 className="font-semibold font-poppins pb-4 text-[24px] lg:text-[32px] mb-2 leading-[48px]">
+              My Store
+            </h1>
+            <CoverBanner
+              fileLoading={fileLoading}
+              fileUpload={fileUpload}
+              handleFileUpload={handleFileUpload}
+              url={locateImg(data && data.images, 'cover') as string}
+              previewLink={previewLink}
             />
-          )}
-          {/* web  label */}
-          <div className="lg:flex items-center hidden bottom-[40px] right-[50px] absolute">
-            <label
-              htmlFor="file-upload"
-              className="bg-[#747272] z-10 cursor-pointer rounded-sm w-[174px] h-[43px]  flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"
-            >
-              {previewLink ? 'Change File' : 'Upload Image'}
-              <input
-                type="file"
-                onChange={fileUpload}
-                id="file-upload"
-                className="hidden"
+            <div className="lg:pt-10 pb-4 flex items-center">
+              <LogoHolder
+                url={locateImg(data && data.images, 'main') as string}
+                fileLoading={fileLoading}
+                fileStoreUpload={fileStoreUpload}
+                previewLink={storePreviewLink}
+                handleFileUpload={handleFileUpload}
               />
-            </label>
-            {previewLink && (
-              <button
-                onClick={handleFileUpload}
-                className="bg-[#534f4f] ml-3 z-10 rounded-sm cursor-pointer w-[174px] h-[43px]  flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"
-              >
-                {fileLoading ? 'Uploading...' : 'Submit'}
-              </button>
-            )}
+              <StoreInfo
+                name={data ? data.name : ''}
+                city={data ? data.city : ''}
+                address={data ? data.address : ''}
+                description={data ? data.description : ''}
+              />
+            </div>
           </div>
-
-          {/* mobile store store */}
-
-          {/* mobile stroe */}
         </div>
-        <div className="lg:pt-10 pb-4 flex items-center">
-          {!storePreviewLink && !data?.images?.['1'] ? (
-            <label
-              htmlFor="store-logo"
-              className="w-[204px] mr-8 h-[204px] cursor-pointer hidden lg:flex flex-col bg-gray-100 rounded-[20px] items-center justify-center"
-            >
-              <i className="ri-upload-cloud-line text-blue-400 text-[55px]"></i>
-              <i className="ri-upload-cloud-line text-white hover:text-[18px] duration-300  rounded-[50%] cursor-pointer text-[22px]"></i>
-              <input
-                type="file"
-                onChange={fileStoreUpload}
-                id="store-logo"
-                className="hidden"
-              />
-            </label>
-          ) : (
-            <div className="hidden lg:block relative">
-              <label htmlFor="store-logo" className="cursor-pointer">
-                <img
-                  src={
-                    storePreviewLink ||
-                    (data?.images && data.images[1] && data.images[1].url)
-                  }
-                  alt="store_image"
-                  className="w-[204px] mr-8 h-[204px]"
-                />
-                <input
-                  type="file"
-                  onChange={fileStoreUpload}
-                  id="store-logo"
-                  className="hidden"
-                />
-              </label>
-              {storePreviewLink && (
-                <button
-                  className="flex items-center justify-center bg-blue-400 w-[40px] h-[40px] absolute left-0 bottom-0 rounded-[40px]"
-                  onClick={handleFileUpload}
-                >
-                  {fileLoading ? (
-                    <span className="w-[20px] h-[20px] rounded-[20px] border border-white"></span>
-                  ) : (
-                    <i className="ri-upload-cloud-line text-white hover:text-[18px] duration-300  rounded-[50%] cursor-pointer text-[22px]"></i>
-                  )}
-                </button>
-              )}
-            </div>
-          )}
-
-          {isLoading ? (
-            <StoreInfoSkeleton />
-          ) : data === null ? (
-            <div>No Store Data</div>
-          ) : (
-            <div className="flex flex-col mt-4 lg:mt-0 w-full lg:w-auto justify-center">
-              <h1 className="font-semibold font-poppins lg:pb-2 text-[18px] lg:text-[24px] leading-[30px] lg:leading-[38px]">
-                {data && data.name}
-              </h1>
-              <p className=" w-full lg:w-[550px] font-poppins text-[15px]  leading-[27px]">
-                {data && data.description}
-              </p>
-              <div className="w-[262px] my-4 bg-[#CCCCCC] h-[1px]"></div>
-              <div className="flex items-center justify-center">
-                <i className="ri-map-pin-2-fill mr-1 text-[18px] text-bd-blue"></i>
-                <span className="w-[550px] font-poppins text-[16px]  leading-[27px]">
-                  {`${data && data?.address}  ${data && data?.city}`}
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 

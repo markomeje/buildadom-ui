@@ -6,7 +6,7 @@ import StoreImg from './StoreImg'
 export interface IStore {
   name: string
   content: string
-  id?: string
+  id?: number
   rating?: number
   img: string
 }
@@ -14,7 +14,7 @@ export interface IStore {
 const StoreModel = ({ name, content, id, img }: IStore) => {
   return (
     <div className="flex items-center mr-6 mb-6 flex-col">
-      <StoreImg name={name} img={img} like />
+      <StoreImg name={name} img={img} like id={id} />
       <span className="py-4 w-[232px] font-poppins text-[13px] leading-[19px]">
         {content}
       </span>

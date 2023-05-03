@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const generalApi = createApi({
   reducerPath: 'generalApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.buildadom.net/api/v1',
+    baseUrl: 'https://dev.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
   }),
   endpoints: (builder) => ({
