@@ -40,7 +40,12 @@ const ProductHeader = () => {
           <ExploreSearch />
         </div>
         <div className="mt-8">
-          <CategoryGroups isLoading={isLoading} data={data} />
+          {data && (
+            <CategoryGroups
+              isLoading={isLoading}
+              data={data as { value: string; label: string }[]}
+            />
+          )}
         </div>
       </div>
     </div>

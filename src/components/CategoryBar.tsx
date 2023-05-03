@@ -1,4 +1,3 @@
-import { ICategory } from '@/interface/general.interface'
 import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 import React from 'react'
 
@@ -15,7 +14,7 @@ const CategoryGroups = ({
   data,
 }: {
   isLoading: boolean
-  data: ICategory[]
+  data: { value: string; label: string }[]
 }) => {
   return (
     <div className="flex pb-8 w-full pt-6 overflow-x-scroll items-center">

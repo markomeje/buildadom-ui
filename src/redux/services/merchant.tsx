@@ -103,17 +103,41 @@ export const storeApi = createApi({
       invalidatesTags: ['Product'],
     }),
 
-    updateProduct: builder.mutation<any, any>({
-      query: (data: any, id: any) => ({
-        url: `/marchant/product/update/${id}`,
-        method: 'PUT',
-        body: data,
+    publishStore: builder.mutation({
+      query: (id) => ({
+        url: `marchant/store/publish/${id}`,
+        method: 'POST',
       }),
-      transformResponse: (response: { product: IProduct }, meta, arg) => {
-        return response.product
+      transformResponse: (response) => {
+        // return response.product
+        console.log(response)
       },
-      invalidatesTags: ['Product'],
+      invalidatesTags: ['Store'],
     }),
+
+    publishProduct: builder.mutation({
+      query: (id) => ({
+        url: `marchant/product/publish/${id}`,
+        method: 'POST',
+      }),
+      transformResponse: (response) => {
+        // return response.product
+        console.log(response)
+      },
+      invalidatesTags: ['Store'],
+    }),
+
+    // updateProduct: builder.mutation<any, any>({
+    //   query: (data: any, id: any) => ({
+    //     url: `/marchant/product/update/${id}`,
+    //     method: 'PUT',
+    //     body: data,
+    //   }),
+    //   transformResponse: (response: { product: IProduct }, meta, arg) => {
+    //     return response.product
+    //   },
+    //   invalidatesTags: ['Product'],
+    // }),
   }),
 })
 
@@ -123,7 +147,9 @@ export const {
   useAddProductMutation,
   useGetProductsCategoriesQuery,
   useGetCitiesQuery,
-  useUpdateProductMutation,
+  usePublishProductMutation,
+  usePublishStoreMutation,
+  // useUpdateProductMutation,
   useCreateStoreMutation,
   useMerchantStoreDetailsQuery,
 } = storeApi
