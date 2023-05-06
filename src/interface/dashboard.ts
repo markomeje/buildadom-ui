@@ -30,6 +30,7 @@ export interface IProduct {
   description: string
   price: string
   name: string
+  redirectLink?: string
 }
 
 export interface IDropdown {

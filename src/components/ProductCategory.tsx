@@ -1,10 +1,10 @@
-import { IProduct } from '@/interface/general.interface'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import ProductCard from './Product'
 
 interface IProps {
   header: string
-  products: IProduct[]
+  products: any
 }
 
 const ProductCategory = ({ header, products }: IProps) => {
@@ -16,7 +16,7 @@ const ProductCategory = ({ header, products }: IProps) => {
         {header}
       </h1>
       <div className="py-4 flex items-start w-full flex-wrap lg:gap-6">
-        {products.map((product, index) => (
+        {products.map((product: any, index: any) => (
           <ProductCard
             key={index}
             img={
@@ -27,6 +27,7 @@ const ProductCategory = ({ header, products }: IProps) => {
             description={product.description}
             reviews={product.reviews || '0'}
             rating={product.rating || 1}
+            redirectLink={`/merchant/dashboard/product/${product.id}`}
           />
         ))}
       </div>

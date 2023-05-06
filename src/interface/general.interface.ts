@@ -27,11 +27,13 @@ export interface IReact {
 
 export interface IProduct {
   id?: number
+  isOwner?: boolean
   img: string
   images?: { url: string }[]
   rating: number
   reviews: string
   description: string
+  published?: number
   price: string
   name: string
 }

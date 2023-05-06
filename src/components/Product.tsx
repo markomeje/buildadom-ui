@@ -6,22 +6,24 @@ import React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProductCard = ({
+  id,
   img,
   description,
   rating,
+  redirectLink,
   reviews,
   name,
   price,
 }: IProduct) => {
   const router = useRouter()
-  const redirect = (id: string) => {
-    router.push(`/product/${id}`)
+  const redirect = () => {
+    router.push(redirectLink ? redirectLink : `/product/${id}`)
   }
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
   return (
     <div
-      onClick={() => redirect('1')}
+      onClick={redirect}
       className={`flex w-full lg:w-auto mb-4 lg:border-none border-b border-r border-gray-200 p-2  ${
         isGrid
           ? 'flex-col'
