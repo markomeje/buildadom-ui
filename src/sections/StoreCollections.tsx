@@ -17,7 +17,7 @@ const StoreCollections = () => {
             <div className="flex mb-6" key={index}>
               <StoreImg
                 name={store.name}
-                img={locateImg(store.images && store.images, 'main') as string}
+                img={locateImg(store.images && store.images, 'logo') as string}
               />
               <div className="flex  ml-4 ">
                 <HomeProducts

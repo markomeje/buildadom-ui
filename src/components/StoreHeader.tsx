@@ -1,29 +1,49 @@
 /* eslint-disable @next/next/no-img-element */
 import { AuthError } from '@/interface/error.interface'
-import { useMerchantStoreDetailsQuery } from '@/redux/services/merchant'
+import {
+  useMerchantStoreDetailsQuery,
+  usePublishStoreMutation,
+} from '@/redux/services/merchant'
 import { useImageUploadMutation } from '@/redux/services/validation.service'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import CoverBanner from './CoverBanner'
-import { locateImg } from '@/util/locateImg'
+import { locateId, locateImg } from '@/util/locateImg'
 import StoreHeaderSkeleton from '@/ui/skeletonLoader/StoreHeaderSkeleton'
 import LogoHolder from './LogoHolder'
 import StoreInfo from './StoreInfo'
+import PublishAction from './PublishAction'
 
 const AboutStoreHeader = () => {
   const router = useRouter()
   const { data, isLoading } = useMerchantStoreDetailsQuery()
+  const [publishStore, { isLoading: publishLoading, error }] =
+    usePublishStoreMutation()
+  const [imageUpload, { isLoading: fileLoading }] = useImageUploadMutation()
+  console.log(data, 'dataa')
+
   if (!isLoading && data === undefined) {
     router.push('/merchant/dashboard/create-store')
   }
+
+  // setPrieviewLink
   const [previewLink, setPreviewLink] = useState<string>('')
   const [storePreviewLink, setStorePreviewLink] = useState<string>('')
-  const [imageUpload, { isLoading: fileLoading }] = useImageUploadMutation()
-  console.log(data, 'datta')
-
+  const [isPublished, setIsPublished] = useState<boolean>(
+    data?.published === 0 ? false : true
+  )
+  // set file
   const [file, setFile] = useState<File | null>(null)
   const fileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf']
+
+  useEffect(() => {
+    if (data) {
+      setIsPublished(data.published === 0 ? false : true)
+    }
+  }, [data])
+
+  // function calls
   const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const file = e.target.files[0]
@@ -49,18 +69,39 @@ const AboutStoreHeader = () => {
   const handleFileUpload = async () => {
     const formData = new FormData()
     if (!data) return
+    formData.append(
+      'id',
+      locateId(data.images, `${previewLink ? 'cover' : 'logo'}`)
+    )
     formData.append('model', 'store')
     formData.append('model_id', data.id.toString())
-    formData.append('role', `${previewLink ? 'cover' : 'main'}`)
+    formData.append('role', `${previewLink ? 'cover' : 'logo'}`)
     formData.append('image', file as File)
     try {
       const response = await imageUpload(formData)
       if (response) toast.success('Image set successfully')
-      router.reload()
+      // router.reload()
     } catch (err) {
       const error = (err as AuthError).data.message
       toast.error(error)
     }
+  }
+
+  const storePublisAction = async () => {
+    if (data && !isPublished) {
+      const response = await publishStore({ id: data.id, value: true }).unwrap()
+      toast.success(response)
+    } else if (data && isPublished) {
+      const response = await publishStore({
+        id: data.id,
+        value: false,
+      }).unwrap()
+      toast.success(response)
+    }
+  }
+
+  {
+    error && toast.error(JSON.stringify(error))
   }
   return (
     <>
@@ -79,19 +120,26 @@ const AboutStoreHeader = () => {
               url={locateImg(data && data.images, 'cover') as string}
               previewLink={previewLink}
             />
-            <div className="lg:pt-10 pb-4 flex items-center">
-              <LogoHolder
-                url={locateImg(data && data.images, 'main') as string}
-                fileLoading={fileLoading}
-                fileStoreUpload={fileStoreUpload}
-                previewLink={storePreviewLink}
-                handleFileUpload={handleFileUpload}
-              />
-              <StoreInfo
-                name={data ? data.name : ''}
-                city={data ? data.city : ''}
-                address={data ? data.address : ''}
-                description={data ? data.description : ''}
+            <div className="lg:pt-10 pb-4 w-full justify-between flex">
+              <div className="flex ">
+                <LogoHolder
+                  url={locateImg(data && data.images, 'logo') as string}
+                  fileLoading={fileLoading}
+                  fileStoreUpload={fileStoreUpload}
+                  previewLink={storePreviewLink}
+                  handleFileUpload={handleFileUpload}
+                />
+                <StoreInfo
+                  name={data ? data.name : ''}
+                  city={data ? data.city : ''}
+                  address={data ? data.address : ''}
+                  description={data ? data.description : ''}
+                />
+              </div>
+              <PublishAction
+                loading={publishLoading}
+                isPublished={isPublished}
+                publishAction={storePublisAction}
               />
             </div>
           </div>

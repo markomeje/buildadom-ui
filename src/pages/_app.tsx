@@ -24,7 +24,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       <Suspense fallback={<AppSuspense />} />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={false}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

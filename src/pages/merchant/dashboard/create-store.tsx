@@ -39,7 +39,6 @@ MerchantDashboard.getLayout = function getLayout(page: ReactElement) {
 }
 
 const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
-  console.log(data, 'dataa mercgat')
   const router = useRouter()
   if (loading) return null
   if (data == null) {

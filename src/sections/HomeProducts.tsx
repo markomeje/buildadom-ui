@@ -14,7 +14,6 @@ const HomeProducts = ({ isLoading, data }: IProps) => {
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
   console.log(data)
-  console.log(data, ' ddd')
 
   return (
     <div className="w-full">

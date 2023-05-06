@@ -6,4 +6,5 @@ export interface IStore {
   name: string
   id: number
   user_id: number
+  published: 0 | 1
 }

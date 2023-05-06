@@ -25,7 +25,7 @@ export const storeApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Product', 'Store'],
+  tagTypes: ['Product', 'Store', 'OneProduct'],
   endpoints: (builder) => ({
     // QUERIES
     getCountries: builder.query<Country[], void>({
@@ -56,9 +56,11 @@ export const storeApi = createApi({
           }
         }),
     }),
-    getMerchatProducts: builder.query<any, void>({
+    getMerchatProducts: builder.query<{ [k: string]: IProduct[] }[], void>({
       query: () => ({ url: '/marchant/products' }),
-      transformResponse: (response: { products: any }) => {
+      transformResponse: (response: {
+        products: { [k: string]: IProduct[] }[]
+      }) => {
         return response.products
       },
       providesTags: ['Product'],
@@ -72,6 +74,15 @@ export const storeApi = createApi({
       providesTags: ['Store'],
     }),
 
+    getOneMerchantProduct: builder.query<IProduct, string>({
+      query: (id) => ({ url: `/marchant/product/${id}` }),
+      transformResponse: (response: { product: IProduct }) => {
+        return response.product
+      },
+      providesTags: ['OneProduct'],
+    }),
+
+    // MUTATION
     imageUpload: builder.mutation({
       query: (data) => ({
         url: '/marchant/image/upload',
@@ -81,7 +92,6 @@ export const storeApi = createApi({
       invalidatesTags: ['Product', 'Store'],
     }),
 
-    // MUTATION
     createStore: builder.mutation({
       query: (data) => ({
         url: 'marchant/store/create',
@@ -103,28 +113,50 @@ export const storeApi = createApi({
       invalidatesTags: ['Product'],
     }),
 
-    publishStore: builder.mutation({
-      query: (id) => ({
+    publishStore: builder.mutation<
+      string,
+      { id: number | undefined; value: boolean }
+    >({
+      query: ({ id, value }) => ({
         url: `marchant/store/publish/${id}`,
         method: 'POST',
+        body: { published: value },
       }),
-      transformResponse: (response) => {
-        // return response.product
-        console.log(response)
+      transformResponse: (response: { message: string }, meta, arg) => {
+        return response.message
+      },
+      transformErrorResponse: (
+        response: { status: number; data: { message: string } },
+        meta,
+        arg
+      ) => {
+        return response.data.message
       },
       invalidatesTags: ['Store'],
     }),
 
-    publishProduct: builder.mutation({
-      query: (id) => ({
+    publishProduct: builder.mutation<
+      string,
+      { id: number | undefined; value: boolean }
+    >({
+      query: ({ id, value }) => ({
         url: `marchant/product/publish/${id}`,
         method: 'POST',
+        body: { published: value },
       }),
-      transformResponse: (response) => {
-        // return response.product
-        console.log(response)
+      transformResponse: (response: { message: string }) => {
+        return response.message
       },
-      invalidatesTags: ['Store'],
+      transformErrorResponse: (
+        response: { status: number; data: { message: string } },
+        meta,
+        arg
+      ) => {
+        return response.data.message
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: 'OneProduct', id: arg.id },
+      ],
     }),
 
     // updateProduct: builder.mutation<any, any>({
@@ -149,6 +181,7 @@ export const {
   useGetCitiesQuery,
   usePublishProductMutation,
   usePublishStoreMutation,
+  useGetOneMerchantProductQuery,
   // useUpdateProductMutation,
   useCreateStoreMutation,
   useMerchantStoreDetailsQuery,

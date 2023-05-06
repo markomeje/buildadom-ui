@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import StoreLayout from '@/layouts/StoreLayout'
 import ModalWraper from '@/modals'
@@ -26,6 +27,7 @@ const MyStore = () => {
     dispatch(specificModal('product'))
     dispatch(setStepper(1))
   }
+  console.log(data, 'dataaa')
   return (
     <>
       {modal && modalType === 'product' && (
@@ -44,7 +46,7 @@ const MyStore = () => {
             </button>
           </div>
           <div className="h-[500px] overflow-y-scroll">
-            {locateMerchantProducts(data).map((product, index) => (
+            {locateMerchantProducts(data).map((product: any, index: any) => (
               <ProductCategory
                 key={index}
                 header={product}
