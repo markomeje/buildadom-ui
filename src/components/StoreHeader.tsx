@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { AuthError } from '@/interface/error.interface'
 import {
+  useImageUploadMutation,
   useMerchantStoreDetailsQuery,
   usePublishStoreMutation,
 } from '@/redux/services/merchant'
-import { useImageUploadMutation } from '@/redux/services/validation.service'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -20,13 +20,15 @@ const AboutStoreHeader = () => {
   const { data, isLoading } = useMerchantStoreDetailsQuery()
   const [publishStore, { isLoading: publishLoading, error }] =
     usePublishStoreMutation()
-  const [imageUpload, { isLoading: fileLoading }] = useImageUploadMutation()
-  console.log(data, 'dataa')
+  const [imageUpload, { isLoading: fileLoading, error: errors, isSuccess }] =
+    useImageUploadMutation()
 
   if (!isLoading && data === undefined) {
     router.push('/merchant/dashboard/create-store')
   }
-
+  {
+    errors && toast.error(errors as string)
+  }
   // setPrieviewLink
   const [previewLink, setPreviewLink] = useState<string>('')
   const [storePreviewLink, setStorePreviewLink] = useState<string>('')
@@ -78,8 +80,12 @@ const AboutStoreHeader = () => {
     formData.append('role', `${previewLink ? 'cover' : 'logo'}`)
     formData.append('image', file as File)
     try {
-      const response = await imageUpload(formData)
-      if (response) toast.success('Image set successfully')
+      await imageUpload(formData)
+      if (isSuccess) {
+        toast.success('Image set successfully')
+        setPreviewLink('')
+        setStorePreviewLink('')
+      }
       // router.reload()
     } catch (err) {
       const error = (err as AuthError).data.message
@@ -90,12 +96,14 @@ const AboutStoreHeader = () => {
   const storePublisAction = async () => {
     if (data && !isPublished) {
       const response = await publishStore({ id: data.id, value: true }).unwrap()
+      setIsPublished(true)
       toast.success(response)
     } else if (data && isPublished) {
       const response = await publishStore({
         id: data.id,
         value: false,
       }).unwrap()
+      setIsPublished(false)
       toast.success(response)
     }
   }

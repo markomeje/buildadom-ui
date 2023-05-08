@@ -58,14 +58,14 @@ const ProductCard = ({
             isGrid
               ? 'text-bd-blue w-[220px] mb-1'
               : 'text-[24px] mb-3 leading-[36px]'
-          } font-poppins font-semibold`}
+          } font-poppins capitalize font-semibold`}
         >
           {name}
         </h2>
         <span
           className={`font-poppis w-[90%] ${
             isGrid ? 'lg:w-[190px] h-[80px]' : 'w-[360px] mb-3'
-          } uppercase font-poppins text-[13px] leading-[20px]`}
+          }  font-poppins text-[13px] leading-[20px]`}
         >
           {description && description.substring(0, 80) + '...'}
         </span>

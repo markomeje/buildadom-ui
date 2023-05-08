@@ -12,7 +12,7 @@ const ProductCategory = ({ header, products }: IProps) => {
 
   return (
     <div className="w-full mb-4">
-      <h1 className="leading-[36px] text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
+      <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
         {header}
       </h1>
       <div className="py-4 flex items-start w-full flex-wrap lg:gap-6">
@@ -23,7 +23,9 @@ const ProductCategory = ({ header, products }: IProps) => {
               (product.images && product.images[0]?.url) || '/assets/paint.png'
             }
             name={product.name}
-            price={`$${product.price}`}
+            price={`${product.currency && product.currency.symbol}${
+              product.price
+            }`}
             description={product.description}
             reviews={product.reviews || '0'}
             rating={product.rating || 1}

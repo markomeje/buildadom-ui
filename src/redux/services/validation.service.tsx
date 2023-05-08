@@ -3,6 +3,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 import { RootState } from '../store'
+import { AuthError } from '@/interface/errors'
 
 export const validationApi = createApi({
   reducerPath: 'IdValidation',
@@ -37,6 +38,11 @@ export const validationApi = createApi({
         method: 'POST',
         body: data,
       }),
+      transformErrorResponse: (response: AuthError, meta, arg) => {
+        if (response.data.errors) {
+          return response.data.errors.image.join(',')
+        }
+      },
     }),
 
     getValidationDetails: builder.query<any, void>({

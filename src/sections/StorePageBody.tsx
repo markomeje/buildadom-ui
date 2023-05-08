@@ -69,7 +69,7 @@ const StorePageBody = () => {
                   name={store.name}
                   content={store.description && store.description.slice(0, 100)}
                   img={
-                    locateImg(store.images && store.images, 'main') as string
+                    locateImg(store.images && store.images, 'logo') as string
                   }
                 />
               )
