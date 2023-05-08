@@ -9,6 +9,7 @@ import {
 import { IStore } from '@/interface/store.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
+import { AuthError } from '@/interface/error.interface'
 
 // auth service build
 
@@ -89,7 +90,12 @@ export const storeApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Product', 'Store'],
+      transformErrorResponse: (response: AuthError, meta, arg) => {
+        if (response.data.errors) {
+          return response.data.errors.image.join(',')
+        }
+      },
+      invalidatesTags: ['Product', 'Store', 'OneProduct'],
     }),
 
     createStore: builder.mutation({
@@ -154,35 +160,34 @@ export const storeApi = createApi({
       ) => {
         return response.data.message
       },
-      invalidatesTags: (result, error, arg) => [
-        { type: 'OneProduct', id: arg.id },
-      ],
+      invalidatesTags: ['OneProduct'],
     }),
 
-    // updateProduct: builder.mutation<any, any>({
-    //   query: (data: any, id: any) => ({
-    //     url: `/marchant/product/update/${id}`,
-    //     method: 'PUT',
-    //     body: data,
-    //   }),
-    //   transformResponse: (response: { product: IProduct }, meta, arg) => {
-    //     return response.product
-    //   },
-    //   invalidatesTags: ['Product'],
-    // }),
+    updateProduct: builder.mutation<any, any>({
+      query: ({ data, id }) => ({
+        url: `/marchant/product/update/${id}`,
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (response: { product: IProduct }, meta, arg) => {
+        return response.product
+      },
+      invalidatesTags: ['OneProduct'],
+    }),
   }),
 })
 
 export const {
   useGetMerchatProductsQuery,
   useGetCountriesQuery,
+  useImageUploadMutation,
   useAddProductMutation,
   useGetProductsCategoriesQuery,
   useGetCitiesQuery,
   usePublishProductMutation,
   usePublishStoreMutation,
   useGetOneMerchantProductQuery,
-  // useUpdateProductMutation,
+  useUpdateProductMutation,
   useCreateStoreMutation,
   useMerchantStoreDetailsQuery,
 } = storeApi

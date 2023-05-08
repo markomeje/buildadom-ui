@@ -9,15 +9,17 @@ import { closeModal } from '@/redux/reducer/modalReducer'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { toast } from 'react-toastify'
-import { useImageUploadMutation } from '@/redux/services/validation.service'
 import { initialState, setAddedStepper } from '@/redux/reducer/countryReducer'
 import { AuthError } from '@/interface/error.interface'
+import { locateId } from '@/util/locateImg'
+import { useImageUploadMutation } from '@/redux/services/merchant'
 
 function ProductUpload() {
   //   const router = useRouter()
   const dispatch = useTypedDispatch()
   const [file, setFile] = useState<File | null>(null)
   const { newProduct } = useTypedSelector((state) => state.dashboard)
+  console.log(newProduct, 'new')
   const [previewLink, setPreviewLink] = useState<string>('')
   const [imageUpload, { isLoading }] = useImageUploadMutation()
   const onDrop = useCallback((acceptedFiles: any[]) => {
@@ -39,6 +41,8 @@ function ProductUpload() {
     dispatch(setStepper(1))
   }
   const handleSubmit = async (e: React.SyntheticEvent) => {
+    console.log('dsdsdsd')
+
     e.preventDefault()
     if (!file) return toast.error('select a file')
     const formData = new FormData()
@@ -46,17 +50,17 @@ function ProductUpload() {
     formData.append('model_id', newProduct && newProduct.id)
     formData.append('role', 'main')
     formData.append('image', file)
+    formData.append('id', locateId(newProduct && newProduct.images, 'main'))
+    console.log(newProduct, 'product......')
 
     try {
-      console.log(formData, 'formm')
-
-      // console.log(formData.get('image'), 'image')
       const response = await imageUpload(formData).unwrap()
       dispatch(setAddedStepper(initialState.newProduct))
       console.log(response, 'response')
       if (response) toast.success('uploaded successfully')
       closeProductModal()
     } catch (err) {
+      console.log(err)
       const error = (err as AuthError).data.message
       toast.error(error)
     }
@@ -89,6 +93,12 @@ function ProductUpload() {
               alt="cover image"
               className="w-full h-[300px] object-fill"
             />
+          ) : newProduct && newProduct.images ? (
+            <img
+              src={newProduct.images[0] && newProduct.images[0].url}
+              alt="cover image"
+              className="w-full h-[300px] object-fill"
+            />
           ) : (
             <div className="border-gray-300 border-dashed border-2 flex items-center justify-center flex-col  rounded-[12px] h-[180px]">
               <i className="ri-upload-cloud-2-line text-blue-500 text-3xl"></i>
@@ -100,7 +110,13 @@ function ProductUpload() {
         </div>
         <Button
           classNames="mb-3 mt-6 py-4 w-[80%] rounded-[10px] mx-auto"
-          title={isLoading ? 'Uploading...' : 'upload product image'}
+          title={
+            isLoading
+              ? 'Uploading...'
+              : newProduct && newProduct.images
+              ? 'change product image'
+              : 'upload product image'
+          }
         />
       </form>
     </div>

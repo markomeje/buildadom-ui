@@ -16,18 +16,19 @@ import { setStepper } from '@/redux/reducer/stepperReducer'
 import { specificModal } from '@/redux/reducer/modalReducer'
 import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 import { locateMerchantProducts } from '@/util/locateImg'
+import AboutStoreHeader from '@/components/StoreHeader'
+import StoreHandler from '@/layouts/StoreHandler'
 const MyStore = () => {
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
   )
   const { step } = useTypedSelector((state) => state.stepper)
-  const { data, isLoading } = useGetMerchatProductsQuery()
+  const { data, isLoading, isSuccess } = useGetMerchatProductsQuery()
   const handleClick = () => {
     dispatch(specificModal('product'))
     dispatch(setStepper(1))
   }
-  console.log(data, 'dataaa')
   return (
     <>
       {modal && modalType === 'product' && (
@@ -35,31 +36,34 @@ const MyStore = () => {
           <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
-      {!isLoading && data && locateMerchantProducts(data).length > 0 ? (
-        <>
-          <div className="w-full flex items-end  justify-end">
-            <button
-              className="w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] mr-6 lg:mr-0  rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
-              onClick={handleClick}
-            >
-              <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
-            </button>
-          </div>
-          <div className="h-[500px] overflow-y-scroll">
-            {locateMerchantProducts(data).map((product: any, index: any) => (
-              <ProductCategory
-                key={index}
-                header={product}
-                products={data[product]}
-              />
-            ))}
-          </div>
-        </>
-      ) : isLoading ? (
-        <ProductSkeleton amount={10} className="lg:grid-cols-4 my-5" />
-      ) : (
-        <EmptyState message="You have no product on your store at this time" />
-      )}
+      <AboutStoreHeader />
+      <StoreHandler>
+        {!isLoading && isSuccess && locateMerchantProducts(data).length > 0 ? (
+          <>
+            <div className="w-full flex items-end  justify-end">
+              <button
+                className="w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] mr-6 lg:mr-0  rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
+                onClick={handleClick}
+              >
+                <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
+              </button>
+            </div>
+            <div className="h-[800px] overflow-y-scroll">
+              {locateMerchantProducts(data).map((product: any, index: any) => (
+                <ProductCategory
+                  key={index}
+                  header={product}
+                  products={data[product]}
+                />
+              ))}
+            </div>
+          </>
+        ) : isLoading ? (
+          <ProductSkeleton amount={10} className="lg:grid-cols-4 my-5" />
+        ) : (
+          <EmptyState message="You have no product on your store at this time" />
+        )}
+      </StoreHandler>
     </>
   )
 }
