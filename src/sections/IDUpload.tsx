@@ -32,15 +32,17 @@ function IdUpload() {
     if (!file) return toast.error('select a file')
     const formData = new FormData()
     formData.append('model', 'identification')
+    formData.append('id', '0')
     formData.append('model_id', data && data.id)
     formData.append('role', 'main')
     formData.append('image', file)
 
     try {
-      const response = await imageUpload(formData)
+      const response = await imageUpload(formData).unwrap()
       if (response) toast.success('ID uploaded successfully')
       router.push('/merchant/dashboard/create-store')
     } catch (error) {
+      toast.error(JSON.stringify(error))
       console.log(error)
     }
   }

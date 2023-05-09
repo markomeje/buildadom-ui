@@ -4,6 +4,8 @@ import { useAllProductsQuery } from '@/redux/services/general.service'
 import HomeProducts from '@/sections/HomeProducts'
 import { useTypedDispatch } from '@/redux/store'
 import { setDisplayType } from '@/redux/reducer/modalReducer'
+import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
+import EmptyState from './EmptyState'
 
 const DropSearch = ({ header, text }: { header: string; text: string }) => {
   return (
@@ -17,7 +19,7 @@ const DropSearch = ({ header, text }: { header: string; text: string }) => {
 
 const ExploreProducts = () => {
   const dispatch = useTypedDispatch()
-  const { data, isLoading } = useAllProductsQuery()
+  const { data, isLoading, isSuccess } = useAllProductsQuery()
 
   const setDisplay = (type: string) => {
     dispatch(setDisplayType(type))
@@ -44,7 +46,13 @@ const ExploreProducts = () => {
         </div>
       </div>
       <div className="w-full my-8">
-        <HomeProducts isLoading={isLoading} data={data} />
+        {isLoading ? (
+          <ProductSkeleton amount={5} className="lg:grid-cols-5" />
+        ) : isSuccess ? (
+          <HomeProducts data={data} />
+        ) : (
+          <EmptyState showButton={false} message="NO PRODUCTS UPLOADED" />
+        )}
       </div>
     </div>
   )

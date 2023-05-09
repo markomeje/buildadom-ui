@@ -5,7 +5,7 @@ export const products = [
     price: '$499',
     rating: 4,
     reviews: '3',
-    img: '/assets/paint.png',
+    img: '/assets/placeholder.jpg',
   },
   {
     description:
@@ -21,7 +21,7 @@ export const products = [
     price: '$124',
     rating: 5,
     reviews: '0',
-    img: '/assets/paint.png',
+    img: '/assets/placeholder.jpg',
   },
   //   {
   //     description:

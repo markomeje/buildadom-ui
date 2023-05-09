@@ -39,7 +39,6 @@ const LoginPage = () => {
 
   const onSubmit = handleSubmit(async (info) => {
     try {
-      console.log(info)
       const result = await userLogin(info).unwrap()
       dispatch(setToken({ token: result }))
       toast.success('user logged in successfully')

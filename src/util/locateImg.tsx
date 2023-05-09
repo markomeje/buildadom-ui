@@ -1,7 +1,7 @@
 // import { IProduct } from '@/interface/general.interface'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-interface IData {
+export interface IData {
   url: string
   id: number
   role: string
@@ -11,7 +11,7 @@ export const locateImg = (
   data: IData[] | undefined,
   img_type: string
 ): string | undefined => {
-  const result = data && data.find((x) => x.role === img_type)
+  const result = data && data.find((x) => x.role.toLowerCase() === img_type)
   if (result) return result.url
 }
 

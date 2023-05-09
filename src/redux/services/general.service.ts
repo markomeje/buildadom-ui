@@ -19,8 +19,12 @@ export const generalApi = createApi({
         url: '/products',
         keepUnusedDataFor: 0.0001,
       }),
-      transformResponse: (response: { products: IProduct[] }, meta, arg) => {
-        return response.products
+      transformResponse: (
+        response: { products: { data: IProduct[] } },
+        meta,
+        arg
+      ) => {
+        return response.products.data
       },
     }),
 

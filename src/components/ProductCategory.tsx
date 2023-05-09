@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import ProductCard from './Product'
+import { locateImg } from '@/util/locateImg'
 
 interface IProps {
   header: string
@@ -8,8 +9,6 @@ interface IProps {
 }
 
 const ProductCategory = ({ header, products }: IProps) => {
-  console.log(products && products, 'images')
-
   return (
     <div className="w-full mb-4">
       <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
@@ -19,16 +18,14 @@ const ProductCategory = ({ header, products }: IProps) => {
         {products.map((product: any, index: any) => (
           <ProductCard
             key={index}
-            img={
-              (product.images && product.images[0]?.url) || '/assets/paint.png'
-            }
+            img={locateImg(product.images, 'main') || '/assets/placeholder.jpg'}
             name={product.name}
             price={`${product.currency && product.currency.symbol}${
               product.price
             }`}
             description={product.description}
             reviews={product.reviews || '0'}
-            rating={product.rating || 1}
+            rating={product.rating || 0}
             redirectLink={`/merchant/dashboard/product/${product.id}`}
           />
         ))}
