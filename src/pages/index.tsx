@@ -9,15 +9,17 @@ import Link from 'next/link'
 import StoreCollections from '@/sections/StoreCollections'
 import Subscriptions from '@/sections/Subscriptions'
 import { useAllProductsQuery } from '@/redux/services/general.service'
+import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 import EmptyState from '@/components/EmptyState'
 
 const Home = () => {
-  const { data, isLoading } = useAllProductsQuery()
+  const { data, isLoading, isSuccess } = useAllProductsQuery()
 
   const dispatch = useTypedDispatch()
   useEffect(() => {
     dispatch(setDisplayType('grid'))
   }, [dispatch])
+  console.log(data, 'products')
   return (
     <div className="lg:wrapper">
       <HomeBanner />
@@ -34,10 +36,12 @@ const Home = () => {
           </Link>
         </div>
         <div className="ml-5 w-full mt-4">
-          {data && data.length > 0 ? (
-            <HomeProducts isLoading={isLoading} data={data.slice(0, 5)} />
+          {isLoading ? (
+            <ProductSkeleton amount={5} className="lg:grid-cols-5" />
+          ) : isSuccess ? (
+            <HomeProducts data={data} />
           ) : (
-            <EmptyState showButton={false} message="No avaialble products" />
+            <EmptyState showButton={false} message="NO PRODUCTS UPLOADED" />
           )}
         </div>
         <Banner />

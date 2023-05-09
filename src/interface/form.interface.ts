@@ -35,3 +35,9 @@ export interface IValidationForm {
   address: string
   dob: string
 }
+
+export interface IBank {
+  accountName: string
+  accountNumber: string
+  bankName: string
+}

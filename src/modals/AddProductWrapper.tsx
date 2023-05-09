@@ -65,8 +65,6 @@ const AddProductModal = () => {
       formData.append('store_id', storeInfo.id.toString())
       try {
         if (newProduct && newProduct.name !== '') {
-          console.log('new')
-
           const res = await updateProduct({
             data: formData,
             id: newProduct.id,
@@ -74,7 +72,6 @@ const AddProductModal = () => {
           dispatch(setAddedStepper(res))
           dispatch(setStepper(2))
         } else {
-          console.log('old')
           const res = await addProduct(formData).unwrap()
           dispatch(setAddedStepper(res))
           dispatch(setStepper(2))

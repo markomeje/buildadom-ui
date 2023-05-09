@@ -10,7 +10,6 @@ import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { toast } from 'react-toastify'
 import { initialState, setAddedStepper } from '@/redux/reducer/countryReducer'
-import { AuthError } from '@/interface/error.interface'
 import { locateId } from '@/util/locateImg'
 import { useImageUploadMutation } from '@/redux/services/merchant'
 
@@ -60,9 +59,8 @@ function ProductUpload() {
       if (response) toast.success('uploaded successfully')
       closeProductModal()
     } catch (err) {
-      console.log(err)
-      const error = (err as AuthError).data.message
-      toast.error(error)
+      // const error = (err as AuthError).data.message
+      toast.error(JSON.stringify(err))
     }
   }
 
@@ -95,7 +93,11 @@ function ProductUpload() {
             />
           ) : newProduct && newProduct.images ? (
             <img
-              src={newProduct.images[0] && newProduct.images[0].url}
+              src={
+                newProduct.images[0]
+                  ? newProduct.images[0].url
+                  : '/assets/placeholder.jpg'
+              }
               alt="cover image"
               className="w-full h-[300px] object-fill"
             />

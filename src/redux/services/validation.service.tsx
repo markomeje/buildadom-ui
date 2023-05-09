@@ -40,7 +40,10 @@ export const validationApi = createApi({
       }),
       transformErrorResponse: (response: AuthError, meta, arg) => {
         if (response.data.errors) {
-          return response.data.errors.image.join(',')
+          return (
+            Object.values(response.data.errors) &&
+            Object.values(response.data.errors).join(',')
+          )
         }
       },
     }),

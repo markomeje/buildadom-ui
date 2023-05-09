@@ -1,4 +1,5 @@
 import AboutStoreHeader from '@/components/StoreHeader'
+import { IProduct } from '@/interface/general.interface'
 import StoreHandler from '@/layouts/StoreHandler'
 import StoreLayout from '@/layouts/StoreLayout'
 import { setAddedStepper } from '@/redux/reducer/countryReducer'
@@ -6,6 +7,7 @@ import { setUser } from '@/redux/reducer/tokenReducer'
 import { useGetOneMerchantProductQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, wrapper } from '@/redux/store'
 import MerchantProductDetails from '@/sections/MerchatProductDetials'
+import { locateImg } from '@/util/locateImg'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
@@ -18,8 +20,11 @@ const MerchantProduct = () => {
     router.query.id as string
   )
   useEffect(() => {
+    const callDispatch = () => {
+      dispatch(setAddedStepper(data as IProduct))
+    }
     if (data) {
-      dispatch(setAddedStepper(data))
+      callDispatch()
     }
   }, [data, dispatch])
   console.log(data, 'datatattta')
@@ -34,14 +39,10 @@ const MerchantProduct = () => {
               published={data.published as number}
               isOwner
               name={data.name}
-              price={data.price}
+              price={`${data.currency && data.currency.symbol} ${data.price}`}
               rating={0}
               reviews="0"
-              img={
-                data.images && data.images[0]
-                  ? data.images[0].url
-                  : 'assets/paint.png'
-              }
+              img={locateImg(data.images, 'main') || '/assets/placeholder.jpg'}
               description={data.description}
             />
           ) : (

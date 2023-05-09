@@ -31,7 +31,7 @@ const MerchantProductDetails = ({
 }: IProps) => {
   const router = useRouter()
   const dispatch = useTypedDispatch()
-  const [publishProduct, { isLoading: publishLoading, error }] =
+  const [publishProduct, { isLoading: publishLoading }] =
     usePublishProductMutation()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
@@ -49,18 +49,24 @@ const MerchantProductDetails = ({
     }
   }, [published])
 
-  console.log(isPublished, published, 'nowww')
   // publish action for merchant product
   const productPublisAction = async () => {
-    console.log(isPublished, 'isPublished')
     if (isPublished) {
-      const response = await publishProduct({ id, value: false }).unwrap()
-      setIsPublished(false)
-      toast.success(response)
+      try {
+        const response = await publishProduct({ id, value: false }).unwrap()
+        setIsPublished(false)
+        toast.success(response)
+      } catch (error) {
+        toast.error(JSON.stringify(error))
+      }
     } else {
-      const response = await publishProduct({ id, value: true }).unwrap()
-      setIsPublished(true)
-      toast.success(response)
+      try {
+        const response = await publishProduct({ id, value: true }).unwrap()
+        setIsPublished(true)
+        toast.success(response)
+      } catch (error) {
+        toast.error(JSON.stringify(error))
+      }
     }
   }
 
@@ -81,7 +87,6 @@ const MerchantProductDetails = ({
         </ModalWraper>
       )}
       <div className="backGround px-8 py-4 min-h-[500px]">
-        {error && toast.error(JSON.stringify(error))}
         <div className="flex w-full justify-between items-center">
           <i
             className="ri-arrow-left-line font-semibold cursor-pointer text-[22px]"
