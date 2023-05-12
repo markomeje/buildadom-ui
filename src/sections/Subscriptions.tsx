@@ -12,7 +12,7 @@ const images: string[] = [
 
 const Subscriptions = () => {
   return (
-    <div className="flex w-full justify-between py-4 items-center">
+    <div className="flex w-full justify-between py-4 flex-wrap items-center">
       {images.map((x, i) => {
         return <Logo src={x} key={i} />
       })}

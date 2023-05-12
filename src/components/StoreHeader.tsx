@@ -4,7 +4,6 @@ import {
   useMerchantStoreDetailsQuery,
   usePublishStoreMutation,
 } from '@/redux/services/merchant'
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import CoverBanner from './CoverBanner'
@@ -15,16 +14,13 @@ import StoreInfo from './StoreInfo'
 import PublishAction from './PublishAction'
 
 const AboutStoreHeader = () => {
-  const router = useRouter()
-  const { data, isLoading } = useMerchantStoreDetailsQuery()
+  const { data, isLoading, isError } = useMerchantStoreDetailsQuery()
   const [publishStore, { isLoading: publishLoading }] =
     usePublishStoreMutation()
   const [imageUpload, { isLoading: fileLoading, isSuccess }] =
     useImageUploadMutation()
 
-  if (!isLoading && data === undefined) {
-    router.push('/merchant/dashboard/create-store')
-  }
+  isError && toast.error('Network error')
 
   // setPrieviewLink
   const [previewLink, setPreviewLink] = useState<string>('')
@@ -119,21 +115,23 @@ const AboutStoreHeader = () => {
       {isLoading ? (
         <StoreHeaderSkeleton />
       ) : (
-        <div className="lg:wrapper px-4 lg:p-0 pt-6 lg:pt-12 pb-6">
+        <div className="lg:wrapper relative px-4 lg:p-0 pt-6 lg:pt-12 pb-6">
           <div className="flex  flex-col">
             <h1 className="font-semibold font-poppins pb-4 text-[24px] lg:text-[32px] mb-2 leading-[48px]">
               My Store
             </h1>
             <CoverBanner
+              isError={isError}
               fileLoading={fileLoading}
               fileUpload={fileUpload}
               handleFileUpload={handleFileUpload}
               url={locateImg(data && data.images, 'cover') as string}
               previewLink={previewLink}
             />
-            <div className="lg:pt-10 pb-4 w-full justify-between flex">
+            <div className="lg:pt-10 pb-4 w-full justify-between flex lg:flex-row flex-col">
               <div className="flex ">
                 <LogoHolder
+                  isError={isError}
                   url={locateImg(data && data.images, 'logo') as string}
                   fileLoading={fileLoading}
                   fileStoreUpload={fileStoreUpload}
@@ -141,13 +139,14 @@ const AboutStoreHeader = () => {
                   handleFileUpload={handleFileUpload}
                 />
                 <StoreInfo
-                  name={data ? data.name : ''}
+                  name={data ? data.name : 'No Data Available'}
                   city={data ? data.city : ''}
-                  address={data ? data.address : ''}
+                  address={data ? data.address : 'No Data Available'}
                   description={data ? data.description : ''}
                 />
               </div>
               <PublishAction
+                isError={isError}
                 loading={publishLoading}
                 isPublished={isPublished}
                 publishAction={storePublisAction}

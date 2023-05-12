@@ -3,7 +3,6 @@ import React from 'react'
 import HomeProducts from './HomeProducts'
 import StoreImg from '@/components/StoreImg'
 import { useAllStoresQuery } from '@/redux/services/general.service'
-import EmptyState from '@/components/EmptyState'
 import { locateImg } from '@/util/locateImg'
 import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 const StoreCollections = () => {
@@ -13,7 +12,8 @@ const StoreCollections = () => {
   return (
     <>
       {isLoading && <ProductSkeleton amount={5} className="lg:grid-cols-5" />}
-      {isSuccess && data.length > 0 ? (
+      {isSuccess &&
+        data.length > 0 &&
         data.map((store: any, index: number) => {
           return (
             <div className="flex mb-6" key={index}>
@@ -28,12 +28,7 @@ const StoreCollections = () => {
               </div>
             </div>
           )
-        })
-      ) : (
-        <div className="py-8 w-full">
-          <EmptyState showButton={false} message="NO STORE FOUND" />
-        </div>
-      )}
+        })}
     </>
   )
 }

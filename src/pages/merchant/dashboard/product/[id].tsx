@@ -7,6 +7,7 @@ import { setUser } from '@/redux/reducer/tokenReducer'
 import { useGetOneMerchantProductQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, wrapper } from '@/redux/store'
 import MerchantProductDetails from '@/sections/MerchatProductDetials'
+import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 import { locateImg } from '@/util/locateImg'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
@@ -16,7 +17,7 @@ import React, { ReactElement, useEffect } from 'react'
 const MerchantProduct = () => {
   const router = useRouter()
   const dispatch = useTypedDispatch()
-  const { data, isLoading, isSuccess } = useGetOneMerchantProductQuery(
+  const { data, isLoading, isSuccess, isError } = useGetOneMerchantProductQuery(
     router.query.id as string
   )
   useEffect(() => {
@@ -27,7 +28,6 @@ const MerchantProduct = () => {
       callDispatch()
     }
   }, [data, dispatch])
-  console.log(data, 'datatattta')
   return (
     <>
       <AboutStoreHeader />
@@ -36,6 +36,7 @@ const MerchantProduct = () => {
           {isSuccess ? (
             <MerchantProductDetails
               id={data.id}
+              isError={isError}
               published={data.published as number}
               isOwner
               name={data.name}
@@ -46,7 +47,7 @@ const MerchantProduct = () => {
               description={data.description}
             />
           ) : (
-            isLoading && <div>Loading....</div>
+            isLoading && <ListSkeleton />
           )}
         </div>
       </StoreHandler>

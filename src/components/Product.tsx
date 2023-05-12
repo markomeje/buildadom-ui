@@ -35,7 +35,7 @@ const ProductCard = ({
           src={img}
           alt="product image"
           className={`w-[100%] object-center cursor-pointer  h-[200px] ${
-            isGrid ? 'lg:h-[156px] lg:w-[200px]' : 'h-[250px] w-[250px]'
+            isGrid ? 'lg:h-[156px] lg:w-[200px]' : 'h-[250px] w-full'
           } object-cover`}
         />
         <Rating rating={rating} review={reviews} />
@@ -64,7 +64,7 @@ const ProductCard = ({
         </h2>
         <span
           className={`font-poppis w-[90%] ${
-            isGrid ? 'lg:w-[190px] h-[80px]' : 'w-[360px] mb-3'
+            isGrid ? 'lg:w-[190px] pb-2 min-h-[80px]' : 'w-[360px] mb-3'
           }  font-poppins text-[13px] leading-[20px]`}
         >
           {description && description.substring(0, 80) + '...'}
