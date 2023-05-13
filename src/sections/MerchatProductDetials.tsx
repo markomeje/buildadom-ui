@@ -17,6 +17,7 @@ import { AddProduct } from '@/lib/stepper'
 interface IProps extends IProduct {
   isLoading?: boolean
   published: number
+  isError: boolean
 }
 
 const MerchantProductDetails = ({
@@ -25,6 +26,7 @@ const MerchantProductDetails = ({
   description,
   rating,
   reviews,
+  isError,
   name,
   published,
   price,
@@ -86,7 +88,7 @@ const MerchantProductDetails = ({
           <UseStepper step={step} stepObject={AddProduct} />
         </ModalWraper>
       )}
-      <div className="backGround px-8 py-4 min-h-[500px]">
+      <div className="backGround mr-4 px-8 py-4 min-h-[600px] mb-5 lg:mb-0 lg:min-h-[500px]">
         <div className="flex w-full justify-between items-center">
           <i
             className="ri-arrow-left-line font-semibold cursor-pointer text-[22px]"
@@ -98,15 +100,15 @@ const MerchantProductDetails = ({
           ></i>
         </div>
         <div className="w-full border-b mt-4 relative border-[#CCCCCC] h-[330px]">
-          <div className="flex justify-between w-full">
-            <div className="flex w-[700px]">
+          <div className="flex flex-col lg:flex-row lg:justify-between w-full">
+            <div className="flex w-full flex-col lg:w-[700px]">
               <img
                 src={img}
-                className="w-[250px] mr-6 rounded-[6px] h-[250px] object-cover"
+                className="lg:w-[250px] w-full lg:mr-6 rounded-[6px] h-[250px] object-cover"
                 alt="product-img"
               />
               <div className="flex  flex-col">
-                <h1 className="text-[24px] mb-3 leading-[36px] font-semibold font-poppins">
+                <h1 className="text-[24px] capitalize mb-3 leading-[36px] font-semibold font-poppins">
                   {name}
                 </h1>
                 <span className="w-[350px] font-poppins uppercase text-[13px] leading-[19px]">
@@ -118,6 +120,7 @@ const MerchantProductDetails = ({
               </div>
             </div>
             <PublishAction
+              isError={isError}
               loading={publishLoading}
               publishAction={productPublisAction}
               isPublished={published === 0 ? false : true}
@@ -128,7 +131,7 @@ const MerchantProductDetails = ({
           </div>
         </div>
         {reviews === '0' ? (
-          <span className="w-full flex items-center justify-center mt-8 text-[#667085] font-poppins pb-2 leading-[30px] text-center text-[20px] font-[500]">
+          <span className="w-full flex items-center justify-center lg:mt-8 text-[#667085] font-poppins pb-2 leading-[30px] text-center text-[20px] font-[500]">
             No REVIEWS PRESENT
           </span>
         ) : (

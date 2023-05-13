@@ -7,6 +7,7 @@ type IProps = {
   handleFileUpload: () => void
   url: string
   fileLoading: boolean
+  isError: boolean
 }
 
 const LogoHolder = ({
@@ -15,11 +16,18 @@ const LogoHolder = ({
   handleFileUpload,
   url,
   fileStoreUpload,
+  isError,
 }: IProps) => {
   return (
-    <div>
+    <div className="absolute lg:relative right-3 lg:right-auto lg:top-auto top-[210px]">
       {' '}
-      {!previewLink && !url ? (
+      {isError ? (
+        <img
+          src="/assets/placeholder.jpg"
+          alt="store_image"
+          className="lg:w-[204px] w-[120px] lg:mr-8 lg:h-[204px] object-fill lg:round-0 rounded-[120px] border-gray-100 lg:border-0 border-2 h-[120px] "
+        />
+      ) : !previewLink && !url ? (
         <label
           htmlFor="store-logo"
           className="w-[204px] mr-8 h-[204px] cursor-pointer hidden lg:flex flex-col bg-gray-100 rounded-[20px] items-center justify-center"
@@ -34,12 +42,12 @@ const LogoHolder = ({
           />
         </label>
       ) : (
-        <div className="hidden lg:block relative">
+        <div className="block relative">
           <label htmlFor="store-logo" className="cursor-pointer">
             <img
               src={previewLink || url}
               alt="store_image"
-              className="w-[204px] mr-8 h-[204px]"
+              className="lg:w-[204px] w-[120px] lg:mr-8 lg:h-[204px] object-fill lg:rounded-none rounded-[120px] border-gray-100 lg:border-0 border-2 h-[120px] "
             />
             <input
               type="file"

@@ -7,11 +7,13 @@ type ICover = {
   fileUpload: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleFileUpload: () => void
   fileLoading: boolean
+  isError: boolean
 }
 
 const CoverBanner = ({
   previewLink,
   url,
+  isError,
   fileUpload,
   handleFileUpload,
   fileLoading,
@@ -28,7 +30,11 @@ const CoverBanner = ({
         />
       )}
       {/* web  label */}
-      <div className="lg:flex items-center hidden bottom-[40px] right-[50px] absolute">
+      <div
+        className={`lg:flex items-center ${
+          isError && 'lg:hidden hidden'
+        } hidden bottom-[40px] right-[50px] absolute`}
+      >
         <label
           htmlFor="file-upload"
           className="bg-[#747272] z-10 cursor-pointer rounded-sm w-[174px] h-[43px]  flex items-center justify-center font-poppins text-white font-[700] text-[16px] leading-[20px]"

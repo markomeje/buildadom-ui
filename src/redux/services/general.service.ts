@@ -26,6 +26,10 @@ export const generalApi = createApi({
       ) => {
         return response.products.data
       },
+      transformErrorResponse: (response) => {
+        console.log(response)
+        return response
+      },
     }),
 
     allStores: builder.query<any, number>({
@@ -36,6 +40,10 @@ export const generalApi = createApi({
         console.log(response, 'dddd')
 
         return response.stores.data
+      },
+      transformErrorResponse: (response) => {
+        console.log(response)
+        return response
       },
     }),
 

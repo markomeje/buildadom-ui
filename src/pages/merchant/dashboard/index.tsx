@@ -48,7 +48,7 @@ const MyStore = () => {
                 <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[20px]"></i>
               </button>
             </div>
-            <div className="h-[800px] overflow-y-scroll">
+            <div className="lg:h-[800px] w-full  lg:overflow-y-scroll">
               {locateMerchantProducts(data).map((product: any, index: any) => (
                 <ProductCategory
                   key={index}
