@@ -56,14 +56,14 @@ const ProductCard = ({
         <h2
           className={`text-[15px] ${
             isGrid
-              ? 'text-bd-blue w-[220px] mb-1'
+              ? 'text-bd-blue lg:w-[220px] mb-1'
               : 'text-[24px] mb-3 leading-[36px]'
           } font-poppins capitalize font-semibold`}
         >
           {name}
         </h2>
         <span
-          className={`font-poppis w-[90%] ${
+          className={`font-poppis lg:w-[90%] ${
             isGrid ? 'lg:w-[190px] pb-2 min-h-[80px]' : 'w-[360px] mb-3'
           }  font-poppins text-[13px] leading-[20px]`}
         >
@@ -107,19 +107,21 @@ export const Rating = ({
   review?: string
 }) => {
   return (
-    <div className="pt-2 flex items-center">
-      {[...Array(5)].map((start, index) => {
-        index + 1
-        return (
-          <div key={index}>
-            <i
-              className={`ri-star-s-fill mr-2 ${
-                index < rating ? 'text-[#E9A426]' : 'text-gray-500'
-              }`}
-            ></i>
-          </div>
-        )
-      })}
+    <div className="pt-2 flex lg:flex-row flex-col ">
+      <div className="flex">
+        {[...Array(5)].map((start, index) => {
+          index + 1
+          return (
+            <div key={index}>
+              <i
+                className={`ri-star-s-fill mr-2 ${
+                  index < rating ? 'text-[#E9A426]' : 'text-gray-500'
+                }`}
+              ></i>
+            </div>
+          )
+        })}
+      </div>
       <span
         className={`text-[#8C8C8C] font-poppins text-[12px] leading-[25px] ${
           review ? 'block' : 'hidden'

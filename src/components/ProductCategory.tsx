@@ -14,7 +14,7 @@ const ProductCategory = ({ header, products }: IProps) => {
       <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
         {header}
       </h1>
-      <div className="py-4 grid lg:grid-cols-4 grid-cols-2 lg:gap-6">
+      <div className="py-4 grid lg:grid-cols-4 grid-cols-2 gap-x-3 lg:gap-x-0 lg:gap-6">
         {products.map((product: any, index: any) => (
           <ProductCard
             key={index}
