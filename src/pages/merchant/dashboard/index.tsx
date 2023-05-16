@@ -39,7 +39,7 @@ const MyStore = () => {
     if (info && !info.verified) {
       router.push('/merchant/dashboard/verifyId')
     }
-  }, [router])
+  }, [router, info])
 
   return (
     <>

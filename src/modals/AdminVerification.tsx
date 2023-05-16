@@ -8,7 +8,7 @@ const AdminVerification = () => {
   const { data, isLoading } = useGetValidationDetailsQuery()
   console.log(data, 'datat')
   const router = useRouter()
-  const isVerified = data.verified === 1
+  const isVerified = data && data.verified === 1
   const redirect = () => {
     router.push('/merchant/dashboard/create-store')
   }
