@@ -9,14 +9,9 @@ export type TextProps = {
   title: string
   register: any
   setValue?: any
+  rules?: string[]
   error: any
 }
-
-const rules = [
-  'Minimum of 8 characters*',
-  'At least on number chareacter is requried*',
-  'A special character is required*',
-]
 
 const Input = ({
   placeholder,
@@ -25,6 +20,7 @@ const Input = ({
   type,
   register,
   error,
+  rules,
 }: TextProps) => {
   const { validationErrors } = useTypedSelector(
     (state) => state.validationError
@@ -39,8 +35,12 @@ const Input = ({
       </label>
       <div className="mb-1 flex flex-col -mt-2">
         {name === 'password' &&
+          rules &&
           rules.map((rule, index) => (
-            <span className="text-red-400 font-poppins text-[12px]" key={index}>
+            <span
+              className="text-gray-600 font-poppins text-[12px]"
+              key={index}
+            >
               {rule}
             </span>
           ))}

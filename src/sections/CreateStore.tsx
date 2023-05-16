@@ -29,8 +29,7 @@ const CreateStore = () => {
   const onSubmit = handleSubmit(async (info) => {
     const data = { ...info, country_id: country.id.toString(), city }
     try {
-      const response = await createStore(data).unwrap()
-      console.log(response)
+      await createStore(data).unwrap()
       router.push('/merchant/dashboard')
     } catch (err) {
       const error = (err as AuthError).data.errors

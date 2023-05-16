@@ -46,6 +46,9 @@ const IndividualIDValidation = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col  items-center">
+      <h1 className="font-poppins font-semibold leading-[60px] pb-4 text-center text-[32px] text-bd-black">
+        Merchant ID Validation
+      </h1>
       <InputSelect
         data={data}
         control={control}

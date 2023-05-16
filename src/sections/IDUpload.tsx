@@ -4,16 +4,19 @@
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import {
   useGetValidationDetailsQuery,
   useImageUploadMutation,
 } from '@/redux/services/validation.service'
 import Button from '@/ui/button/Button'
+import { useTypedDispatch } from '@/redux/store'
+import { incrementStepper } from '@/redux/reducer/stepperReducer'
 
 function IdUpload() {
   const { data } = useGetValidationDetailsQuery()
-  const router = useRouter()
+  const dispatch = useTypedDispatch()
+  // const router = useRouter()
   const [file, setFile] = useState<File | null>(null)
   const onDrop = useCallback((acceptedFiles: any[]) => {
     const uploadedImage = acceptedFiles[0]
@@ -38,9 +41,11 @@ function IdUpload() {
     formData.append('image', file)
 
     try {
-      const response = await imageUpload(formData).unwrap()
+      await imageUpload(formData).unwrap()
+      const response = true
       if (response) toast.success('ID uploaded successfully')
-      router.push('/merchant/dashboard/create-store')
+      // router.push('/merchant/dashboard/verifyId')
+      dispatch(incrementStepper())
     } catch (error) {
       toast.error(JSON.stringify(error))
       console.log(error)
@@ -52,6 +57,9 @@ function IdUpload() {
       onSubmit={handleSubmit}
       className="mb-3 max-w-[600px] mx-auto flex flex-col"
     >
+      <h1 className="font-poppins font-semibold leading-[60px] pb-4 text-center text-[32px] text-bd-black">
+        Merchant ID Validation
+      </h1>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         <div className="border-gray-300 border-dashed border-2 flex items-center justify-center flex-col mt-4 rounded-[12px] h-[250px]">

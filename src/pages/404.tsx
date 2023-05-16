@@ -7,7 +7,7 @@ const CustomNotFound = () => {
       <h1 className="font-bold text-[40px] font-poppins text-red-400">
         404 !!
       </h1>
-      <h1 className="font-bold text-[40px] font-poppins">Page Not Found</h1>
+      <span className="font-bold text-[40px] font-poppins">Page Not Found</span>
     </div>
   )
 }

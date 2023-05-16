@@ -5,7 +5,7 @@ export const sideLinks = [
     link: `${BASE_URL}` || `${BASE_URL}/product/[id]`,
   },
   {
-    name: 'Account & Payment (Escrow)',
+    name: 'Payment (Escrow)',
     link: `${BASE_URL}/escrow`,
   },
   {

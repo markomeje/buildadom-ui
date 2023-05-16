@@ -3,6 +3,8 @@ import StoreHandler from '@/layouts/StoreHandler'
 import StoreLayout from '@/layouts/StoreLayout'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import { wrapper } from '@/redux/store'
+import EscrowInfo from '@/sections/EscrowInfo'
+import EscrowTable from '@/sections/EscrowTable'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import React, { ReactElement } from 'react'
@@ -12,7 +14,13 @@ const Escrow = () => {
     <>
       <AboutStoreHeader />
       <StoreHandler>
-        <div>Escrow</div>
+        <div className="fleex-col">
+          <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
+            Escrow Information
+          </h1>
+          <EscrowInfo />
+          <EscrowTable />
+        </div>
       </StoreHandler>
     </>
   )

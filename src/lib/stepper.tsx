@@ -1,4 +1,5 @@
 import AddProductModal from '@/modals/AddProductWrapper'
+import AdminVerification from '@/modals/AdminVerification'
 import ProductUpload from '@/modals/ProductUpload'
 import IdUpload from '@/sections/IDUpload'
 import IndividualIDValidation from '@/sections/IndvidualIdValidation'
@@ -14,6 +15,7 @@ export const AuthIndividualStepper = {
 export const IDValidationStepper = {
   1: <IndividualIDValidation />,
   2: <IdUpload />,
+  3: <AdminVerification />,
 }
 
 export const AddProduct = {
