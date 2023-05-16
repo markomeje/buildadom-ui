@@ -7,7 +7,7 @@ export const BankSchema = yup.object({
 })
 
 export const DriverSchema = yup.object({
-  firstName: yup.string().required('First Name is required'),
-  lastName: yup.string().required('Last Name is required'),
+  firstname: yup.string().required('First Name is required'),
+  lastname: yup.string().required('Last Name is required'),
   phone: yup.string().required('Phone Number is required'),
 })

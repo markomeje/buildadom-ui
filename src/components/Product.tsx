@@ -63,7 +63,7 @@ const ProductCard = ({
           {name}
         </h2>
         <span
-          className={`font-poppis lg:w-[90%] ${
+          className={`font-poppis  ${
             isGrid ? 'lg:w-[190px] pb-2 min-h-[80px]' : 'w-[360px] mb-3'
           }  font-poppins text-[13px] leading-[20px]`}
         >

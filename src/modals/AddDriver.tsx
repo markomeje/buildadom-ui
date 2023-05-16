@@ -1,6 +1,9 @@
+import { AuthError } from '@/interface/errors'
 import { IDriver } from '@/interface/form.interface'
+import { setValidationErrors } from '@/redux/reducer/errorReducer'
 import { closeModal } from '@/redux/reducer/modalReducer'
-import { useTypedDispatch } from '@/redux/store'
+import { useAddDriverMutation } from '@/redux/services/drivers.service'
+import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import Input from '@/ui/input/TextInput'
 import { DriverSchema } from '@/validationschema/bankSchema'
@@ -8,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 const CountryCodeSelector = dynamic(
   () => import('../ui/input/PhoneCountryCodeInput'),
   {
@@ -17,6 +21,11 @@ const CountryCodeSelector = dynamic(
 
 const AddDriverModal = () => {
   const dispatch = useTypedDispatch()
+  const { countryCode } = useTypedSelector((state) => state.dashboard)
+  const [addDriver, { isLoading }] = useAddDriverMutation()
+  const closeDriverModal = () => {
+    dispatch(closeModal())
+  }
   const {
     register,
     handleSubmit,
@@ -26,12 +35,20 @@ const AddDriverModal = () => {
   })
 
   const onSubmit = handleSubmit(async (info) => {
-    console.log(info)
+    const formData = {
+      ...info,
+      phone: countryCode.dial_code + info.phone,
+    }
+    try {
+      const result = await addDriver(formData).unwrap()
+      toast.success(result)
+      closeDriverModal()
+    } catch (err) {
+      if ((err as AuthError).data?.errors) {
+        dispatch(setValidationErrors((err as AuthError).data.errors))
+      }
+    }
   })
-
-  const closeDriverModal = () => {
-    dispatch(closeModal())
-  }
 
   return (
     <div className="flex flex-col w-full h-full p-6 z-50 max-w-[500px] py-[20px] justify-center">
@@ -47,7 +64,7 @@ const AddDriverModal = () => {
           title="Enter First Name"
           placeholder="First Name"
           type="text"
-          name="firstName"
+          name="firstname"
           register={register}
           error={errors}
         />
@@ -55,7 +72,7 @@ const AddDriverModal = () => {
           title="Enter Last Name"
           placeholder="enter last name"
           type="text"
-          name="lastName"
+          name="lastname"
           register={register}
           error={errors}
         />
@@ -69,7 +86,7 @@ const AddDriverModal = () => {
         />
 
         <Button
-          title={'Save'}
+          title={isLoading ? 'Loading...' : 'Save'}
           classNames="w-full h-[50px] rounded-[50px] my-4 "
         />
       </form>

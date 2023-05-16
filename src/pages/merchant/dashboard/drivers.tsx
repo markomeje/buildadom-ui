@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import DriverTable from '@/components/DriverTable'
 import AboutStoreHeader from '@/components/StoreHeader'
 import StoreHandler from '@/layouts/StoreHandler'
 import StoreLayout from '@/layouts/StoreLayout'
@@ -6,8 +7,10 @@ import ModalWraper from '@/modals'
 import AddDriverModal from '@/modals/AddDriver'
 import { specificModal } from '@/redux/reducer/modalReducer'
 import { setUser } from '@/redux/reducer/tokenReducer'
+import { useGetDriverQuery } from '@/redux/services/drivers.service'
 import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
 import Button from '@/ui/button/Button'
+import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import React, { ReactElement } from 'react'
@@ -38,6 +41,11 @@ const EmptyState = () => {
 }
 
 const Drivers = () => {
+  const dispatch = useTypedDispatch()
+  const showDriverModal = () => {
+    dispatch(specificModal('driver_modal'))
+  }
+  const { data, isLoading, isSuccess } = useGetDriverQuery()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
   )
@@ -51,10 +59,24 @@ const Drivers = () => {
       <AboutStoreHeader />
       <StoreHandler>
         <div className="flex-col">
-          <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
-            Dispatch Drivers
-          </h1>
-          <EmptyState />
+          <div className="flex items-center border-b border-[#CCCCCC] justify-between pb-3">
+            <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold w-full ">
+              Dispatch Drivers
+            </h1>
+            <button
+              className="w-[30px] lg:w-[30px] h-[30px] lg:h-[30px] mr-6 lg:mr-0  rounded-[40px] cursor-pointer p-3 flex items-center justify-center bg-bd-blue"
+              onClick={showDriverModal}
+            >
+              <i className="ri-add-line text-white font-semibold text-[14px] lg:text-[16px]"></i>
+            </button>
+          </div>
+          {isLoading ? (
+            <ListSkeleton />
+          ) : isSuccess && data && data.length > 0 ? (
+            <DriverTable data={data} />
+          ) : (
+            <EmptyState />
+          )}
         </div>
       </StoreHandler>
     </>
