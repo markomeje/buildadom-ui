@@ -3,7 +3,7 @@
 import StoreLayout from '@/layouts/StoreLayout'
 import ModalWraper from '@/modals'
 import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import { setUser } from '@/redux/reducer/tokenReducer'
@@ -18,17 +18,29 @@ import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 import { locateMerchantProducts } from '@/util/locateImg'
 import AboutStoreHeader from '@/components/StoreHeader'
 import StoreHandler from '@/layouts/StoreHandler'
+import { useGetValidationDetailsQuery } from '@/redux/services/validation.service'
+import { useRouter } from 'next/router'
 const MyStore = () => {
+  const router = useRouter()
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
   )
   const { step } = useTypedSelector((state) => state.stepper)
+  const { data: info, isLoading: loading } = useGetValidationDetailsQuery()
+
   const { data, isLoading, isSuccess } = useGetMerchatProductsQuery()
   const handleClick = () => {
     dispatch(specificModal('product'))
     dispatch(setStepper(1))
   }
+
+  useEffect(() => {
+    if (info && !info.verified) {
+      router.push('/merchant/dashboard/verifyId')
+    }
+  }, [router, info])
+
   return (
     <>
       {modal && modalType === 'product' && (
@@ -38,7 +50,10 @@ const MyStore = () => {
       )}
       <AboutStoreHeader />
       <StoreHandler>
-        {!isLoading && isSuccess && locateMerchantProducts(data).length > 0 ? (
+        {!isLoading &&
+        !loading &&
+        isSuccess &&
+        locateMerchantProducts(data).length > 0 ? (
           <>
             <div className="w-full flex items-end  justify-end">
               <button

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import React from 'react'
 import { IBank } from '@/interface/form.interface'
 import { BankSchema } from '@/validationschema/bankSchema'
+import Button from '@/ui/button/Button'
 
 const AccountSetupModal = () => {
   const {
@@ -38,12 +39,16 @@ const AccountSetupModal = () => {
           error={errors}
         />
         <Input
-          title="Product Name"
-          placeholder="enter product name"
+          title="Enter Bank Name"
+          placeholder="enter bank name"
           type="text"
-          name="name"
+          name="bankName"
           register={register}
           error={errors}
+        />
+        <Button
+          title={'Save'}
+          classNames="w-full h-[50px] rounded-[50px] my-4 "
         />
       </form>
     </div>

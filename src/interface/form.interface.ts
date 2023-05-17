@@ -41,3 +41,9 @@ export interface IBank {
   accountNumber: string
   bankName: string
 }
+
+export interface IDriver {
+  firstName: string
+  lastNumber: string
+  phone: string
+}

@@ -13,7 +13,7 @@ const Button = ({ title, classNames, type = 'full', onClick }: IButton) => {
   const value = type === 'full' ? full : outlined
   return (
     <button
-      className={`flex items-center text-center font-poppins font-semibold tracking-wide justify-center  ${classNames} ${value}`}
+      className={`flex items-center text-center font-poppins font-[400] tracking-wide justify-center  ${classNames} ${value}`}
       onClick={onClick}
     >
       {title}

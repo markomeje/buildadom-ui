@@ -3,32 +3,33 @@ import StoreHandler from '@/layouts/StoreHandler'
 import StoreLayout from '@/layouts/StoreLayout'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import { wrapper } from '@/redux/store'
-import EscrowInfo from '@/sections/EscrowInfo'
-import EscrowTable from '@/sections/EscrowTable'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import React, { ReactElement } from 'react'
 
-const Escrow = () => {
+const History = () => {
   return (
     <>
       <AboutStoreHeader />
       <StoreHandler>
         <div className="fleex-col">
           <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
-            Escrow Information
+            Order History (0)
           </h1>
-          <EscrowInfo />
-          <EscrowTable />
+          <div className="py-12 flex items-center justify-center">
+            <span className="font-poppins text-[20px] text-gray-500 ">
+              No Table Data
+            </span>
+          </div>
         </div>
       </StoreHandler>
     </>
   )
 }
 
-export default Escrow
+export default History
 
-Escrow.getLayout = function getLayout(page: ReactElement) {
+History.getLayout = function getLayout(page: ReactElement) {
   return <StoreLayout>{page}</StoreLayout>
 }
 

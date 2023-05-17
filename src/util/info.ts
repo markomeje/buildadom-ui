@@ -34,3 +34,9 @@ export const Links = [
     href: '/track_order',
   },
 ]
+
+export const rules = [
+  'Minimum of 8 characters',
+  'At least on number chareacter is requried',
+  'A special character is required',
+]

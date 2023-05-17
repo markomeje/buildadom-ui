@@ -27,7 +27,7 @@ const Home = () => {
             New Products
           </h2>
           <Link
-            href={'/stores'}
+            href={'/explore'}
             className="text-[13px] underline leading-[14px] font-poppins"
           >
             see all products

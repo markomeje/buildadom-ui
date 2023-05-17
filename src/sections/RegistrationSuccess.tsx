@@ -23,15 +23,15 @@ const SignupSuccess = () => {
         Nam, dolore. Quaerat totam maiores nostrum, fugit deserunt nam enim.
       </p>
       <div className="flex flex-col items-center justify-center lg:flex-row w-full px-4 lg:px-0 py-3">
-        <Button
+        {/* <Button
           onClick={() => redirect('/merchant/dashboard/create-store')}
           title="Skip"
           type="outlined"
           classNames="mr-6 py-4 rounded-[8px] w-full md:w-[200px] "
-        />
+        /> */}
         <Button
           onClick={() => redirect('/merchant/dashboard/verifyId')}
-          title="Id Verification"
+          title=" Start ID Verification"
           classNames="py-4 rounded-[8px] w-full mt-4 lg:mt-0 md:w-[200px]"
         />
       </div>

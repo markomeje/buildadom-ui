@@ -13,6 +13,7 @@ import { useAdduserMutation } from '@/redux/services/auth.service'
 import { AuthError } from '@/interface/error.interface'
 import dynamic from 'next/dynamic'
 import { setValidationErrors } from '@/redux/reducer/errorReducer'
+import { rules } from '@/util/info'
 const CountryCodeSelector = dynamic(
   () => import('../ui/input/PhoneCountryCodeInput'),
   {
@@ -114,6 +115,7 @@ const BusinessDetails = () => {
           error={errors}
         />
         <Input
+          rules={rules}
           title="Password"
           name="password"
           type="password"

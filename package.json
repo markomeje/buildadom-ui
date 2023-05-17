@@ -27,6 +27,7 @@
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.43.8",
+    "react-image-crop": "^10.0.9",
     "react-loading-skeleton": "^3.2.1",
     "react-phone-number-input": "^3.2.19",
     "react-redux": "^8.0.5",
