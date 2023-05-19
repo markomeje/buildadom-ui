@@ -17,8 +17,8 @@ const InputSelect = ({ control, errors, data, label, name }: any) => {
         {label}
       </label>
       <Select
-        className="w-full  focus:outline-none h-[50px] rounded-[5px] text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
-        placeholder="select type"
+        className="w-full  focus:outline-none h-[50px] text-[14px] rounded-[5px] text-gray-800 placeholder:text-[#8C8C8C] font-poppins"
+        placeholder="select"
         isClearable
         options={data}
         value={idValue ? data?.find((x: any) => x.value === idValue) : idValue}

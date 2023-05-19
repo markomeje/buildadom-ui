@@ -6,6 +6,7 @@ interface modalState {
   modalType: string
   specificModal: boolean
   displayType: string
+  id?: number
 }
 
 const initialState: modalState = {
@@ -28,6 +29,14 @@ export const modalSlice = createSlice({
         (state.modalType = action.payload)
     },
 
+    actionToggle: (
+      state,
+      action: PayloadAction<{ type: string; id: number }>
+    ) => {
+      ;(state.specificModal = !state.specificModal),
+        (state.modalType = action.payload.type),
+        (state.id = action.payload.id)
+    },
     closeModal: (state) => {
       ;(state.show = false), (state.specificModal = false)
     },
@@ -43,7 +52,13 @@ export const modalSlice = createSlice({
 export const modalMode = (state: RootState) =>
   state && state.modal && state.modal
 
-export const { toggle, closeModal, openModal, specificModal, setDisplayType } =
-  modalSlice.actions
+export const {
+  toggle,
+  closeModal,
+  openModal,
+  specificModal,
+  actionToggle,
+  setDisplayType,
+} = modalSlice.actions
 
 export const modalReducer = modalSlice.reducer

@@ -6,7 +6,9 @@ import { setUser } from '@/redux/reducer/tokenReducer'
 import { wrapper } from '@/redux/store'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useGetAccountInfoQuery } from '@/redux/services/account.service'
+import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 
 const Details = ({ title, content }: { title: string; content: string }) => (
   <div className="mb-4">
@@ -18,27 +20,45 @@ const Details = ({ title, content }: { title: string; content: string }) => (
 )
 
 const AccountSetup = () => {
+  const { data, isLoading } = useGetAccountInfoQuery()
   const handleEdit = () => {
     setEdit(!edit)
   }
   const [edit, setEdit] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (data === null) {
+      setEdit(true)
+    }
+  }, [data])
+
+  console.log(data, 'data query')
+
   return (
     <>
       <AboutStoreHeader />
       <StoreHandler>
-        <div className="w-full mb-4">
+        <div className="w-full mt-10 lg:mt-0 mb-4">
           {edit ? (
             <div className="flex w-full border-b border-[#CCCCCC]">
-              <i
-                className="ri-arrow-left-line mr-3 cursor-pointer font-300 text-[22px]"
-                onClick={handleEdit}
-              ></i>
-              <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3">
-                Edit Account Information
-              </h1>
+              {data === null ? (
+                <h1 className="leading-[36px] capitalize text-[21px]  font-poppins font-semibold pb-3">
+                  Add Account Details
+                </h1>
+              ) : (
+                <>
+                  <i
+                    className="ri-arrow-left-line mr-3 cursor-pointer font-300 text-[22px]"
+                    onClick={handleEdit}
+                  ></i>
+                  <h1 className="leading-[36px] capitalize text-[21px]  font-poppins font-semibold pb-3">
+                    Edit Account Information
+                  </h1>
+                </>
+              )}
             </div>
           ) : (
-            <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
+            <h1 className="leading-[36px] capitalize text-[21px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
               Account Information
               <i
                 className="ri-edit-2-line ml-4 cursor-pointer font-300 text-[22px]"
@@ -46,15 +66,25 @@ const AccountSetup = () => {
               ></i>
             </h1>
           )}
-          {edit ? (
-            <AccountSetupModal />
-          ) : (
-            <div className="flex mt-5 flex-col">
-              <Details title="Account Name" content="Monanu Ifenna Chinedu" />
-              <Details title="Account Number" content="1227763385" />
-              <Details title="Bank Name" content="Access Bank" />
-            </div>
-          )}
+          <>
+            {isLoading ? (
+              <ListSkeleton />
+            ) : edit && !isLoading ? (
+              <AccountSetupModal />
+            ) : (
+              <div className="flex mt-5 flex-col">
+                <Details
+                  title="Account Name"
+                  content={data && data.account_name}
+                />
+                <Details
+                  title="Account Number"
+                  content={data && data.account_number}
+                />
+                <Details title="Bank Name" content={data && data.bank} />
+              </div>
+            )}
+          </>
         </div>
       </StoreHandler>
     </>

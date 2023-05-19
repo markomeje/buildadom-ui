@@ -59,8 +59,8 @@ const Drivers = () => {
       <AboutStoreHeader />
       <StoreHandler>
         <div className="flex-col">
-          <div className="flex items-center border-b border-[#CCCCCC] justify-between pb-3">
-            <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold w-full ">
+          <div className="flex items-center border-b mt-8 lg:mt-0 border-[#CCCCCC] justify-between pb-3">
+            <h1 className="leading-[36px] capitalize text-[20px] lg:text-[24px]  font-poppins font-semibold w-full ">
               Dispatch Drivers
             </h1>
             <button

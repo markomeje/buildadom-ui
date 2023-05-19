@@ -16,6 +16,7 @@ const SideLinks = () => {
           return (
             <Link
               href={link.link}
+              scroll={false}
               key={index}
               className={`py-2  mb-2 ${
                 active &&

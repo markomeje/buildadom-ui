@@ -37,13 +37,13 @@ export interface IValidationForm {
 }
 
 export interface IBank {
-  accountName: string
-  accountNumber: string
-  bankName: string
+  account_name: string
+  account_number: string
+  bank: string
 }
 
 export interface IDriver {
-  firstName: string
-  lastNumber: string
+  firstname: string
+  lastname: string
   phone: string
 }
