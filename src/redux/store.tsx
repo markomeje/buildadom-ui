@@ -14,6 +14,7 @@ import { utilityApi } from './services/utility.slice'
 import { generalApi } from './services/general.service'
 import { errorReducer, errorSlice } from './reducer/errorReducer'
 import { driverApi } from './services/drivers.service'
+import { accountApi } from './services/account.service'
 
 const reducers = {
   [stepperSlice.name]: stepperReducer,
@@ -27,6 +28,7 @@ const reducers = {
   [utilityApi.reducerPath]: utilityApi.reducer,
   [generalApi.reducerPath]: generalApi.reducer,
   [driverApi.reducerPath]: driverApi.reducer,
+  [accountApi.reducerPath]: accountApi.reducer,
 }
 
 const combinedReducer: Reducer = combineReducers<typeof reducers>(reducers)
@@ -57,6 +59,7 @@ export const makeStore = (context: Context) =>
         utilityApi.middleware,
         generalApi.middleware,
         driverApi.middleware,
+        accountApi.middleware,
       ]),
     devTools: true,
   })

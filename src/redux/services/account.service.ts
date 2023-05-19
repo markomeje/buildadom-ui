@@ -4,8 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 import { INewData } from '@/modals/AddDriver'
 
-export const driverApi = createApi({
-  reducerPath: 'driversApi',
+export const accountApi = createApi({
+  reducerPath: 'accountApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://dev.buildadom.net/api/v1',
     headers: { accept: 'application/json' },
@@ -17,40 +17,44 @@ export const driverApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Drivers'],
+  tagTypes: ['Account'],
   endpoints: (builder) => ({
-    getDriver: builder.query<any, void>({
+    getAccountInfo: builder.query<any, void>({
       query: () => ({
-        url: 'marchant/drivers',
+        url: '/marchant/account/information',
       }),
-      transformResponse: (response: {
-        drivers: { firstname: string; lastname: string; phone: string }[]
-      }) => {
-        console.log(response, 'rawwww')
-        return response.drivers
+      transformResponse: (response: { account: any }) => {
+        return response.account
       },
-      providesTags: (result, error, arg) =>
-        result
-          ? [
-              ...result.map(({ id }: { id: any }) => ({
-                type: 'Drivers' as const,
-                id,
-              })),
-              'Drivers',
-            ]
-          : ['Drivers'],
+      providesTags: ['Account'],
     }),
 
-    addDriver: builder.mutation<string, any>({
+    getBanks: builder.query<any, void>({
+      query: () => ({
+        url: '/banks',
+      }),
+      transformResponse: (response: { name: string }[]) => {
+        console.log(response, 'responsess')
+        const result = response.map((bank) => {
+          return {
+            value: bank.name,
+            label: bank.name,
+          }
+        })
+        return result
+      },
+    }),
+
+    addAccountDetails: builder.mutation<string, any>({
       query: (data) => ({
-        url: 'marchant/driver/add',
+        url: '/marchant/account/save',
         method: 'POST',
         body: data,
       }),
       transformResponse: (response: { message: string }, meta, arg) => {
         return response.message
       },
-      invalidatesTags: ['Drivers'],
+      invalidatesTags: ['Account'],
     }),
 
     updateDriver: builder.mutation<any, { id: number; data: INewData }>({
@@ -64,7 +68,7 @@ export const driverApi = createApi({
         return response.message
       },
       invalidatesTags: (result, error, arg) => [
-        { type: 'Drivers', id: arg.id },
+        { type: 'Account', id: arg.id },
       ],
     }),
 
@@ -77,15 +81,16 @@ export const driverApi = createApi({
         return response.message
       },
       invalidatesTags: (result, error, arg) => [
-        { type: 'Drivers', id: arg.id },
+        { type: 'Account', id: arg.id },
       ],
     }),
   }),
 })
 
 export const {
-  useAddDriverMutation,
+  useGetBanksQuery,
+  useAddAccountDetailsMutation,
   useUpdateDriverMutation,
-  useGetDriverQuery,
+  useGetAccountInfoQuery,
   useDeleteDriverMutation,
-} = driverApi
+} = accountApi

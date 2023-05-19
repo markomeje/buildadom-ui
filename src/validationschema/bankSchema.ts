@@ -1,9 +1,9 @@
 import * as yup from 'yup'
 
 export const BankSchema = yup.object({
-  bankName: yup.string().required('Bank Name is required'),
-  accountName: yup.string().required('Account Name is required'),
-  accountNumber: yup.string().required('Account Number is required'),
+  bank: yup.string().required('Bank Name is required'),
+  account_name: yup.string().required('Account Name is required'),
+  account_number: yup.string().required('Account Number is required'),
 })
 
 export const DriverSchema = yup.object({

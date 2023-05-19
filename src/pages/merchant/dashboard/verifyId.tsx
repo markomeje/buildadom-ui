@@ -15,12 +15,6 @@ const IdVerification = () => {
   const { data, isLoading } = useGetValidationDetailsQuery()
   const dispatch = useTypedDispatch()
   const { step } = useTypedSelector((state) => state.stepper)
-  // const router = useRouter()
-  // useEffect(() => {
-  //   if (router.query && router.query.stepper) {
-  //     dispatch(setStepper(parseInt(router.query.stepper as string)))
-  //   }
-  // }, [router.query, dispatch])
 
   useEffect(() => {
     if (!isLoading && data === null) {

@@ -12,8 +12,8 @@ const History = () => {
     <>
       <AboutStoreHeader />
       <StoreHandler>
-        <div className="fleex-col">
-          <h1 className="leading-[36px] capitalize text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
+        <div className="flex-col mt-10 lg:mt-0">
+          <h1 className="leading-[36px] capitalize text-[20px] lg:text-[24px]  font-poppins font-semibold pb-3 w-full border-b border-[#CCCCCC]">
             Order History (0)
           </h1>
           <div className="py-12 flex items-center justify-center">
