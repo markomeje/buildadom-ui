@@ -32,8 +32,6 @@ const AccountSetup = () => {
     }
   }, [data])
 
-  console.log(data, 'data query')
-
   return (
     <>
       <AboutStoreHeader />
@@ -70,7 +68,7 @@ const AccountSetup = () => {
             {isLoading ? (
               <ListSkeleton />
             ) : edit && !isLoading ? (
-              <AccountSetupModal />
+              <AccountSetupModal edit={handleEdit} />
             ) : (
               <div className="flex mt-5 flex-col">
                 <Details

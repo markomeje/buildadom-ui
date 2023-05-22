@@ -17,7 +17,13 @@ const ProductCard = ({
 }: IProduct) => {
   const router = useRouter()
   const redirect = () => {
-    router.push(redirectLink ? redirectLink : `/product/${id}`)
+    router.push(
+      { pathname: `${redirectLink ? redirectLink : `/product/${id}`}` },
+      undefined,
+      {
+        scroll: false,
+      }
+    )
   }
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
@@ -46,6 +52,10 @@ const ProductCard = ({
         >
           <i className="ri-shopping-cart-line text-bd-blue mr-2 cursor-pointer"></i>
           <i className="ri-heart-line text-red-500 cursor-pointer"></i>
+          <i
+            className="ri-more-2-fill text-gray-600 font-semibold ml-1 cursor-pointer"
+            onClick={redirect}
+          ></i>
         </div>
       </div>
       <div

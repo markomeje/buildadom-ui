@@ -37,6 +37,6 @@ export const Links = [
 
 export const rules = [
   'Minimum of 8 characters',
-  'At least on number chareacter is requried',
+  'At least on numeric character is requried',
   'A special character is required',
 ]

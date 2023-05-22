@@ -1,5 +1,4 @@
 import ModalWraper from '@/modals'
-import EmailVerificationModal from '@/modals/EmailVerificationModal'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -14,6 +13,8 @@ import { AuthError } from '@/interface/error.interface'
 import dynamic from 'next/dynamic'
 import { setValidationErrors } from '@/redux/reducer/errorReducer'
 import { rules } from '@/util/info'
+import UseStepper from '@/hooks/useStepper'
+import { VerificationStepper } from '@/lib/stepper'
 const CountryCodeSelector = dynamic(
   () => import('../ui/input/PhoneCountryCodeInput'),
   {
@@ -26,6 +27,8 @@ const BusinessDetails = () => {
   const { show } = useTypedSelector((state) => state.modal)
   const [addUser, { isLoading }] = useAdduserMutation()
   const { countryCode } = useTypedSelector((state) => state.dashboard)
+
+  const { step } = useTypedSelector((state) => state.stepper)
 
   const {
     register,
@@ -55,7 +58,7 @@ const BusinessDetails = () => {
     <>
       {show && (
         <ModalWraper>
-          <EmailVerificationModal />
+          <UseStepper step={step} stepObject={VerificationStepper} />
         </ModalWraper>
       )}
       <span className="font-poppins  text-[18px] my-6 mx-auto max-w-[446px] leading-[27px] text-center">
@@ -93,8 +96,8 @@ const BusinessDetails = () => {
         <Input
           title="Website"
           name="website"
+          isStar={false}
           type="text"
-          error={errors}
           placeholder="enter website address"
           register={register}
         />

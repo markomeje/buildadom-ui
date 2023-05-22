@@ -16,7 +16,7 @@ export const IndividualAuthSchema = yup.object({
 export const BusinessAuthSchema = yup.object({
   business_name: yup.string().required('business name is required'),
   cac_number: yup.string().required('cac number is required'),
-  website: yup.string().required('website is required'),
+  website: yup.string(),
   phone: yup.string().required('phone is required'),
   email: yup.string().required().email('must be a valid email address'),
   password: yup.string().required('password is required'),

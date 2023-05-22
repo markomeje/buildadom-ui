@@ -10,7 +10,8 @@ export type TextProps = {
   register: any
   setValue?: any
   rules?: string[]
-  error: any
+  error?: any
+  isStar?: boolean
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   title,
   name,
   type,
+  isStar = true,
   register,
   error,
   rules,
@@ -30,7 +32,11 @@ const Input = ({
     validationErrors[name] && validationErrors[name].length > 0 ? true : false
   return (
     <div className="flex my-3  flex-col w-full">
-      <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
+      <label
+        className={`font-poppins mb-2 text-[#333333] font-semibold leading-[27px] ${
+          isStar && 'star'
+        } text-[14px]`}
+      >
         {title}
       </label>
       <div className="mb-1 flex flex-col -mt-2">

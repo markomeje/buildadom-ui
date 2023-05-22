@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthError } from '@/interface/error.interface'
 import OtpInput from '@/lib/OTPInput'
+import { incrementStepper } from '@/redux/reducer/stepperReducer'
 import { setToken, setUser } from '@/redux/reducer/tokenReducer'
 import { useVerifyNumberMutation } from '@/redux/services/auth.service'
 import { useTypedDispatch } from '@/redux/store'
@@ -26,12 +27,10 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
     if (otp.length !== 6) return toast.error('complete code')
     try {
       if (type === 'phone') {
-        console.log('logg')
-
         const data = { type: 'phone', code: otp }
         await verifyNumber(data).unwrap()
         toast.success('Phone verfication successfull, check you mail please ')
-        setType('email')
+        dispatch(incrementStepper())
         setOtp('')
       }
       if (type === 'email') {
@@ -45,6 +44,7 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
         }
       }
     } catch (error) {
+      console.log(error, 'error')
       toast.error((error as AuthError).data.message)
     }
   }
@@ -66,11 +66,17 @@ const EmailVerificationModal = ({ status }: { status?: string }) => {
           valueLength={6}
           onChange={(value: string) => setOtp(value)}
         />
-        <div className="flex w-full items-center justify-center">
+        <div className="flex flex-col w-full items-center justify-center">
           <Button
             title={isLoading ? 'loading...' : 'Submit'}
-            classNames="h-[48px] w-[200px] flex items-center justify-center rounded-[90px]"
+            classNames="h-[40px] text-[15px] w-[150px] py-2 flex items-center justify-center rounded-[20px]"
           />
+          <p className="py-2 text-gray-800 mt-2 font-poppins text-[16px]">
+            No recieved OTP?{' '}
+            <span className="text-bd-blue underline font-semibold pl-1">
+              Click to resend
+            </span>
+          </p>
         </div>
       </form>
     </div>

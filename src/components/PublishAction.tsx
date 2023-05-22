@@ -20,18 +20,14 @@ const PublishAction = ({
         isError ? 'hidden' : 'flex absolute lg:relative'
       }   right-4 lg:flex-col flex-col-reverse top-0  lg:pt-0 pt-8  items-end`}
     >
-      <span className="hidden lg:block font-poppins mb-3 font-[600] w-[200px] text-[14px] lg:text-right">
+      {/* <span className="hidden lg:block font-poppins mb-3 font-[600] w-[200px] text-[14px] lg:text-right">
         {loading && 'publishing...'}
-      </span>
+      </span> */}
 
-      <span className="block lg:hidden font-poppins mb-2 font-[500]  text-[14px] lg:text-right">
+      <span className="block  font-poppins mb-2 font-[500]  text-[14px] lg:text-right">
         {loading ? 'publishing...' : isPublished ? 'unpublish' : 'publish'}
       </span>
-      <Switch
-        onChange={publishAction}
-        checked={isPublished}
-        // onColor="#0156FF"
-      />
+      <Switch onChange={publishAction} checked={isPublished} />
     </div>
   )
 }
