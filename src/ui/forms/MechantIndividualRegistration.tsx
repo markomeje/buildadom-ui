@@ -90,7 +90,7 @@ const MechantIndividualRegistration = () => {
           error={errors}
           title="Phone Number"
           name="phone"
-          type="number"
+          type="string"
           placeholder="enter phone number"
         />
         <Input

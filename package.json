@@ -18,6 +18,7 @@
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.4",
     "@types/react-toastify": "^4.1.0",
+    "axios": "^1.4.0",
     "cookies-next": "^2.1.1",
     "country-list-with-dial-code-and-flag": "^4.0.0",
     "eslint-config-next": "13.2.4",

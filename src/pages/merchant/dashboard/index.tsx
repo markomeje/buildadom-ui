@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import StoreLayout from '@/layouts/StoreLayout'
+import axios from 'axios'
 import ModalWraper from '@/modals'
 import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { getCookie } from 'cookies-next'
 import { GetServerSideProps } from 'next'
 import { setUser } from '@/redux/reducer/tokenReducer'
@@ -18,28 +19,19 @@ import ProductSkeleton from '@/ui/skeletonLoader/ProductSkeleton'
 import { locateMerchantProducts } from '@/util/locateImg'
 import AboutStoreHeader from '@/components/StoreHeader'
 import StoreHandler from '@/layouts/StoreHandler'
-import { useGetValidationDetailsQuery } from '@/redux/services/validation.service'
-import { useRouter } from 'next/router'
+
 const MyStore = () => {
-  const router = useRouter()
   const dispatch = useTypedDispatch()
   const { specificModal: modal, modalType } = useTypedSelector(
     (state) => state.modal
   )
   const { step } = useTypedSelector((state) => state.stepper)
-  const { data: info, isLoading: loading } = useGetValidationDetailsQuery()
 
   const { data, isLoading, isSuccess } = useGetMerchatProductsQuery()
   const handleClick = () => {
     dispatch(specificModal('product'))
     dispatch(setStepper(1))
   }
-
-  useEffect(() => {
-    if (info && !info.verified) {
-      router.push('/merchant/dashboard/verifyId')
-    }
-  }, [router, info])
 
   return (
     <>
@@ -51,7 +43,7 @@ const MyStore = () => {
       <AboutStoreHeader />
       <StoreHandler>
         {!isLoading &&
-        !loading &&
+        // !loading &&
         isSuccess &&
         locateMerchantProducts(data).length > 0 ? (
           <>
@@ -103,6 +95,38 @@ export const getServerSideProps: GetServerSideProps =
     if (token) {
       const parsedData = JSON.parse(token as string)
       store.dispatch(setUser(parsedData))
+      const {
+        data: { details },
+      } = await axios.get(
+        'https://dev.buildadom.net/api/v1/marchant/identification/details',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${parsedData.token}`,
+          },
+        }
+      )
+      if (details.verified !== 1) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: '/merchant/dashboard/verifyId',
+          },
+        }
+      } else if (details.verified === 1) {
+        const { data } = await axios.get(
+          'https://dev.buildadom.net/api/v1/marchant/store',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${parsedData.token}`,
+            },
+          }
+        )
+        console.log(data, 'datatum')
+      }
     }
     return {
       props: {},
