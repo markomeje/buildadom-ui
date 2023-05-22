@@ -6,8 +6,9 @@ import TopNav from './TopNav'
 
 function Navbar() {
   const router = useRouter()
+  const isLogin = router.pathname === '/merchant/login'
   const redirect = () => {
-    router.push(`/merchant/login`)
+    router.push(isLogin ? `/merchant/register` : `/merchant/login`)
   }
   return (
     <div className={` `}>
@@ -16,7 +17,7 @@ function Navbar() {
         <div className="wrapper flex items-center justify-between h-full">
           <Logo img="/assets/logo.png" />
           <Button
-            title={`Login`}
+            title={isLogin ? `Register` : `Login`}
             classNames="px-[30px] py-[8px] md:py-[12px] text-[11px] md:text-[12px] font-poppins leading-[21px] rounded-[50px]"
             onClick={redirect}
           />

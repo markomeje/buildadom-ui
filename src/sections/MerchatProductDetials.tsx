@@ -99,22 +99,25 @@ const MerchantProductDetails = ({
             onClick={handleEdit}
           ></i>
         </div>
-        <div className="w-full border-b mt-4 relative border-[#CCCCCC] h-[330px]">
+        <div className="w-full border-b mt-4 relative border-[#CCCCCC]">
           <div className="flex flex-col lg:flex-row lg:justify-between w-full">
             <div className="flex w-full flex-col lg:w-[700px]">
               <img
                 src={img}
-                className="lg:w-[250px] w-full lg:mr-6 rounded-[6px] h-[250px] object-cover"
+                className="lg:w-[250px] w-full lg:mr-6 rounded-[6px] h-[200px] object-cover"
                 alt="product-img"
               />
+              <div className="">
+                <Rating rating={rating} review={reviews} />
+              </div>
               <div className="flex  flex-col">
-                <h1 className="text-[24px] capitalize mb-3 leading-[36px] font-semibold font-poppins">
+                <h1 className="text-[20px] capitalize  leading-[36px] font-semibold font-poppins">
                   {name}
                 </h1>
-                <span className="w-[350px] font-poppins uppercase text-[13px] leading-[19px]">
-                  {description}
+                <span className="lg:w-[700px] font-poppins text-[14px]  leading-[19px]">
+                  {description} .
                 </span>
-                <span className="text-[18px] font-poppins font-semibold mt-4 leading-[25px] ">
+                <span className="text-[18px] font-poppins font-[500] py-2 leading-[25px] ">
                   {price}
                 </span>
               </div>
@@ -125,9 +128,6 @@ const MerchantProductDetails = ({
               publishAction={productPublisAction}
               isPublished={published === 0 ? false : true}
             />
-          </div>
-          <div className="absolute bottom-0 py-2">
-            <Rating rating={rating} review={reviews} />
           </div>
         </div>
         {reviews === '0' ? (

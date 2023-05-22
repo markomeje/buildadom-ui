@@ -16,7 +16,7 @@ import { useTypedDispatch } from '@/redux/store'
 import { AuthError } from '@/interface/errors'
 import { setValidationErrors } from '@/redux/reducer/errorReducer'
 
-const AccountSetupModal = () => {
+const AccountSetupModal = ({ edit }: { edit: () => void }) => {
   const { data } = useGetBanksQuery()
   const { data: info, isLoading: fetching } = useGetAccountInfoQuery()
 
@@ -42,12 +42,9 @@ const AccountSetupModal = () => {
 
   const onSubmit = handleSubmit(async (info) => {
     try {
-      if (data) {
-        return null
-      } else {
-        const result = await addAccountDetails(info).unwrap()
-        toast.success(result)
-      }
+      const result = await addAccountDetails(info).unwrap()
+      toast.success(result)
+      edit()
     } catch (err) {
       if ((err as AuthError).data?.errors) {
         dispatch(setValidationErrors((err as AuthError).data.errors))

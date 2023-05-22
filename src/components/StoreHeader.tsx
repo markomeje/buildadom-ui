@@ -96,7 +96,7 @@ const AboutStoreHeader = () => {
         setIsPublished(true)
         toast.success(response)
       } catch (error) {
-        console.log(error)
+        toast.error(error as string)
       }
     } else if (data && isPublished) {
       try {
@@ -107,7 +107,7 @@ const AboutStoreHeader = () => {
         setIsPublished(false)
         toast.success(response)
       } catch (error) {
-        console.log(error)
+        toast.error(error as string)
       }
     }
   }
@@ -188,11 +188,11 @@ const PopupModal = ({
   return (
     <>
       {!isPublished && openPop && (
-        <div className="w-full sticky top-0 z-[80] justify-between mb-6 lg:mb-8 px-3 font-poppins py-2  border border-yellow-600 bg-yellow-300 flex items-center">
+        <div className="w-full sticky top-0  justify-between mb-6 lg:mb-8 px-3 font-poppins py-2  border border-yellow-600 bg-yellow-300 flex items-center">
           <span>
             {' '}
-            Kindly toggle the button to place your product on Buildadom
-            marketplace.
+            Kindly toggle the publish button to place your store/product on
+            Buildadom marketplace.
           </span>
           <i className="ri-close-line cursor-pointer" onClick={closePopup}></i>
         </div>
