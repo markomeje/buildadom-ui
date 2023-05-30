@@ -38,7 +38,7 @@ const ProductLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="my-6 w-full sticky  flex">
         <ExploreFilter />
-        <div className="basis-[80%]">
+        <div className="w-full">
           <div className="items-center flex">
             <DropSearch header="Sort By:" text="All" />
             <DropSearch header="Sort By:" text="All" />

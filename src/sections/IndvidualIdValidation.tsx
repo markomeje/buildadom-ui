@@ -1,5 +1,6 @@
 import { AuthError } from '@/interface/error.interface'
 import { IValidationForm } from '@/interface/form.interface'
+import { setValidationErrors } from '@/redux/reducer/errorReducer'
 import { incrementStepper } from '@/redux/reducer/stepperReducer'
 import { useGetIDTypesQuery } from '@/redux/services/utility.slice'
 import { useAddValidationMutation } from '@/redux/services/validation.service'
@@ -35,11 +36,8 @@ const IndividualIDValidation = () => {
         dispatch(incrementStepper())
       }
     } catch (err) {
-      console.log(err, 'eroror')
       if ((err as AuthError).data?.errors) {
-        for (const value of Object.values((err as AuthError).data?.errors)) {
-          toast.error(value[0])
-        }
+        dispatch(setValidationErrors((err as AuthError).data.errors))
       }
     }
   })

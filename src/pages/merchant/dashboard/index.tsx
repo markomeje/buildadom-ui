@@ -42,10 +42,7 @@ const MyStore = () => {
       )}
       <AboutStoreHeader />
       <StoreHandler>
-        {!isLoading &&
-        // !loading &&
-        isSuccess &&
-        locateMerchantProducts(data).length > 0 ? (
+        {!isLoading && isSuccess && locateMerchantProducts(data).length > 0 ? (
           <>
             <div className="w-full flex items-end  justify-end">
               <button

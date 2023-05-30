@@ -23,8 +23,8 @@ const StoreImg = ({ name, img, id, like }: IStoreImg) => {
         className="w-[232px] h-[350px] full object-cover"
       />
       <div className="absolute top-0 left-0 bottom-0  cursor-pointer  right-0 backG">
-        <div className="flex flex-col w-full h-full relative items-center justify-center">
-          <span className="text-white font-poppins font-[700] text-[24px] tracking-wider leading-[28px]">
+        <div className="flex flex-col w-full h-full px-3 relative items-center justify-center">
+          <span className="text-white font-poppins font-[700] text-center text-[24px] tracking-wider leading-[28px]">
             {name}
           </span>
           {like && (

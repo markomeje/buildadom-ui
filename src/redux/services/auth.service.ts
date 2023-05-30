@@ -39,6 +39,21 @@ export const authApi = createApi({
         arg
       ) => response.response.user.token,
     }),
+    resendVerificationCode: builder.mutation({
+      query: (data) => ({
+        url: '/verification/code/resend',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (response, meta, arg) => {
+        console.log(response)
+        return response
+      },
+      transformErrorResponse: (response, meta, arg) => {
+        console.log(response)
+        return response
+      },
+    }),
   }),
 })
 

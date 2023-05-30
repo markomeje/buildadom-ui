@@ -2,7 +2,6 @@ import CategoryGroups from '@/components/CategoryBar'
 import { Rating } from '@/components/Product'
 import { IStore } from '@/components/StoreModel'
 import { useGetProductsCategoriesQuery } from '@/redux/services/merchant'
-import Button from '@/ui/button/Button'
 import ExploreSearch from '@/ui/input/MarketSearch'
 import Image from 'next/image'
 import React from 'react'
@@ -13,14 +12,7 @@ const ProductHeader = () => {
   return (
     <div className="border-b mb-5 pt-12 border-gray-200">
       <div className="flex flex-col wrapper ">
-        <div className="flex justify-between items-center">
-          <div></div>
-          <Button
-            title="Return to stores"
-            classNames="w-[196px] h-[50px] self-end rounded-[50px]"
-          />
-        </div>
-        <div className="h-[330px] mt-8 w-full">
+        <div className="h-[330px] mt-4 w-full">
           <Image
             src={'/assets/pbanner.png'}
             alt="store-img"

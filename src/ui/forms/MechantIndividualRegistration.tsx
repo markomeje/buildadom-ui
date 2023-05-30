@@ -39,7 +39,8 @@ const MechantIndividualRegistration = () => {
         phone: countryCode.dial_code + info.phone,
         type: 'individual',
       }
-      await addUser(formData).unwrap()
+      const res = await addUser(formData).unwrap()
+      console.log(res)
       dispatch(openModal())
     } catch (err) {
       if ((err as AuthError).data?.errors) {
