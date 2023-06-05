@@ -20,6 +20,14 @@ export interface LoginProp {
   password: string
 }
 
+export interface RegistrationProp {
+  email: string
+  password: string
+  firstname: string
+  lastname: string
+  phone: string
+}
+
 export interface IValidationForm {
   id_type: string
   id_number: string

@@ -45,7 +45,7 @@ export const stores = [
 ]
 
 const StorePageBody = () => {
-  const { data: stores, isLoading } = useAllStoresQuery(5)
+  const { data: stores, isLoading } = useAllStoresQuery(12)
 
   return (
     <div className="py-12 wrapper">

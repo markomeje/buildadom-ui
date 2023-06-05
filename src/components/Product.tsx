@@ -41,7 +41,7 @@ const ProductCard = ({
           src={img}
           alt="product image"
           className={`w-[100%] object-center cursor-pointer  h-[200px] ${
-            isGrid ? 'lg:h-[156px] lg:w-[200px]' : 'h-[250px] w-full'
+            isGrid ? 'lg:h-[156px] lg:w-[200px]' : 'h-[250px] w-[330px]'
           } object-cover`}
         />
         <Rating rating={rating} review={reviews} />

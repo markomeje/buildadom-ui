@@ -29,10 +29,10 @@ export const Links = [
     name: 'Services',
     href: '/services',
   },
-  {
-    name: 'Track Order',
-    href: '/track_order',
-  },
+  // {
+  //   name: 'Track Order',
+  //   href: '/track_order',
+  // },
 ]
 
 export const rules = [

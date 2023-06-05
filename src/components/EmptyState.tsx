@@ -7,8 +7,10 @@ import React from 'react'
 
 const EmptyState = ({
   showButton = true,
+  showImg = true,
   message,
 }: {
+  showImg?: boolean
   showButton?: boolean
   message: string
 }) => {
@@ -19,7 +21,7 @@ const EmptyState = ({
   }
   return (
     <div className="flex items-center flex-col justify-center w-full h-full">
-      <img src="/assets/box.png" alt="Empoy state" />
+      {showImg && <img src="/assets/box.png" alt="Empoy state" />}
       <span className="w-[410px] text-[#667085] font-poppins pb-2 -mt-4 leading-[30px] text-center text-[20px] font-[500]">
         {message}
       </span>

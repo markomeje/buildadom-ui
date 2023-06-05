@@ -66,8 +66,8 @@ const AddDriverModal = ({ id }: { id?: number }) => {
     const formData = {
       ...info,
       phone: countryCode.dial_code + info.phone,
+      // id: '0',
     }
-    console.log(formData, 'dataaa')
     try {
       if (id) {
         const result = await updateDriver({ id, data: formData }).unwrap()
@@ -78,6 +78,7 @@ const AddDriverModal = ({ id }: { id?: number }) => {
       }
       closeDriverModal()
     } catch (err) {
+      console.log(err, 'errror')
       if ((err as AuthError).data?.errors) {
         dispatch(setValidationErrors((err as AuthError).data.errors))
       }

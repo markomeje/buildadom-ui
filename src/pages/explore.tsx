@@ -32,7 +32,11 @@ const Explore = () => {
       ) : success ? (
         <HomeProducts data={info} />
       ) : (
-        <EmptyState showButton={false} message="NO PRODUCTS UPLOADED" />
+        <EmptyState
+          showImg={false}
+          showButton={true}
+          message="NO PRODUCTS UPLOADED"
+        />
       )}
     </ProductLayout>
   )

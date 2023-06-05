@@ -51,11 +51,11 @@ const NavLinks = () => {
           {link.name}
         </Link>
       ))}
-      <Button
+      {/* <Button
         type="outline"
         title="Orders"
         classNames="w-[115px] h-[37px] ml-4  rounded-[50px]"
-      />
+      /> */}
     </ul>
   )
 }
@@ -70,12 +70,12 @@ const IconRight = () => {
   return (
     <div className="lg:flex hidden items-center justify-between">
       <i className="ri-search-2-line font-semibold text-[20px] mr-5"></i>
-      <div className="relative">
+      <Link href={'/cart'} className="relative">
         <i className="ri-shopping-cart-line mr-5 text-[20px] font-semibold"></i>
         <span className="w-[15px] h-[15px] absolute left-3 flex items-center justify-center -top-1 text-[12px] p-[8px] rounded-[15px] text-white bg-bd-blue">
           2
         </span>
-      </div>
+      </Link>
       {isLog ? (
         <img
           src="/assets/profile.png"
@@ -84,10 +84,12 @@ const IconRight = () => {
           onClick={logout}
         />
       ) : (
-        <Button
-          title="Register / Login"
-          classNames="w-[150px]  h-[37px] ml-4 text-[12px] tracking-wider font-400  rounded-[50px]"
-        />
+        <Link href={'/login'}>
+          <Button
+            title="Register / Login"
+            classNames="w-[150px]  h-[37px] ml-4 text-[12px] tracking-wider font-400  rounded-[50px]"
+          />
+        </Link>
       )}
     </div>
   )

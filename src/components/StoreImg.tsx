@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 interface IStoreImg {
@@ -11,8 +10,6 @@ interface IStoreImg {
 }
 
 const StoreImg = ({ name, img, id, like }: IStoreImg) => {
-  const router = useRouter()
-  console.log(router, 'router')
   return (
     <div className="w-[232px] h-[350px] relative">
       <img
@@ -23,8 +20,8 @@ const StoreImg = ({ name, img, id, like }: IStoreImg) => {
         className="w-[232px] h-[350px] full object-cover"
       />
       <div className="absolute top-0 left-0 bottom-0  cursor-pointer  right-0 backG">
-        <div className="flex flex-col w-full h-full relative items-center justify-center">
-          <span className="text-white font-poppins font-[700] text-[24px] tracking-wider leading-[28px]">
+        <div className="flex flex-col w-full h-full px-3 relative items-center justify-center">
+          <span className="text-white font-poppins font-[700] text-center text-[24px] tracking-wider leading-[28px]">
             {name}
           </span>
           {like && (
@@ -33,7 +30,7 @@ const StoreImg = ({ name, img, id, like }: IStoreImg) => {
             </div>
           )}
           <Link
-            href={`/stores/${id}/products`}
+            href={`/stores/${id}`}
             className="capitalize text-[14px] text-gray-200 underline absolute bottom-6 font-poppins"
           >
             see all products

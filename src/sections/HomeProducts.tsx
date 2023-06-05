@@ -11,7 +11,6 @@ type IProps = {
 const HomeProducts = ({ data }: IProps) => {
   const { displayType } = useTypedSelector((state) => state.modal)
   const isGrid = displayType === 'grid'
-  console.log(data, 'datat')
 
   return (
     <div className="w-full">
@@ -30,11 +29,12 @@ const HomeProducts = ({ data }: IProps) => {
                   (product.images && product.images[0]?.url) ||
                   '/assets/placeholder.jpg'
                 }
+                id={product.id}
                 name={product.name}
                 price={`$${product.price}`}
                 description={product.description}
                 reviews={product.reviews || '0'}
-                rating={product.rating || 0}
+                rating={product.rating || 3}
               />
             ))
         ) : (
