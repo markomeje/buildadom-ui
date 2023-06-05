@@ -92,20 +92,6 @@ const CartDetails = () => {
           content="MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty"
           product_img="assets/paint.png"
         />
-        {/* <RowDetails
-          price="12000"
-          subTotal="8,311"
-          title="Emuulsion Paint"
-          content="MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty"
-          product_img="assets/paint.png"
-        />
-        <RowDetails
-          price="12000"
-          subTotal="8,311"
-          title="Emuulsion Paint"
-          content="MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty"
-          product_img="assets/paint.png"
-        /> */}
       </div>
     </div>
   )

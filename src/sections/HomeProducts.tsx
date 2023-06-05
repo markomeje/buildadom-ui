@@ -29,11 +29,12 @@ const HomeProducts = ({ data }: IProps) => {
                   (product.images && product.images[0]?.url) ||
                   '/assets/placeholder.jpg'
                 }
+                id={product.id}
                 name={product.name}
                 price={`$${product.price}`}
                 description={product.description}
                 reviews={product.reviews || '0'}
-                rating={product.rating || 0}
+                rating={product.rating || 3}
               />
             ))
         ) : (

@@ -51,11 +51,11 @@ const NavLinks = () => {
           {link.name}
         </Link>
       ))}
-      <Button
+      {/* <Button
         type="outline"
         title="Orders"
         classNames="w-[115px] h-[37px] ml-4  rounded-[50px]"
-      />
+      /> */}
     </ul>
   )
 }

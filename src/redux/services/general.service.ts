@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { IProduct } from '@/interface/general.interface'
+import { IStore } from '@/interface/store.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // auth service build
@@ -32,24 +33,45 @@ export const generalApi = createApi({
       },
     }),
 
-    allStores: builder.query<any, number>({
-      query: (limit: number) => ({
-        url: `stores?limit=${limit}`,
-      }),
-      transformResponse: (response: { stores: { data: any } }, meta, arg) => {
-        console.log(response, 'dddd')
-
-        return response.stores.data
+    getProductDetails: builder.query<IProduct, number>({
+      query: (id) => ({ url: `/products/product/${id}` }),
+      transformResponse: (response: { product: IProduct }, meta, arg) => {
+        return response.product
       },
       transformErrorResponse: (response) => {
-        console.log(response)
         return response
       },
     }),
 
-    getQueryByCategory: builder.query<any, { category: number }>({
+    allStores: builder.query<IStore[], number>({
+      query: (limit: number) => ({
+        url: `stores?limit=${limit}`,
+      }),
+      transformResponse: (
+        response: { stores: { data: IStore[] } },
+        meta,
+        arg
+      ) => {
+        return response.stores.data
+      },
+      transformErrorResponse: (response) => {
+        return response
+      },
+    }),
+
+    getStoreDetails: builder.query<IStore, number>({
+      query: (id) => ({ url: `/stores/store/${id}` }),
+      transformResponse: (response: { store: IStore }, meta, arg) => {
+        return response.store
+      },
+      transformErrorResponse: (response) => {
+        return response
+      },
+    }),
+
+    getQueryByCategory: builder.query<IProduct[], number>({
       query: (category) => ({
-        url: `products?limit=10&category=${category}`,
+        url: `products/category/${category}`,
       }),
       transformResponse: (response: { products: IProduct[] }) => {
         return response.products
@@ -59,6 +81,8 @@ export const generalApi = createApi({
 })
 
 export const {
+  useGetProductDetailsQuery,
+  useGetStoreDetailsQuery,
   useAllProductsQuery,
   useGetQueryByCategoryQuery,
   useAllStoresQuery,

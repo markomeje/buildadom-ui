@@ -1,7 +1,7 @@
 import Tracking from '@/components/Tracking'
 import MainLayout from '@/layouts/MainLAyout'
 import React, { ReactElement } from 'react'
-import OrderSummary from './OrderSummary'
+import OrderSummary from '../OrderSummary'
 
 const TrackOrder = () => {
   return (

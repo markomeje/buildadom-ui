@@ -2,17 +2,25 @@ import { setCategotyId } from '@/redux/reducer/countryReducer'
 import { useGetProductsCategoriesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
+// import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 const ExploreFilter = () => {
   const dispatch = useTypedDispatch()
+  // const router = useRouter()
   const [expandCategory, setExpandCategory] = useState<boolean>(true)
   const toggle = () => setExpandCategory(!expandCategory)
   const { data, isLoading } = useGetProductsCategoriesQuery()
+  // const [currentId, setCurrentId] = useState<string>('0')
   const { categoryId } = useTypedSelector((state) => state.dashboard)
   const setId = (id: string) => {
     dispatch(setCategotyId(id))
   }
+
+  // useEffect(() => {
+  //   dispatch(setCategotyId(router.query.id as string))
+  //   setCurrentId(router.query.id as string)
+  // }, [router.query.id, dispatch])
 
   return (
     <div className="basis-[20%]  mr-[50px]">

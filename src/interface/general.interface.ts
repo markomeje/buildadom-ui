@@ -33,6 +33,7 @@ export interface IProduct {
   img: string
   images?: IData[]
   rating: number
+  category?: { id: number }
   reviews: string
   currency?: { symbol: string }
   description: string

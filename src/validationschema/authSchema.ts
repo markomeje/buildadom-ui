@@ -32,7 +32,7 @@ export const LoginSchema = yup.object({
   password: yup.string().required('password is required'),
 })
 
-export const  RegistrationSchema = yup.object({
+export const RegistrationSchema = yup.object({
   firstname: yup.string().required('first name is required'),
   lastname: yup.string().required('last name is required'),
   email: yup.string().required().email('must be a valid email address'),

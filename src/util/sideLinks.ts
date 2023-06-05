@@ -25,3 +25,26 @@ export const sideLinks = [
     link: `${BASE_URL}/account-info`,
   },
 ]
+
+export const buyerLinks = [
+  {
+    name: 'Account Dashboard',
+    link: '/buyer/dashboard',
+  },
+  {
+    name: 'Favourite Stores',
+    link: '/buyer/favourites',
+  },
+  {
+    name: 'My Orders',
+    link: '/buyer/orders',
+  },
+  {
+    name: 'My Wish List',
+    link: '/buyer/wishlist',
+  },
+  {
+    name: 'Track Order',
+    link: '/buyer/track_order',
+  },
+]
