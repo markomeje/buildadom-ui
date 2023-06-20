@@ -14,8 +14,12 @@ export default info
 
 export const Links = [
   {
-    name: 'Store',
+    name: 'Stores',
     href: '/stores',
+  },
+  {
+    name: 'Merchant',
+    href: '/merchant',
   },
   {
     name: 'Categories',

@@ -28,7 +28,7 @@ function HeroBg() {
             />
             <Button
               title="Learn More"
-              type="outlined"
+              variant="outlined"
               classNames="py-[18px] mt-4 md:mt-0 px-[54px] w-[90%] md:w-[230px] rounded-[82px]"
             />
           </div>

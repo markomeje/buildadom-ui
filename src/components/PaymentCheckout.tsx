@@ -1,3 +1,4 @@
+import { useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import Link from 'next/link'
 import React from 'react'
@@ -26,6 +27,8 @@ const Listings = ({
 }
 
 const PaymentCheckout = ({ classNames }: { classNames?: string }) => {
+  const { total } = useTypedSelector((state) => state.stepper)
+  console.log('total:', total)
   return (
     <div
       className={`w-[35%] flex flex-col  bg-[#F5F7FF] h-[350px] p-6 ${classNames}`}
@@ -34,8 +37,8 @@ const PaymentCheckout = ({ classNames }: { classNames?: string }) => {
         Summary
       </h1>
       <div className="flex mt-4 flex-col">
-        <Listings text="Subtotals" value="$123,000" />
-        <Listings text="Shipping" value="$20,000" />
+        <Listings text="Subtotals" value={total} />
+        {/* <Listings text="Shipping" value="$20,000" /> */}
         <Listings text="Tax" value="$1" />
         <Listings
           text="Order Total"

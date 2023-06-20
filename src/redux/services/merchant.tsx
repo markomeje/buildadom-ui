@@ -34,16 +34,21 @@ export const storeApi = createApi({
       transformResponse: (response: { countries: Country[] }, meta, arg) =>
         response.countries,
     }),
+
     getCities: builder.query<City[], string>({
       query: (country_code) => ({
-        url: `/cities?contry_code=${country_code}`,
+        url: `/cities?country_code=${country_code}`,
         keepUnusedDataFor: 0.0001,
       }),
       transformResponse: (response: { data: City[] }, meta, arg) =>
         response.data.map((city) => {
           return { id: city.id, name: city.name }
         }),
+      transformErrorResponse: (response) => {
+        console.log(response)
+      },
     }),
+
     getProductsCategories: builder.query<
       { value: string; label: string }[],
       void
@@ -180,6 +185,7 @@ export const storeApi = createApi({
 export const {
   useGetMerchatProductsQuery,
   useGetCountriesQuery,
+  useLazyGetCitiesQuery,
   useImageUploadMutation,
   useAddProductMutation,
   useGetProductsCategoriesQuery,

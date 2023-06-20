@@ -13,6 +13,7 @@ export const locateImg = (
 ): string | undefined => {
   const result = data && data.find((x) => x.role.toLowerCase() === img_type)
   if (result) return result.url
+  else return '/assets/placeholder.jpg'
 }
 
 export const locateId = (

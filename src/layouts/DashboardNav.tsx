@@ -9,6 +9,7 @@ import React, { useState } from 'react'
 import TopNav from './TopNav'
 import { IDropdown } from '@/interface/dashboard'
 import IsLogged from '@/hooks/isLoggedIn'
+import { useGetCartDetailsQuery } from '@/redux/services/cart.service'
 
 const DashboardNav = () => {
   const [mobileDisplay, setMobileDisplay] = useState(false)
@@ -61,6 +62,8 @@ const NavLinks = () => {
 }
 
 const IconRight = () => {
+  const { data, isSuccess } = useGetCartDetailsQuery()
+  console.log(data, 'data')
   const router = useRouter()
   const [isLog] = IsLogged()
   const logout = () => {
@@ -73,7 +76,7 @@ const IconRight = () => {
       <Link href={'/cart'} className="relative">
         <i className="ri-shopping-cart-line mr-5 text-[20px] font-semibold"></i>
         <span className="w-[15px] h-[15px] absolute left-3 flex items-center justify-center -top-1 text-[12px] p-[8px] rounded-[15px] text-white bg-bd-blue">
-          2
+          {isSuccess ? data.total : 0}
         </span>
       </Link>
       {isLog ? (

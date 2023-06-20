@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { useDeleteDriverMutation } from '@/redux/services/drivers.service'
-import Button from '@/ui/button/Button'
 import React from 'react'
 import { toast } from 'react-toastify'
 
@@ -12,7 +11,7 @@ const DeleteAction = ({ id }: { id: number }) => {
       const response = await deleteDriver({ id }).unwrap()
       toast.error(response)
     } catch (error) {
-      console.log(error, 'errP')
+      toast.error('Error deleting driver')
     }
   }
   return (
@@ -24,11 +23,12 @@ const DeleteAction = ({ id }: { id: number }) => {
       />
       <h1 className="text-[20px]  font-poppins py-2">Are you sure of this ?</h1>
       <div className="flex items-center">
-        <Button
+        <button
           onClick={() => handleDelete(id)}
-          title={isLoading ? 'Deleting...' : 'Delete'}
-          classNames="text-red-500 bg-red-500 px-8 mt-3 py-3 rounded-[3px]"
-        />
+          className="bg-red-500 px-8 mt-3 font-poppins text-white py-3 rounded-[3px]"
+        >
+          {isLoading ? 'Deleting...' : 'Delete'}
+        </button>
       </div>
     </div>
   )

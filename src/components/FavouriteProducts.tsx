@@ -19,12 +19,12 @@ const FavouriteProducts = () => {
       <Rating rating={4} review={'3'} />
       <h2 className="text-[18px] leading-[25px] font-poppins pb-3">$499.00</h2>
       <Button
-        type="outline"
+        variant="outline"
         title="Track Order"
         classNames="w-full border-bd-blue font-semibold px-6  py-2 text-[13px] mt-2  rounded-[20px]"
       />{' '}
       <Button
-        type="outline"
+        variant="outline"
         title="Remove"
         classNames="w-full border-[#FF354C] text-red-600 font-semibold px-6  py-2 text-[13px] mt-2  rounded-[20px]"
       />

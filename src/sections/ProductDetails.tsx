@@ -3,8 +3,12 @@ import { Rating } from '@/components/Product'
 import { IProduct } from '@/interface/general.interface'
 import React from 'react'
 import ReviewSection from './ReviewSection'
+import { useAddToCartMutation } from '@/redux/services/cart.service'
+import { getUserCookie } from '@/hooks/useCookie'
+import { toast } from 'react-toastify'
 
 const ProductDetails = ({
+  id,
   img,
   description,
   rating,
@@ -12,6 +16,22 @@ const ProductDetails = ({
   name,
   price,
 }: IProduct) => {
+  const [addToCart, { isLoading }] = useAddToCartMutation()
+  const user = getUserCookie('user')
+
+  const addProductToCart = async () => {
+    try {
+      if (user) {
+        const response = await addToCart({ product_id: id }).unwrap()
+        if (response) toast.success('product added successfully to cart')
+      } else {
+        toast.error('user not logged in')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="backGround p-8 min-h-[550px]">
       <div className="w-full border-b relative border-[#CCCCCC] h-[330px]">
@@ -33,9 +53,12 @@ const ProductDetails = ({
             </span>
           </div>
           <div className="flex items-end h-full justify-between   flex-col">
-            <button className="text-bd-blue  border-2 text-[13px] h-[37px] font-semibold font-poppins border-bd-blue w-[160px] flex items-center justify-center rounded-[50px]">
-              <i className="ri-shopping-cart-line text-bd-blue mr-2 "></i> Add
-              To Card
+            <button
+              onClick={addProductToCart}
+              className="text-bd-blue  border-2 text-[13px] h-[37px] font-semibold font-poppins border-bd-blue w-[160px] flex items-center justify-center rounded-[50px]"
+            >
+              <i className="ri-shopping-cart-line text-bd-blue mr-2 "></i>{' '}
+              {isLoading ? 'adding...' : ' AddTo Cart'}
             </button>
             <span className="font-semibold self-end flex items-center font-poppins text-[14px] text-[#838383]">
               add to wishlist

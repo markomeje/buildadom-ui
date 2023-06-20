@@ -37,7 +37,7 @@ const AdminVerification = () => {
               onClick={redirect}
               title="Create a store"
               classNames="mb-3 mt-6 py-4 w-[40%] border border-bd-blue rounded-[10px] mx-auto"
-              type="outlined"
+              variant="outlined"
             />
           )}
         </div>

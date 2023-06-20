@@ -13,12 +13,10 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<{ token: string }>) => {
-      console.log(action.payload)
       addBrowserCookie(action.payload)
       state.token = action.payload.token
     },
     setUser: (state, action: PayloadAction<{ token: string }>) => {
-      console.log(action, 'actionuser')
       state.loggedUser = action.payload.token
     },
   },

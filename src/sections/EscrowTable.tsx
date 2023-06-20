@@ -29,7 +29,7 @@ const EscrowTable = () => {
         <Button
           title="clear all"
           classNames="border hidden lg:block px-8 mb-2  py-2 text-black font-[400] border-[#CCCCCC] "
-          type="outline"
+          variant="outline"
         />
       </div>
 

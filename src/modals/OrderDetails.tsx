@@ -44,7 +44,7 @@ const OrderDetails = () => {
             Courier Number: <b className="text-[16px]">09087663552</b>{' '}
           </span>
           <Button
-            type="outline"
+            variant="outline"
             title="Track Order"
             classNames="w-[135px] border-bd-blue font-semibold px-6  py-2 text-[13px] mt-2  rounded-[20px]"
           />

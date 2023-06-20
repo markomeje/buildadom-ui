@@ -35,6 +35,7 @@ const InvidualProduct = () => {
         <StoreInfoSkeleton />
       ) : isSuccess ? (
         <ProductDetails
+          id={info.id}
           name={info.name}
           price={`${info.currency?.symbol} ${info.price}`}
           rating={info.rating ? info.rating : 0}

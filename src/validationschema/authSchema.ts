@@ -38,4 +38,8 @@ export const RegistrationSchema = yup.object({
   email: yup.string().required().email('must be a valid email address'),
   phone: yup.string().required('phone number is required'),
   password: yup.string().required('password is required'),
+  confirm_password: yup
+    .string()
+    .required('comfirm password is required')
+    .oneOf([yup.ref('password')], 'password does not match'),
 })

@@ -1,5 +1,9 @@
 import BuyerSidebar from '@/components/BuyerSidebar'
 import MainLayout from '@/layouts/MainLAyout'
+import { setUser } from '@/redux/reducer/tokenReducer'
+import { wrapper } from '@/redux/store'
+import { getCookie } from 'cookies-next'
+import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import React, { ReactElement } from 'react'
 
@@ -63,3 +67,23 @@ export default BuyerDashboard
 BuyerDashboard.getLayout = function getLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>
 }
+
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    if (!token) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
+    if (token) {
+      const parsedData = JSON.parse(token as string)
+      store.dispatch(setUser(parsedData))
+    }
+    return {
+      props: {},
+    }
+  })

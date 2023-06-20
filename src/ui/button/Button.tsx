@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 
-type IButton = {
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string
   classNames: string
-  type?: string
-  onClick?: () => void
+  variant?: string
 }
 
-const Button = ({ title, classNames, type = 'full', onClick }: IButton) => {
+const Button = ({ title, classNames, variant = 'full', ...props }: IButton) => {
   const outlined = 'bg-transparent text-bd-blue border-2 border-sel-blue'
   const full = 'bg-bd-blue text-white border-none'
-  const value = type === 'full' ? full : outlined
+  const value = variant === 'full' ? full : outlined
   return (
     <button
       className={`flex items-center text-center font-poppins font-[400] tracking-wide justify-center  ${classNames} ${value}`}
-      onClick={onClick}
+      {...props}
     >
       {title}
     </button>

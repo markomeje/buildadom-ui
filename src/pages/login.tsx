@@ -1,14 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { LoginProp } from '@/interface/auth'
+import { AuthError } from '@/interface/errors'
 import MainLayout from '@/layouts/MainLAyout'
+import { setToken } from '@/redux/reducer/tokenReducer'
+import { useUserLoginMutation } from '@/redux/services/auth.service'
+import { useTypedDispatch, wrapper } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import Input from '@/ui/input/TextInput'
 import { LoginSchema } from '@/validationschema/authSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { getCookie } from 'cookies-next'
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 const BuyerLogin = () => {
+  const router = useRouter()
+  const dispatch = useTypedDispatch()
   const {
     register,
     handleSubmit,
@@ -16,9 +27,20 @@ const BuyerLogin = () => {
   } = useForm<LoginProp>({
     resolver: yupResolver(LoginSchema),
   })
+  const [userLogin, { isLoading }] = useUserLoginMutation()
 
   const onSubmit = handleSubmit(async (info) => {
-    console.log(info)
+    try {
+      const result = await userLogin(info).unwrap()
+      dispatch(setToken({ token: result }))
+      toast.success('user logged in successfully')
+      router.push('/buyer/dashboard')
+    } catch (err) {
+      if (!(err as AuthError).data)
+        return toast.error('Check yout network connection')
+      const error = (err as AuthError).data.message
+      toast.error(error)
+    }
   })
 
   return (
@@ -56,7 +78,7 @@ const BuyerLogin = () => {
             />
             <div className="flex w-full mt-4 items-center">
               <Button
-                title="Sign in"
+                title={isLoading ? 'Loading...' : 'Sign in'}
                 classNames="w-[220px] mr-4 text-[14px] py-3 rounded-[50px]"
               />
               <span className="font-poppins text-[14px] leading-[20px] text-bd-blue">
@@ -100,3 +122,19 @@ export default BuyerLogin
 BuyerLogin.getLayout = function getLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>
 }
+
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const token = getCookie('user', { req, res })
+    if (token) {
+      return {
+        redirect: {
+          destination: '/buyer/dashboard',
+          permanent: false,
+        },
+      }
+    }
+    return {
+      props: {},
+    }
+  })

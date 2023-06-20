@@ -4,11 +4,13 @@ import type { RootState } from '../store'
 interface modalState {
   step: number
   info: object
+  total: number
 }
 
 const initialState: modalState = {
   step: 1,
   info: {},
+  total: 0,
 }
 
 export const stepperSlice = createSlice({
@@ -21,7 +23,6 @@ export const stepperSlice = createSlice({
 
     incrementStepper: (state) => {
       state.step = state.step + 1
-      console.log(state.step, 'srtatddd')
     },
     decrementStepper: (state) => {
       state.step = state.step - 1
@@ -30,13 +31,28 @@ export const stepperSlice = createSlice({
     addInfo: (state, action) => {
       state.info = { ...state.info, ...action.payload }
     },
+
+    incrementTotal: (state, action) => {
+      console.log(action.payload, 'paload')
+      state.total += action.payload
+    },
+
+    decrementTotal: (state, action) => {
+      state.total -= action.payload
+    },
   },
 })
 
 export const modalMode = (state: RootState) =>
   state && state.modal && state.modal
 
-export const { incrementStepper, decrementStepper, setStepper, addInfo } =
-  stepperSlice.actions
+export const {
+  incrementStepper,
+  decrementStepper,
+  setStepper,
+  addInfo,
+  incrementTotal,
+  decrementTotal,
+} = stepperSlice.actions
 
 export const stepperReducer = stepperSlice.reducer

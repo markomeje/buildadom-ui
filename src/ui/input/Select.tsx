@@ -3,7 +3,8 @@ import { Country } from '@/interface/general.interface'
 import { setCountry } from '@/redux/reducer/countryReducer'
 import { useGetCountriesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+// import { toast } from 'react-toastify'
 type IProps = {
   title: string
   error?: any
@@ -11,12 +12,22 @@ type IProps = {
 
 const Select = ({ title, error }: IProps) => {
   const [show, setShow] = useState<boolean>(false)
+  const dispatch = useTypedDispatch()
   const { data, isLoading, isSuccess } = useGetCountriesQuery()
-  console.log(data, 'data')
   const { country } = useTypedSelector((state) => state.dashboard)
   const toggle = () => {
     setShow(!show)
   }
+
+  useEffect(() => {
+    if (data) {
+      const result = data.find((country) => country.iso2 === 'NG')
+      if (result) {
+        dispatch(setCountry(result))
+      }
+    }
+  }, [data, dispatch])
+
   return (
     <div className="flex my-3  flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
@@ -30,7 +41,7 @@ const Select = ({ title, error }: IProps) => {
           <span className="text-[#838383] leading-[20px] text-[14px] font-poppins">
             {country && country.name !== ''
               ? `${country.name}, ${country.capital}`
-              : 'Country, city'}
+              : 'Loading Countries...'}
           </span>
           <i
             className={`ri-arrow-${
@@ -87,14 +98,16 @@ const DropDown = ({
       </div>
       <div className="flex flex-col max-h-[200px] overflow-y-scroll">
         {loading ? (
-          <span>loading...</span>
-        ) : (countries as Country[]).filter((x: Country) =>
+          <span className="text-gray-400 font-poppins p-3">loading...</span>
+        ) : countries &&
+          (countries as Country[]).filter((x: Country) =>
             x.name.toLowerCase().includes(input.toLowerCase())
           ).length === 0 ? (
           <span className="py-2 text-gray-500 cursor-pointer w-[98%] hover:bg-blue-100 rounded-md mb-1 px-2 font-clash flex items-start">
             No Result Found
           </span>
         ) : (
+          countries &&
           (countries as Country[])
             .filter((x: Country) =>
               x.name.toLowerCase().includes(input.toLowerCase())
