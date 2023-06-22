@@ -104,7 +104,7 @@ export const getServerSideProps: GetServerSideProps =
           },
         }
       )
-      if (details.verified !== 1) {
+      if (details === null || details.verified !== 1) {
         return {
           redirect: {
             permanent: false,

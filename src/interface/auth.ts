@@ -39,3 +39,12 @@ export interface IValidationForm {
 export interface IAuthToken {
   token: string | null
 }
+
+export interface IUser {
+  address: string
+  email: string
+  name: string
+  id: number
+  profile: string
+  type: string
+}

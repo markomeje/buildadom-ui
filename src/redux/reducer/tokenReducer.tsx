@@ -2,10 +2,12 @@ import { addBrowserCookie } from '@/hooks/useCookie'
 import { IAuthToken } from '@/interface/form.interface'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
+import { IUser } from '@/interface/auth'
 
 const initialState: IAuthToken = {
   token: null,
   loggedUser: null,
+  userDetails: null,
 }
 
 export const tokenSlice = createSlice({
@@ -13,18 +15,19 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<{ token: string }>) => {
-      console.log(action.payload)
       addBrowserCookie(action.payload)
       state.token = action.payload.token
     },
     setUser: (state, action: PayloadAction<{ token: string }>) => {
-      console.log(action, 'actionuser')
       state.loggedUser = action.payload.token
+    },
+    setUserDetails: (state, action: PayloadAction<IUser>) => {
+      state.userDetails = action.payload
     },
   },
 })
 
 export const selectAuth = (state: RootState) => state.authToken.token
 
-export const { setToken, setUser } = tokenSlice.actions
+export const { setToken, setUser, setUserDetails } = tokenSlice.actions
 export const tokenReducer = tokenSlice.reducer

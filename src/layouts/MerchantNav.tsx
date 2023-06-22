@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TopNav from './TopNav'
 import Logo from '@/ui/general/Logo'
 import { removeUserCookie } from '@/hooks/useCookie'
@@ -8,6 +8,9 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { sideLinks } from '@/util/sideLinks'
 import { IDropdown } from '@/interface/dashboard'
+import { useGetUserDetailsQuery } from '@/redux/services/merchant'
+import { useTypedDispatch } from '@/redux/store'
+import { setUserDetails } from '@/redux/reducer/tokenReducer'
 
 const LogoutModal = ({ close }: { close: () => void }) => {
   const router = useRouter()
@@ -28,6 +31,8 @@ const LogoutModal = ({ close }: { close: () => void }) => {
 }
 
 const MerchantNav = () => {
+  const dispatch = useTypedDispatch()
+  const { data } = useGetUserDetailsQuery()
   const [mobileDisplay, setMobileDisplay] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
   const toggle = () => {
@@ -40,6 +45,12 @@ const MerchantNav = () => {
   const closeLogoutModal = () => {
     setLogoutModal(false)
   }
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setUserDetails(data))
+    }
+  }, [dispatch, data])
 
   return (
     <div className="sticky w-full top-0 z-20">

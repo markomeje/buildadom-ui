@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { City } from '@/interface/general.interface'
-import { setState } from '@/redux/reducer/countryReducer'
+import { setCity } from '@/redux/reducer/countryReducer'
 import { useGetCitiesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import React, { useEffect, useState } from 'react'
@@ -10,10 +9,16 @@ interface ISearch {
   name: string
 }
 
-const SearchInput = ({ name }: ISearch) => {
+type City = { id: number; name: string }
+
+const SearchCity = ({ name }: ISearch) => {
   const [value, setValue] = useState<string>('')
+  const { validationErrors } = useTypedSelector(
+    (state) => state.validationError
+  )
   const [open, setOpen] = useState<boolean>(false)
-  const { country } = useTypedSelector((state) => state.dashboard)
+  const [cities, setCities] = useState<{ id: number; name: string }[]>([])
+  const { country, state } = useTypedSelector((state) => state.dashboard)
   const { data, isLoading } = useGetCitiesQuery(country.iso2, {
     skip: country.iso2 === '',
   })
@@ -25,12 +30,18 @@ const SearchInput = ({ name }: ISearch) => {
 
   useEffect(() => {
     setValue('')
-  }, [country])
+    if (data && state) {
+      const result = data.find((res) => res.name === state)
+      if (result) {
+        setCities(result.cities)
+      }
+    }
+  }, [state])
 
   return (
     <div className="flex my-3  flex-col w-full">
       <label className="font-poppins mb-2 text-[#333333] font-semibold leading-[27px] star text-[14px]">
-        Search State
+        Search City
       </label>
       <div className="flex flex-col relative">
         <input
@@ -44,18 +55,23 @@ const SearchInput = ({ name }: ISearch) => {
         {open && (
           <DropDown
             setOpen={setOpen}
-            cities={data as City[]}
+            cities={cities && (cities as City[])}
             loading={isLoading}
             value={value}
             setValue={setValue}
           />
         )}
       </div>
+      {validationErrors[name] && (
+        <p className="font-poppins text-red-400 text-[13px]">
+          {validationErrors[name].join(',')}
+        </p>
+      )}
     </div>
   )
 }
 
-export default SearchInput
+export default SearchCity
 
 const DropDown = ({
   cities,
@@ -71,9 +87,9 @@ const DropDown = ({
   value: string
 }) => {
   const dispatch = useTypedDispatch()
-  const selected = (state: City) => {
-    dispatch(setState(state.name))
-    setValue(state.name)
+  const selected = (city: City) => {
+    dispatch(setCity(city.name))
+    setValue(city.name)
     setOpen(false)
   }
   const { country } = useTypedSelector((state) => state.dashboard)
@@ -99,7 +115,7 @@ const DropDown = ({
             className="py-2 text-gray-500 cursor-pointer w-[98%] hover:bg-blue-100 rounded-md mb-1 px-2 font-poppins flex items-start"
             onClick={close}
           >
-            No state found
+            No city found
           </span>
         ) : (
           cities &&

@@ -66,7 +66,6 @@ const AddDriverModal = ({ id }: { id?: number }) => {
     const formData = {
       ...info,
       phone: countryCode.dial_code + info.phone,
-      // id: '0',
     }
     try {
       if (id) {

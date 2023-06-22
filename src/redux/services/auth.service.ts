@@ -54,6 +54,13 @@ export const authApi = createApi({
         return response
       },
     }),
+    customerSignUp: builder.mutation({
+      query: (data) => ({
+        url: '/customer/signup',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
@@ -61,4 +68,5 @@ export const {
   useAdduserMutation,
   useVerifyNumberMutation,
   useUserLoginMutation,
+  useCustomerSignUpMutation,
 } = authApi

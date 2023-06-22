@@ -1,21 +1,30 @@
 import { useGetValidationDetailsQuery } from '@/redux/services/validation.service'
 import Button from '@/ui/button/Button'
-import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
+import SpinnerLoader from '@/ui/skeletonLoader/SpinnerLoader'
+// import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 const AdminVerification = () => {
   const { data, isLoading } = useGetValidationDetailsQuery()
-  console.log(data, 'datat')
   const router = useRouter()
   const isVerified = data && data.verified === 1
   const redirect = () => {
     router.push('/merchant/dashboard/create-store')
   }
+
+  const loadingStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '0 auto',
+    height: '250px',
+  }
+
   return (
     <>
       {isLoading ? (
-        <ListSkeleton />
+        <SpinnerLoader css_properties={loadingStyle} loading={isLoading} />
       ) : (
         <div className="flex flex-col h-[250px] items-center justify-center">
           <div className="w-[90px] h-[90px] border border-gray-200 rounded-[80px]  flex items-center justify-center bg-white">
@@ -37,7 +46,7 @@ const AdminVerification = () => {
               onClick={redirect}
               title="Create a store"
               classNames="mb-3 mt-6 py-4 w-[40%] border border-bd-blue rounded-[10px] mx-auto"
-              type="outlined"
+              variant="outlined"
             />
           )}
         </div>

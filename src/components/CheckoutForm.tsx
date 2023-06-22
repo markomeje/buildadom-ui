@@ -1,115 +1,136 @@
-import { BusinessMerchant } from '@/interface/form.interface'
+import { IShippingDetails } from '@/interface/form.interface'
+import { setShippingPrice } from '@/redux/reducer/stepperReducer'
+import { useCreateShippingMutation } from '@/redux/services/buyer.service'
+import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
+import Select from '@/ui/input/Select'
+import SearchCity from '@/ui/input/SelectCity'
+import SearchInput from '@/ui/input/SelectInput'
 import Input from '@/ui/input/TextInput'
-import { BusinessAuthSchema } from '@/validationschema/authSchema'
+import { ShippingSchema } from '@/validationschema/authSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-const CountryCodeSelector = dynamic(
-  () => import('../ui/input/PhoneCountryCodeInput'),
-  {
-    ssr: false,
-  }
-)
+import { toast } from 'react-toastify'
+// const CountryCodeSelector = dynamic(
+//   () => import('../ui/input/PhoneCountryCodeInput'),
+//   {
+//     ssr: false,
+//   }
+// )
+
+const PersonalInfo = ({
+  title,
+  content,
+}: {
+  title: string
+  content: string
+}) => {
+  return (
+    <div className="flex flex-col py-1">
+      <p
+        className={`font-poppins mb-1 text-[#333333] font-[500] leading-[27px] text-[14px]`}
+      >
+        {title}
+      </p>
+      <p className="font-poppins text-[13px] text-gray-500 leading-[20px]">
+        {content}
+      </p>
+    </div>
+  )
+}
 
 const CheckoutForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<BusinessMerchant>({
-    resolver: yupResolver(BusinessAuthSchema),
+  } = useForm<IShippingDetails>({
+    resolver: yupResolver(ShippingSchema),
   })
+  const dispatch = useTypedDispatch()
+  const { userDetails } = useTypedSelector((state) => state.authToken)
+  const { country, state, city } = useTypedSelector((state) => state.dashboard)
+  const [createShipping, { isLoading }] = useCreateShippingMutation()
   const formSubmit = handleSubmit(async (info) => {
-    console.log(info)
+    try {
+      const shppingInfo = {
+        ...info,
+        country_id: country.id,
+        city,
+        state,
+      }
+      const response = await createShipping(shppingInfo).unwrap()
+      console.log(response)
+      dispatch(setShippingPrice(response))
+      toast.success('shipping created successfully')
+    } catch (error) {
+      console.log(error)
+    }
   })
   return (
     <div className="w-full basis-[65%] mr-10">
-      <h1 className="font-poppins text-[18px]  leading-[36px] font-semibold pb-2 border-b border-[#CCCCCC]">
-        Shipping Address
-      </h1>
-      <form className="flex flex-col w-[70%] py-4" onSubmit={formSubmit}>
-        <Input
-          title="Email Adress"
-          name="email"
-          type="text"
-          error={errors}
-          placeholder="enter email address"
-          register={register}
-        />
-        <Input
-          title="First Name"
-          name="firstname"
-          type="text"
-          error={errors}
-          placeholder="enter first name"
-          register={register}
-        />
-        <Input
-          title="Last Name"
-          name="lastname"
-          type="text"
-          error={errors}
-          placeholder="enter last name"
-          register={register}
-        />
+      <div className="flex flex-col">
+        <h1 className="font-poppins text-[18px]  leading-[36px] font-semibold pb-2 border-b border-[#CCCCCC]">
+          Personal Details
+        </h1>
+        <div className="py-3 flex flex-col">
+          <PersonalInfo
+            title="First Name"
+            content={userDetails && userDetails.name.split(' ')[0]}
+          />
+          <PersonalInfo
+            title="Last Name"
+            content={userDetails && userDetails.name.split(' ')[1]}
+          />
+          <PersonalInfo
+            title="Email Address"
+            content={userDetails && userDetails.email}
+          />
+        </div>
+      </div>
+      <div className="pt-4">
+        <h1 className="font-poppins text-[18px]  leading-[36px] font-semibold pb-2 border-b border-[#CCCCCC]">
+          Shipping Details
+        </h1>
+        <form className="flex flex-col w-[70%] py-4" onSubmit={formSubmit}>
+          <Select title="Selelct Country" />
+          <SearchInput name="state" />
+          <SearchCity name="city" />
+          <Input
+            title="Street Address"
+            name="street_address"
+            type="text"
+            error={errors}
+            placeholder="enter house address"
+            register={register}
+          />
 
-        <CountryCodeSelector
-          register={register}
-          error={errors}
-          title="Phone Number"
-          name="phone"
-          type="string"
-          placeholder="enter phone number"
-        />
+          {/* <CountryCodeSelector
+            register={register}
+            error={errors}
+            title="Phone Number"
+            name="phone"
+            type="text"
+            placeholder="enter phone number"
+          /> */}
 
-        <Input
-          title="Street Address"
-          name="address"
-          type="text"
-          error={errors}
-          placeholder="enter house address"
-          register={register}
-        />
+          <Input
+            title="Zip Code"
+            name="zip_code"
+            type="text"
+            error={errors}
+            placeholder="enter zip code"
+            register={register}
+          />
 
-        <Input
-          title="City"
-          name="city"
-          type="text"
-          error={errors}
-          placeholder="enter city name"
-          register={register}
-        />
-        <Input
-          title="Company name"
-          name="business_name"
-          type="text"
-          error={errors}
-          placeholder="enter business name"
-          register={register}
-        />
-        <Input
-          title="Company name"
-          name="business_name"
-          type="text"
-          error={errors}
-          placeholder="enter business name"
-          register={register}
-        />
-        <Input
-          title="Company name"
-          name="business_name"
-          type="text"
-          error={errors}
-          placeholder="enter business name"
-          register={register}
-        />
-        <Button
-          title="Next"
-          classNames="py-[10px] px-[54px] mt-5 w-[220px]  rounded-[52px] hover:font-semibold"
-        />
-      </form>
+          <Button
+            title={isLoading ? 'Loading...' : 'Next'}
+            classNames="py-[10px] px-[54px] mt-5 w-[220px]  rounded-[52px] hover:font-semibold"
+          />
+        </form>
+      </div>
     </div>
   )
 }

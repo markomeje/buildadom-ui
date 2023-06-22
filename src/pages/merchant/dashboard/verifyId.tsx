@@ -1,33 +1,21 @@
-// import IndividualIDValidation from '@/components/sections/dasboard/auth/forms/IndividualIDValidation'
 import UseStepper from '@/hooks/useStepper'
 import Dashboard from '@/layouts/Dashboard'
 import { IDValidationStepper } from '@/lib/stepper'
 import { setStepper } from '@/redux/reducer/stepperReducer'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import { useTypedDispatch, useTypedSelector, wrapper } from '@/redux/store'
-// import { useRouter } from 'next/router'
 import { getCookie } from 'cookies-next'
 import React, { ReactElement, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
-import { useGetValidationDetailsQuery } from '@/redux/services/validation.service'
+import axios from 'axios'
 
-const IdVerification = () => {
-  const { data, isLoading } = useGetValidationDetailsQuery()
+const IdVerification = ({ stepper }: { stepper: number }) => {
   const dispatch = useTypedDispatch()
   const { step } = useTypedSelector((state) => state.stepper)
 
   useEffect(() => {
-    if (!isLoading && data === null) {
-      dispatch(setStepper(1))
-    } else if (
-      (!isLoading && data !== null && data?.image === null) ||
-      data?.image === undefined
-    ) {
-      dispatch(setStepper(2))
-    } else {
-      dispatch(setStepper(3))
-    }
-  }, [data, dispatch, isLoading])
+    dispatch(setStepper(stepper))
+  }, [stepper, dispatch])
 
   return (
     <div className="max-w-[800px] mx-auto py-16">
@@ -54,9 +42,38 @@ export const getServerSideProps: GetServerSideProps =
       }
     }
     if (token) {
-      store.dispatch(setUser(JSON.parse(token as string)))
+      const parsedData = JSON.parse(token as string)
+      store.dispatch(setUser(parsedData))
+      const {
+        data: { details },
+      } = await axios.get(
+        'https://dev.buildadom.net/api/v1/marchant/identification/details',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${parsedData.token}`,
+          },
+        }
+      )
+      console.log(details, 'details verified')
+      if (details === null) {
+        return {
+          props: { stepper: 1 },
+        }
+      } else if (
+        (details !== null && details?.image === null) ||
+        details.image === undefined
+      ) {
+        return {
+          props: { stepper: 2 },
+        }
+      } else {
+        return {
+          props: { stepper: 3 },
+        }
+      }
     }
-    return {
-      props: {},
-    }
+
+    return { props: {} }
   })

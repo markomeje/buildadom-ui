@@ -16,7 +16,7 @@ import { storeSchema } from '@/validationschema/storeScema'
 
 const CreateStore = () => {
   const router = useRouter()
-  const { country, city } = useTypedSelector((state) => state.dashboard)
+  const { country, state } = useTypedSelector((state) => state.dashboard)
   const [createStore, { isLoading }] = useCreateStoreMutation()
   const {
     register,
@@ -27,7 +27,7 @@ const CreateStore = () => {
   })
 
   const onSubmit = handleSubmit(async (info) => {
-    const data = { ...info, country_id: country.id.toString(), city }
+    const data = { ...info, country_id: country.id.toString(), city: state }
     try {
       await createStore(data).unwrap()
       router.push('/merchant/dashboard')

@@ -11,10 +11,9 @@ const Safety = () => {
             You're In Safe Hand
           </h2>
           <span className="text-white md:pr-4 lg:pl-0 px-4 font-poppins text-[17px] leading-[33px] font-[300]">
-            Experience a 40% boost in computing from last generation. MSI
-            Desktop equips the 10th Gen. Intel® Core™ i7 processor with the
-            upmost computing power to bring you an unparalleled gaming
-            experience. *Performance compared to i7-9700. Specs varies by model.
+            We are building Africa’s most reliable online construction and
+            building material marketplace. At Buildadom, the safety of our
+            merchants and buyers is of high priority to us.
           </span>
         </div>
         <div className="md:flex hidden h-full p-8 w-full items-center justify-center">

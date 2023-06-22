@@ -22,7 +22,7 @@ const StoreModel = ({ name, content, id, img }: IStore) => {
       </span>
       <Link href={`/stores/${id}`}>
         <Button
-          type="outline"
+          variant="outline"
           classNames="w-[232px] text-[12px] py-[10px] border-bd-blue rounded-[50px] mt-4"
           title="visit store"
         />

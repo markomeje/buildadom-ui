@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Country } from '@/interface/general.interface'
-import { setCountry } from '@/redux/reducer/countryReducer'
+import { setBirthCountry } from '@/redux/reducer/countryReducer'
 import { useGetCountriesQuery } from '@/redux/services/merchant'
 import { useTypedDispatch, useTypedSelector } from '@/redux/store'
 import React, { useEffect, useState } from 'react'
@@ -9,11 +9,11 @@ type IProps = {
   error?: any
 }
 
-const Select = ({ title }: IProps) => {
+const SelectCountryOfBirth = ({ title }: IProps) => {
   const [show, setShow] = useState<boolean>(false)
   const dispatch = useTypedDispatch()
   const { data, isLoading, isSuccess } = useGetCountriesQuery()
-  const { country } = useTypedSelector((state) => state.dashboard)
+  const { birth_country } = useTypedSelector((state) => state.dashboard)
   const toggle = () => {
     setShow(!show)
   }
@@ -22,7 +22,7 @@ const Select = ({ title }: IProps) => {
     if (data) {
       const result = data.find((country) => country.iso2 === 'NG')
       if (result) {
-        dispatch(setCountry(result))
+        dispatch(setBirthCountry(result))
       }
     }
   }, [data, dispatch])
@@ -38,8 +38,8 @@ const Select = ({ title }: IProps) => {
           className="w-full cursor-pointer flex items-center justify-between border border-[#8C8C8C] focus:outline-none h-[50px] rounded-[5px] px-4"
         >
           <span className="text-[#838383] leading-[20px] text-[14px] font-poppins">
-            {country && country.name !== ''
-              ? `${country.name}, ${country.capital}`
+            {birth_country && birth_country.name !== ''
+              ? `${birth_country.name}, ${birth_country.capital}`
               : 'Loading Countries...'}
           </span>
           <i
@@ -63,7 +63,7 @@ const Select = ({ title }: IProps) => {
   )
 }
 
-export default Select
+export default SelectCountryOfBirth
 
 const DropDown = ({
   countries,
@@ -80,7 +80,7 @@ const DropDown = ({
     setInput(e.target.value)
   }
   const selected = (country: Country) => {
-    dispatch(setCountry(country))
+    dispatch(setBirthCountry(country))
     setShow(false)
   }
   return (

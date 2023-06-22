@@ -6,7 +6,6 @@ import { GetServerSideProps } from 'next'
 import { setUser } from '@/redux/reducer/tokenReducer'
 import Dashboard from '@/layouts/Dashboard'
 import CreateHeader from '@/components/CreateHeader'
-// import { validationApi } from '@/redux/services/validation.service'
 import CreateStore from '@/sections/CreateStore'
 
 const MerchantDashboard = () => {

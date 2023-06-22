@@ -19,7 +19,6 @@ const InvidualProduct = () => {
   const {
     data: info,
     isLoading: loading,
-    error,
     isSuccess,
   } = useGetProductDetailsQuery(parseInt(router.query.id as string))
   const {
@@ -28,13 +27,13 @@ const InvidualProduct = () => {
     isSuccess: success,
   } = useGetQueryByCategoryQuery(info?.category?.id as number)
 
-  console.log(info, error)
   return (
     <ProductLayout>
       {loading ? (
         <StoreInfoSkeleton />
       ) : isSuccess ? (
         <ProductDetails
+          id={info.id}
           name={info.name}
           price={`${info.currency?.symbol} ${info.price}`}
           rating={info.rating ? info.rating : 0}
@@ -58,6 +57,7 @@ const InvidualProduct = () => {
               .slice(0, 4)
               .map((product: IProduct) => (
                 <ProductCard
+                  id={product.id}
                   key={product.id}
                   img={
                     (product.images && product.images[0]?.url) ||
