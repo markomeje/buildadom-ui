@@ -1,6 +1,7 @@
+import { getUserCookie } from '@/hooks/useCookie'
 import { useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const Listings = ({
@@ -26,32 +27,56 @@ const Listings = ({
   )
 }
 
-const PaymentCheckout = ({ classNames }: { classNames?: string }) => {
-  const { total } = useTypedSelector((state) => state.stepper)
-  console.log('total:', total)
+const PaymentCheckout = ({
+  classNames,
+  checked,
+}: {
+  classNames?: string
+  checked?: boolean
+}) => {
+  const router = useRouter()
+  const token = getUserCookie('user')
+  const handleClick = () => {
+    if (token) {
+      router.push('/checkout')
+    } else {
+      router.push('/login')
+    }
+  }
+  const { total, shippingPrice } = useTypedSelector((state) => state.stepper)
   return (
     <div
-      className={`w-[35%] flex flex-col  bg-[#F5F7FF] h-[350px] p-6 ${classNames}`}
+      className={`w-[35%] flex flex-col  bg-[#F5F7FF] min-h-[300px] h-full p-6 ${classNames}`}
     >
       <h1 className="font-poppins text-[24px]  leading-[36px] font-semibold pb-2 border-b border-[#CCCCCC]">
         Summary
       </h1>
       <div className="flex mt-4 flex-col">
         <Listings text="Subtotals" value={total} />
-        {/* <Listings text="Shipping" value="$20,000" /> */}
-        <Listings text="Tax" value="$1" />
+        {shippingPrice > 0 && (
+          <Listings text="Shipping" value={shippingPrice} />
+        )}
+        <Listings text="Tax" value="#1" />
         <Listings
           text="Order Total"
-          value="$100,000"
+          value={`#${1 + shippingPrice}`}
           classNames="text-[18px]"
         />
       </div>
-      <Link href={'/checkout'}>
+      {router.pathname === '/cart' && (
         <Button
+          onClick={handleClick}
           title="Proceed to Checkout"
           classNames="py-[10px] px-[54px] mt-10 w-full rounded-[52px] hover:font-semibold"
         />
-      </Link>
+      )}
+      {checked && (
+        <Button
+          onClick={() => alert('payed')}
+          title="Pay Now"
+          classNames="py-[10px] px-[54px] mt-10 w-full rounded-[52px] hover:font-semibold"
+        />
+      )}
     </div>
   )
 }

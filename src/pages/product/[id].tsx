@@ -19,7 +19,6 @@ const InvidualProduct = () => {
   const {
     data: info,
     isLoading: loading,
-    error,
     isSuccess,
   } = useGetProductDetailsQuery(parseInt(router.query.id as string))
   const {
@@ -28,7 +27,6 @@ const InvidualProduct = () => {
     isSuccess: success,
   } = useGetQueryByCategoryQuery(info?.category?.id as number)
 
-  console.log(info, error)
   return (
     <ProductLayout>
       {loading ? (
@@ -59,6 +57,7 @@ const InvidualProduct = () => {
               .slice(0, 4)
               .map((product: IProduct) => (
                 <ProductCard
+                  id={product.id}
                   key={product.id}
                   img={
                     (product.images && product.images[0]?.url) ||

@@ -9,19 +9,27 @@ const FAQ = () => {
       <div className="flex items-center flex-col w-full justify-center max-w-[920px] mx-auto">
         <Question
           text="How to get started?"
-          content="Join manufacturers all over the world and sell your product to a wider range of custormers and increase your earning rate through our mega platform  and also advertise your product to go top of the list anytime."
+          content="To get started, you must sign up as a merchant on the Buildadom website, verify your phone number and email, verify your ID, create a store, add products, and publish your store. "
         />
         <Question
           text="How to sell on House Depot"
-          content="Join manufacturers all over the world and sell your product to a wider range of custormers and increase your earning rate through our mega platform  and also advertise your product to go top of the list anytime."
+          content="To sell on Buildadom, you must create a merchant account and set up your store."
         />
         <Question
           text="How to apply for adverts"
-          content="Join manufacturers all over the world and sell your product to a wider range of custormers and increase your earning rate through our mega platform  and also advertise your product to go top of the list anytime."
+          content="Contact the Buildadom customer support phone number or email provided to discuss advert deals."
         />
         <Question
           text="What is Escrow Account"
-          content="Join manufacturers all over the world and sell your product to a wider range of custormers and increase your earning rate through our mega platform  and also advertise your product to go top of the list anytime."
+          content="An Escrow Account is a financial arrangement used in e-commerce transactions to ensure secure and trustworthy exchanges between buyers and sellers. It acts as a neutral third-party holding funds until both parties fulfil their obligations in the transaction."
+        />
+        <Question
+          text="How does Escrow Account work on Buildadom?"
+          content="When buyers order a product from the marketplace, they submit payment to the Escrow Account, which verifies the funds. Once the funds are verified, the seller is notified to deliver the goods or services. The buyer then receives the products or services and confirms their satisfaction. Once the buyer confirms their satisfaction, the funds in the Escrow Account are released to the seller. This process ensures a secure and fair transaction for both parties."
+        />
+        <Question
+          text="Must I publish my store?"
+          content="When buyers order a product from the marketplace, they submit payment to the Escrow Account, which verifies the funds. Once the funds are verified, the seller is notified to deliver the goods or services. The buyer then receives the products or services and confirms their satisfaction. Once the buyer confirms their satisfaction, the funds in the Escrow Account are released to the seller. This process ensures a secure and fair transaction for both parties."
         />
       </div>
     </div>

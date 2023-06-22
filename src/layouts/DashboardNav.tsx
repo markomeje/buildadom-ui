@@ -10,8 +10,19 @@ import TopNav from './TopNav'
 import { IDropdown } from '@/interface/dashboard'
 import IsLogged from '@/hooks/isLoggedIn'
 import { useGetCartDetailsQuery } from '@/redux/services/cart.service'
+import { useEffect } from 'react'
+import { setUserDetails } from '@/redux/reducer/tokenReducer'
+import { useTypedDispatch } from '@/redux/store'
+import { useGetUserDetailsQuery } from '@/redux/services/merchant'
 
 const DashboardNav = () => {
+  const dispatch = useTypedDispatch()
+  const { data } = useGetUserDetailsQuery()
+  useEffect(() => {
+    if (data) {
+      dispatch(setUserDetails(data))
+    }
+  }, [dispatch, data])
   const [mobileDisplay, setMobileDisplay] = useState(false)
   const toggle = () => {
     setMobileDisplay(!mobileDisplay)

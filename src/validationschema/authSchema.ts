@@ -32,6 +32,12 @@ export const LoginSchema = yup.object({
   password: yup.string().required('password is required'),
 })
 
+export const ShippingSchema = yup.object({
+  zip_code: yup.string().required('zip code is required'),
+  // phone: yup.string().required('phone number is required'),
+  street_address: yup.string().required('street address is required'),
+})
+
 export const RegistrationSchema = yup.object({
   firstname: yup.string().required('first name is required'),
   lastname: yup.string().required('last name is required'),

@@ -5,12 +5,14 @@ interface modalState {
   step: number
   info: object
   total: number
+  shippingPrice: number
 }
 
 const initialState: modalState = {
   step: 1,
   info: {},
   total: 0,
+  shippingPrice: 0,
 }
 
 export const stepperSlice = createSlice({
@@ -37,6 +39,10 @@ export const stepperSlice = createSlice({
       state.total += action.payload
     },
 
+    setShippingPrice: (state, action) => {
+      state.shippingPrice = action.payload
+    },
+
     decrementTotal: (state, action) => {
       state.total -= action.payload
     },
@@ -51,6 +57,7 @@ export const {
   decrementStepper,
   setStepper,
   addInfo,
+  setShippingPrice,
   incrementTotal,
   decrementTotal,
 } = stepperSlice.actions

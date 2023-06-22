@@ -5,7 +5,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CountryState {
   country: Country
+  birth_country: Country
   city: string
+  state: string
   newProduct: IProduct
   countryCode: IPhone
   categoryId: string
@@ -18,6 +20,13 @@ export const initialState: CountryState = {
     iso2: '',
     capital: '',
   },
+  birth_country: {
+    id: 0,
+    name: '',
+    iso2: '',
+    capital: '',
+  },
+  state: '',
   city: '',
   newProduct: {
     name: '',
@@ -44,7 +53,16 @@ export const CountrySlice = createSlice({
     setCountry: (state, action: PayloadAction<Country>) => {
       state.country = action.payload
     },
-    setCity: (state, action: PayloadAction<any>) => {
+    setBirthCountry: (state, action: PayloadAction<Country>) => {
+      state.birth_country = action.payload
+    },
+
+    setState: (state, action: PayloadAction<string>) => {
+      console.log(action.payload, 'action payload')
+
+      state.state = action.payload
+    },
+    setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload
     },
     setAddedStepper: (state, action: PayloadAction<IProduct>) => {
@@ -61,6 +79,8 @@ export const CountrySlice = createSlice({
 
 export const {
   setCountry,
+  setState,
+  setBirthCountry,
   setCity,
   setAddedStepper,
   setCategotyId,

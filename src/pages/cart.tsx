@@ -1,6 +1,7 @@
 import CartDetails from '@/components/CartDetails'
 import PaymentCheckout from '@/components/PaymentCheckout'
 import MainLayout from '@/layouts/MainLAyout'
+
 import React, { ReactElement } from 'react'
 
 const ShoppingCart = () => {

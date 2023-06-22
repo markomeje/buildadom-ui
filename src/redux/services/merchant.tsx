@@ -10,8 +10,7 @@ import { IStore } from '@/interface/store.interface'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 import { AuthError } from '@/interface/error.interface'
-
-// auth service build
+import { IUser } from '@/interface/auth'
 
 export const storeApi = createApi({
   reducerPath: 'storeApi',
@@ -35,6 +34,14 @@ export const storeApi = createApi({
         response.countries,
     }),
 
+    getUserDetails: builder.query<any, void>({
+      query: () => ({ url: '/user/me', method: 'GET' }),
+      transformResponse: (response: { response: { user: IUser } }) => {
+        console.log(response.response.user)
+        return response.response.user
+      },
+    }),
+
     getCities: builder.query<City[], string>({
       query: (country_code) => ({
         url: `/cities?country_code=${country_code}`,
@@ -42,7 +49,7 @@ export const storeApi = createApi({
       }),
       transformResponse: (response: { data: City[] }, meta, arg) =>
         response.data.map((city) => {
-          return { id: city.id, name: city.name }
+          return { id: city.id, name: city.name, cities: city.cities }
         }),
       transformErrorResponse: (response) => {
         console.log(response)
@@ -183,6 +190,7 @@ export const storeApi = createApi({
 })
 
 export const {
+  useGetUserDetailsQuery,
   useGetMerchatProductsQuery,
   useGetCountriesQuery,
   useLazyGetCitiesQuery,

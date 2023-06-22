@@ -1,3 +1,5 @@
+import { IUser } from './auth'
+
 export interface IndividalMechant {
   firstname: string
   lastname: string
@@ -26,9 +28,13 @@ export interface LoginProp {
 export interface IAuthToken {
   token?: string | null
   loggedUser?: string | null
+  userDetails?: IUser | null
 }
 
 export interface IValidationForm {
+  firstname?: string
+  state?: string
+  is_business?: boolean
   id_type: string
   id_number: string
   expiry_date: string
@@ -46,4 +52,10 @@ export interface IDriver {
   firstname: string
   lastname: string
   phone: string
+}
+
+export interface IShippingDetails {
+  street_address: string
+  // phone: string
+  zip_code: string
 }

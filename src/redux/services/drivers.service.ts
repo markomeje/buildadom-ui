@@ -60,7 +60,6 @@ export const driverApi = createApi({
         body: data,
       }),
       transformResponse: (response: { message: string }, meta, arg) => {
-        console.log(response, 'rrrrrrssss')
         return response.message
       },
       invalidatesTags: (result, error, arg) => [

@@ -21,7 +21,7 @@ function HomePage() {
       <CallToAction />
       <Materials />
       <Safety />
-      <Support />
+      {/* <Support /> */}
       <FAQ />
     </>
   )

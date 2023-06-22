@@ -26,7 +26,6 @@ const LoginPage = () => {
   const { show } = useTypedSelector((state) => state.modal)
   const { token, loggedUser } = useTypedSelector((state) => state.authToken)
 
-  console.log(token, loggedUser, 'dddd')
   const router = useRouter()
   const [userLogin, { isLoading }] = useUserLoginMutation()
   const {
@@ -114,14 +113,14 @@ LoginPage.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })
-    if (token) {
-      return {
-        redirect: {
-          destination: '/merchant/dashboard',
-          permanent: false,
-        },
-      }
-    }
+    // if (token) {
+    //   return {
+    //     redirect: {
+    //       destination: '/merchant/dashboard',
+    //       permanent: false,
+    //     },
+    //   }
+    // }
     return {
       props: {},
     }
