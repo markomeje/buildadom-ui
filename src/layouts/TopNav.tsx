@@ -7,7 +7,7 @@ function TopNav() {
       <div className="flex justify-between items-center wrapper h-full w-full">
         <div className="flex items-center">
           <span className="text-[#8C8C8C] font-poppins font-[800] leading-[18px] flex items-center">
-            Mon-Thu :{' '}
+            Mon-Sat :{' '}
             <span className="text-white flex items-center ml-2">
               9:00am - 5:30pm{' '}
               <i className="ri-arrow-drop-down-line text-white"></i>
