@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps =
       store.dispatch(setUser(parsedData))
       const {
         data: { details },
-      } = await axios.get(URL, {
+      } = await axios.get(`${URL}/marchant/identification/details`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',

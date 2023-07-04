@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps =
       store.dispatch(setUser(parsedData))
       const {
         data: { details },
-      } = await axios.get(URL, {
+      } = await axios.get(`${URL}/marchant/identification/details`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -111,16 +111,13 @@ export const getServerSideProps: GetServerSideProps =
           },
         }
       } else if (details.verified === 1) {
-        const { data } = await axios.get(
-          'https://dev.buildadom.net/api/v1/marchant/store',
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-              Authorization: `Bearer ${parsedData.token}`,
-            },
-          }
-        )
+        const { data } = await axios.get(`${URL}/marchant/store`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${parsedData.token}`,
+          },
+        })
         console.log(data, 'datatum')
       }
     }
