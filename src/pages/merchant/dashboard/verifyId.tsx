@@ -32,6 +32,8 @@ IdVerification.getLayout = function getLayout(page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
+    const URL = process.env.API_BASE_URL as string
+    console.log(URL, 'url')
     const token = getCookie('user', { req, res })
     if (!token) {
       return {
@@ -46,16 +48,13 @@ export const getServerSideProps: GetServerSideProps =
       store.dispatch(setUser(parsedData))
       const {
         data: { details },
-      } = await axios.get(
-        'https://dev.buildadom.net/api/v1/marchant/identification/details',
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${parsedData.token}`,
-          },
-        }
-      )
+      } = await axios.get(`${URL}/marchant/identification/details`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${parsedData.token}`,
+        },
+      })
       console.log(details, 'details verified')
       if (details === null) {
         return {

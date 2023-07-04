@@ -10,7 +10,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const generalApi = createApi({
   reducerPath: 'generalApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://dev.buildadom.net/api/v1',
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: { accept: 'application/json' },
   }),
   endpoints: (builder) => ({

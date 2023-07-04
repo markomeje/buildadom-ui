@@ -5,7 +5,7 @@ import React from 'react'
 const Logo = ({ img }: { img: string }) => {
   const router = useRouter()
   const redirect = () => {
-    router.push('/')
+    router.push(process.env.NEXT_PUBLIC_FRONTEND_BASE_URL as string)
   }
   return (
     <div

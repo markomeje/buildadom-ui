@@ -8,7 +8,7 @@ import { AuthError } from '@/interface/errors'
 export const validationApi = createApi({
   reducerPath: 'IdValidation',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://dev.buildadom.net/api/v1',
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
     prepareHeaders: (headers, { getState, endpoint }) => {
       const user = (getState() as RootState).authToken.loggedUser
       if (user && endpoint !== 'refresh') {
