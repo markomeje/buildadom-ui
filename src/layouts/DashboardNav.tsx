@@ -79,7 +79,7 @@ const IconRight = () => {
   const [isLog] = IsLogged()
   const logout = () => {
     removeUserCookie()
-    router.push('/')
+    router.push(process.env.NEXT_PUBLIC_FRONTEND_BASE_URL as string)
   }
   return (
     <div className="lg:flex hidden items-center justify-between">

@@ -9,7 +9,7 @@ import { getUserCookie } from '@/hooks/useCookie'
 export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://dev.buildadom.net/api/v1',
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: { accept: 'application/json' },
     prepareHeaders: (headers, { getState, endpoint }) => {
       const user = getUserCookie('user')

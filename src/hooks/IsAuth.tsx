@@ -8,7 +8,7 @@ const IsAuth = () => {
 
   useEffect(() => {
     if (!loggedUser) {
-      router.push('/')
+      router.push(process.env.NEXT_PUBLIC_FRONTEND_BASE_URL as string)
     }
   }, [router, loggedUser])
 }

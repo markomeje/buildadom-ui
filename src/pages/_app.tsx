@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-phone-number-input/style.css'
 import { ToastContainer } from 'react-toastify'
 import AppSuspense from '@/ui/skeletonLoader/AppSuspense'
+// import dotenv from 'dotenv.js'
 
 type PageWithLayout = {
   getLayout: (page: ReactElement) => ReactNode

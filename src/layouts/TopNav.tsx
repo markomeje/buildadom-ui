@@ -9,7 +9,7 @@ function TopNav() {
           <span className="text-[#8C8C8C] font-poppins font-[800] leading-[18px] flex items-center">
             Mon-Sat :{' '}
             <span className="text-white flex items-center ml-2">
-              9:00am - 5:30pm{' '}
+              9:00am - 5:00pm{' '}
               <i className="ri-arrow-drop-down-line text-white"></i>
             </span>
           </span>
@@ -26,9 +26,22 @@ function TopNav() {
           </Link>
         </div>
         <div className="flex text-white items-center">
-          <span>Call Us: (00) 1234 5678</span>
-          <i className="ri-facebook-fill px-2 ml-2"></i>
-          <i className="ri-instagram-fill ml-2"></i>
+          <span>Call Us: (+234) 8119736227</span>
+          <Link
+            href={
+              'https://www.facebook.com/profile.php?id=100069804551217&mibextid=ZbWKwL'
+            }
+            target="_blank"
+          >
+            {' '}
+            <i className="ri-facebook-fill px-2 ml-2"></i>
+          </Link>
+          <Link
+            href={'https://instagram.com/buildadom?igshid=MzNlNGNkZWQ4Mg=='}
+            target="_blank"
+          >
+            <i className="ri-instagram-fill ml-2"></i>
+          </Link>
         </div>
       </div>
     </div>
