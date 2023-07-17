@@ -26,7 +26,6 @@ export const driverApi = createApi({
       transformResponse: (response: {
         drivers: { firstname: string; lastname: string; phone: string }[]
       }) => {
-        console.log(response, 'rawwww')
         return response.drivers
       },
       providesTags: (result, error, arg) =>

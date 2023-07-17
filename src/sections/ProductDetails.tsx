@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import { Rating } from '@/components/Product'
 import { IProduct } from '@/interface/general.interface'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReviewSection from './ReviewSection'
 import { useAddToCartMutation } from '@/redux/services/cart.service'
 import { getUserCookie } from '@/hooks/useCookie'
 import { toast } from 'react-toastify'
+import { addItem, isItemFound } from '@/hooks/useCartStorage'
+import { useRouter } from 'next/router'
 
 const ProductDetails = ({
   id,
@@ -16,21 +19,40 @@ const ProductDetails = ({
   name,
   price,
 }: IProduct) => {
+  const {
+    query: { id: paramId },
+    reload,
+  } = useRouter()
   const [addToCart, { isLoading }] = useAddToCartMutation()
+  const [cartResponse, setCartResponse] = useState({
+    itemFound: false,
+    added: false,
+  })
   const user = getUserCookie('user')
-
   const addProductToCart = async () => {
     try {
+      if (cartResponse.itemFound) {
+        return
+      }
+
       if (user) {
         const response = await addToCart({ product_id: id }).unwrap()
         if (response) toast.success('product added successfully to cart')
       } else {
-        toast.error('user not logged in')
+        const newItem = { id, img, description, rating, reviews, name, price }
+        addItem(newItem)
+        setCartResponse({ ...cartResponse, added: true })
+        reload()
       }
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      toast.error(error.message)
     }
   }
+
+  useEffect(() => {
+    const res = isItemFound(paramId as string)
+    setCartResponse({ ...cartResponse, itemFound: res })
+  }, [paramId, cartResponse])
 
   return (
     <div className="backGround p-8 min-h-[550px]">
@@ -58,7 +80,11 @@ const ProductDetails = ({
               className="text-bd-blue  border-2 text-[13px] h-[37px] font-semibold font-poppins border-bd-blue w-[160px] flex items-center justify-center rounded-[50px]"
             >
               <i className="ri-shopping-cart-line text-bd-blue mr-2 "></i>{' '}
-              {isLoading ? 'adding...' : ' AddTo Cart'}
+              {isLoading
+                ? 'adding...'
+                : cartResponse.itemFound
+                ? 'Added'
+                : 'AddTo Cart'}
             </button>
             <span className="font-semibold self-end flex items-center font-poppins text-[14px] text-[#838383]">
               add to wishlist

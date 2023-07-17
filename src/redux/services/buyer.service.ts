@@ -30,7 +30,30 @@ export const buyerApi = createApi({
       },
       invalidatesTags: ['Shipping'],
     }),
+    initializePayment: builder.mutation({
+      query: (data) => ({
+        url: '/customer/payment/initialize',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (response: {
+        payment: object
+        payment_auth_url: string
+      }) => {
+        return response.payment_auth_url
+      },
+    }),
+    verifyPayment: builder.mutation<any, string>({
+      query: (reference) => ({
+        url: `/customer/payment/verify?reference=${reference}`,
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
-export const { useCreateShippingMutation } = buyerApi
+export const {
+  useCreateShippingMutation,
+  useInitializePaymentMutation,
+  useVerifyPaymentMutation,
+} = buyerApi
