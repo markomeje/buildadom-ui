@@ -33,10 +33,14 @@ export const cartApi = createApi({
       query: () => ({
         url: 'customer/cart/items',
       }),
-      transformResponse: (response: { items: any[] }) => {
+      transformResponse: (response: { items: any[]; order_id: string }) => {
         console.log(response, 'cart')
 
-        return { total: response.items.length, items: response.items }
+        return {
+          total: response.items.length,
+          items: response.items,
+          order_id: response.items[0].order_id,
+        }
       },
 
       transformErrorResponse: (response) => {
@@ -51,11 +55,13 @@ export const cartApi = createApi({
         body: data,
       }),
       transformResponse: (response) => {
-        console.log(response)
         return response
       },
-      transformErrorResponse: (response) => {
-        console.log(response, 'error response')
+      transformErrorResponse: (response: {
+        status: number
+        data: { message: string }
+      }) => {
+        return response.data.message
       },
       invalidatesTags: ['Cart'],
     }),
@@ -65,11 +71,13 @@ export const cartApi = createApi({
         method: 'DELETE',
       }),
       transformResponse: (response) => {
-        console.log(response)
         return response
       },
-      transformErrorResponse: (response) => {
-        console.log(response, 'error response')
+      transformErrorResponse: (response: {
+        status: number
+        data: { message: string }
+      }) => {
+        return response.data.message
       },
       invalidatesTags: (result, error, arg) => [{ type: 'Cart', id: arg.id }],
     }),
