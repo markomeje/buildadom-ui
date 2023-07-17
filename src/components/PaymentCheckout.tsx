@@ -1,4 +1,6 @@
 import { getUserCookie } from '@/hooks/useCookie'
+import { useInitializePaymentMutation } from '@/redux/services/buyer.service'
+import { useGetCartDetailsQuery } from '@/redux/services/cart.service'
 import { useTypedSelector } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import { useRouter } from 'next/router'
@@ -34,8 +36,10 @@ const PaymentCheckout = ({
   classNames?: string
   checked?: boolean
 }) => {
+  const { data: info } = useGetCartDetailsQuery()
   const router = useRouter()
   const token = getUserCookie('user')
+  const [initializePayment, { isLoading }] = useInitializePaymentMutation()
   const handleClick = () => {
     if (token) {
       router.push('/checkout')
@@ -44,6 +48,17 @@ const PaymentCheckout = ({
     }
   }
   const { total, shippingPrice } = useTypedSelector((state) => state.stepper)
+  const payNow = async () => {
+    try {
+      const result = await initializePayment({
+        amount: 2000,
+        order_id: info.order_id,
+      }).unwrap()
+      window.open(result, '_self')
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div
       className={`w-[35%] flex flex-col  bg-[#F5F7FF] min-h-[300px] h-full p-6 ${classNames}`}
@@ -72,8 +87,8 @@ const PaymentCheckout = ({
       )}
       {checked && (
         <Button
-          onClick={() => alert('payed')}
-          title="Pay Now"
+          onClick={payNow}
+          title={isLoading ? 'Loading...' : 'Pay Now'}
           classNames="py-[10px] px-[54px] mt-10 w-full rounded-[52px] hover:font-semibold"
         />
       )}

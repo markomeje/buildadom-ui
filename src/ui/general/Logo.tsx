@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -12,7 +12,13 @@ const Logo = ({ img }: { img: string }) => {
       className="h-auto w-[140px] md:w-[185px] cursor-pointer"
       onClick={redirect}
     >
-      <img src={img} alt="logo" className="w-fulll h-full" />
+      <Image
+        width={155}
+        height={90}
+        src={img}
+        alt="logo"
+        className="w-[155px] h-fit"
+      />
     </div>
   )
 }

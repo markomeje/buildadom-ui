@@ -9,6 +9,7 @@ import SearchInput from '@/ui/input/SelectInput'
 import Input from '@/ui/input/TextInput'
 import { ShippingSchema } from '@/validationschema/authSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 // import dynamic from 'next/dynamic'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -50,6 +51,7 @@ const CheckoutForm = () => {
     resolver: yupResolver(ShippingSchema),
   })
   const dispatch = useTypedDispatch()
+  const router = useRouter()
   const { userDetails } = useTypedSelector((state) => state.authToken)
   const { country, state, city } = useTypedSelector((state) => state.dashboard)
   const [createShipping, { isLoading }] = useCreateShippingMutation()
@@ -62,9 +64,9 @@ const CheckoutForm = () => {
         state,
       }
       const response = await createShipping(shppingInfo).unwrap()
-      console.log(response)
       dispatch(setShippingPrice(response))
       toast.success('shipping created successfully')
+      router.push('/payment')
     } catch (error) {
       console.log(error)
     }

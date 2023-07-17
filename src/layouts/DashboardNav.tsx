@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { setUserDetails } from '@/redux/reducer/tokenReducer'
 import { useTypedDispatch } from '@/redux/store'
 import { useGetUserDetailsQuery } from '@/redux/services/merchant'
+import { getItems } from '@/hooks/useCartStorage'
 
 const DashboardNav = () => {
   const dispatch = useTypedDispatch()
@@ -32,7 +33,7 @@ const DashboardNav = () => {
       <TopNav />
       <nav className="h-[92px] px-5 lg:px-0  bg-white shadow-sm sticky top-0 w-full">
         <div className="lg:wrapper flex items-center justify-between h-full">
-          <Logo img="/assets/logo.png" />
+          <Logo img="/assets/logo.svg" />
           <i
             className="ri-menu-3-fill text-[28px] block lg:hidden"
             onClick={toggle}
@@ -74,7 +75,6 @@ const NavLinks = () => {
 
 const IconRight = () => {
   const { data, isSuccess } = useGetCartDetailsQuery()
-  console.log(data, 'data')
   const router = useRouter()
   const [isLog] = IsLogged()
   const logout = () => {
@@ -87,7 +87,7 @@ const IconRight = () => {
       <Link href={'/cart'} className="relative">
         <i className="ri-shopping-cart-line mr-5 text-[20px] font-semibold"></i>
         <span className="w-[15px] h-[15px] absolute left-3 flex items-center justify-center -top-1 text-[12px] p-[8px] rounded-[15px] text-white bg-bd-blue">
-          {isSuccess ? data.total : 0}
+          {isSuccess ? data.total : getItems() ? getItems().length : 0}
         </span>
       </Link>
       {isLog ? (
