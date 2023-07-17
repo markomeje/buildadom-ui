@@ -30,7 +30,7 @@ const ProductCard = ({
   return (
     <div
       onClick={redirect}
-      className={`flex w-full lg:w-auto mb-4 lg:border-none border-b border-r border-gray-200 p-2  ${
+      className={`flex w-full lg:w-auto mb-4  lg:border-none border-b border-r border-gray-200 p-2  ${
         isGrid
           ? 'flex-col'
           : 'flex-row  border-b-2  h-[300px] p-4  border-gray-400 '
@@ -67,21 +67,25 @@ const ProductCard = ({
           className={`text-[15px] ${
             isGrid
               ? 'text-bd-blue lg:w-[220px] mb-1'
-              : 'text-[24px] mb-3 leading-[36px]'
+              : 'text-[17px] md:text-[24px] mb-3 leading-[36px]'
           } font-poppins capitalize font-semibold`}
         >
           {name}
         </h2>
         <span
           className={`font-poppis  ${
-            isGrid ? 'lg:w-[190px] pb-2 min-h-[80px]' : 'w-[360px] mb-3'
-          }  font-poppins text-[13px] leading-[20px]`}
+            isGrid
+              ? 'lg:w-[190px] pb-2 min-h-[60px] lg:min-h-[80px]'
+              : 'w-[360px] mb-3'
+          }  font-poppins text-[10px]  md:text-[13px] leading-[20px]`}
         >
           {description && description.substring(0, 80) + '...'}
         </span>
         <h2
           className={`font-poppins ${
-            isGrid ? 'text-[18px] leading-[25px]  ' : 'text-[14px]'
+            isGrid
+              ? 'text-[14px] lg:text-[18px] leading-[25px]  '
+              : ' text-[12px] lg:text-[14px]'
           } font-semibold `}
         >
           {price}

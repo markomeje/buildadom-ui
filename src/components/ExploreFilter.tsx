@@ -23,7 +23,7 @@ const ExploreFilter = () => {
   // }, [router.query.id, dispatch])
 
   return (
-    <div className="basis-[20%]  mr-[50px]">
+    <div className="md:basis-[20%] hidden md:block md:mr-[50px]">
       <h1 className="text-[28px] leading-[48px] font-poppins font-semibold">
         Market Place
       </h1>

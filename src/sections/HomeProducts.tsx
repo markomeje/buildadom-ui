@@ -15,8 +15,8 @@ const HomeProducts = ({ data }: IProps) => {
   return (
     <div className="w-full">
       <div
-        className={`flex w-full ${
-          isGrid ? 'flex-row  flex-wrap' : 'flex-col lg:gap-3'
+        className={`grid grid-cols-2 gap-3 lg:flex w-full ${
+          isGrid ? 'flex-row  flex-wrap' : 'flex-col '
         } my-4 lg:my-0 items-start `}
       >
         {data && data.length > 0 ? (

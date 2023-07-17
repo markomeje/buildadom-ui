@@ -16,12 +16,15 @@ const StoreCollections = () => {
         data.length > 0 &&
         data.map((store: any, index: number) => {
           return (
-            <div className="flex mb-6" key={index}>
+            <div
+              className="flex md:flex-row flex-col mb-2  lg:mb-6"
+              key={index}
+            >
               <StoreImg
                 name={store.name}
                 img={locateImg(store.images && store.images, 'logo') as string}
               />
-              <div className="flex  ml-4 ">
+              <div className="flex lg:ml-4 ">
                 <HomeProducts
                   data={store && store.products && store.products.slice(0, 4)}
                 />
