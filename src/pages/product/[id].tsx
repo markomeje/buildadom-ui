@@ -31,7 +31,7 @@ const InvidualProduct = () => {
     <ProductLayout>
       {loading ? (
         <StoreInfoSkeleton />
-      ) : isSuccess ? (
+      ) : isSuccess && info ? (
         <ProductDetails
           id={info.id}
           name={info.name}

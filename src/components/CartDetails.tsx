@@ -10,7 +10,9 @@ import { toast } from 'react-toastify'
 import { locateImg } from '@/util/locateImg'
 import { useTypedDispatch } from '@/redux/store'
 import { decrementTotal, incrementTotal } from '@/redux/reducer/stepperReducer'
-import Link from 'next/link'
+import { deleteItem, getItems } from '@/hooks/useCartStorage'
+import { getUserCookie } from '@/hooks/useCookie'
+import { useRouter } from 'next/router'
 
 type ICart = {
   price: string
@@ -29,6 +31,7 @@ const RowDetails = ({
   title,
   content,
 }: ICart) => {
+  const router = useRouter()
   const dispatch = useTypedDispatch()
   const [deleteFromCart, { isLoading }] = useDeleteFromCartMutation()
   const [qty, setQty] = useState(1)
@@ -50,9 +53,14 @@ const RowDetails = ({
 
   const deleteAction = async () => {
     try {
-      const response = await deleteFromCart(id).unwrap()
-      console.log(response)
-      toast.success('Deleeted Successfully')
+      const user = getUserCookie('user')
+      if (user) {
+        await deleteFromCart(id).unwrap()
+        toast.success('Deleeted Successfully')
+      } else {
+        deleteItem(id)
+        router.reload()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -109,8 +117,10 @@ const RowDetails = ({
 }
 
 const CartDetails = () => {
-  const { data, isLoading, isSuccess } = useGetCartDetailsQuery()
-  console.log(data, 'data cart')
+  const { data, isLoading } = useGetCartDetailsQuery()
+  const localCartItems = getItems()
+  console.log(localCartItems, 'itemss')
+  const user = getUserCookie('user')
   return (
     <div className="basis-[65%] mr-12">
       <div className="flex flex-col">
@@ -130,7 +140,7 @@ const CartDetails = () => {
         </div>
         {isLoading ? (
           <ListSkeleton />
-        ) : isSuccess && data && data.items.length > 0 ? (
+        ) : user && data && data.items.length > 0 ? (
           data.items.map((item: any) => (
             <RowDetails
               key={item.id}
@@ -142,23 +152,37 @@ const CartDetails = () => {
               product_img={locateImg(item.product.images, 'main') as string}
             />
           ))
-        ) : (
-          <div className="pt-16 flex flex-col items-center justify-center">
-            <span className="w-[410px] text-[#667085] font-poppins pb-2 -mt-4 leading-[30px] text-center text-[20px] font-[500]">
-              No Product in cart
-            </span>
-            <Link
-              href="/explore"
-              className="py-3 mt-2 bg-bd-blue font-poppins text-white  rounded-[25px] px-8"
-            >
-              {' '}
-              Shop Now{' '}
-            </Link>
-          </div>
-        )}
+        ) : !user && localCartItems && localCartItems.length > 0 ? (
+          localCartItems.map((item: any) => (
+            <RowDetails
+              key={item.id}
+              id={item.id}
+              price={item.price}
+              title={item.name}
+              content={`${item.description.substring(0, 200)}...`}
+              subTotal={item.price}
+              product_img={item.img}
+            />
+          ))
+        ) : null}
       </div>
     </div>
   )
 }
 
 export default CartDetails
+
+//  (
+//           <div className="pt-16 flex flex-col items-center justify-center">
+//             <span className="w-[410px] text-[#667085] font-poppins pb-2 -mt-4 leading-[30px] text-center text-[20px] font-[500]">
+//               No Product in cart
+//             </span>
+//             <Link
+//               href="/explore"
+//               className="py-3 mt-2 bg-bd-blue font-poppins text-white  rounded-[25px] px-8"
+//             >
+//               {' '}
+//               Shop Now{' '}
+//             </Link>
+//           </div>
+//         )

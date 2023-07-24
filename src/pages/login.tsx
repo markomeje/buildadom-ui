@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { clearCartItems, getItems } from '@/hooks/useCartStorage'
 import { LoginProp } from '@/interface/auth'
 import { AuthError } from '@/interface/errors'
 import MainLayout from '@/layouts/MainLAyout'
 import { setToken } from '@/redux/reducer/tokenReducer'
 import { useUserLoginMutation } from '@/redux/services/auth.service'
+import { useAddToCartMutation } from '@/redux/services/cart.service'
 import { useTypedDispatch, wrapper } from '@/redux/store'
 import Button from '@/ui/button/Button'
 import Input from '@/ui/input/TextInput'
@@ -19,6 +21,7 @@ import { toast } from 'react-toastify'
 
 const BuyerLogin = () => {
   const router = useRouter()
+  const localCartItems = getItems()
   const dispatch = useTypedDispatch()
   const {
     register,
@@ -28,13 +31,30 @@ const BuyerLogin = () => {
     resolver: yupResolver(LoginSchema),
   })
   const [userLogin, { isLoading }] = useUserLoginMutation()
+  const [addToCart, { isLoading: loading }] = useAddToCartMutation()
+
+  const saveCartItems = () => {
+    return Promise.all(
+      localCartItems.map(async (item) => {
+        await addToCart({ product_id: item.id }).unwrap()
+      })
+    ).then(() => {
+      toast.success('user logged in successfully')
+      clearCartItems()
+      router.push('/buyer/dashboard')
+    })
+  }
 
   const onSubmit = handleSubmit(async (info) => {
     try {
       const result = await userLogin(info).unwrap()
       dispatch(setToken({ token: result }))
-      toast.success('user logged in successfully')
-      router.push('/buyer/dashboard')
+      if (result && localCartItems.length > 0) {
+        saveCartItems()
+      } else {
+        toast.success('user logged in successfully')
+        router.push('/buyer/dashboard')
+      }
     } catch (err) {
       if (!(err as AuthError).data)
         return toast.error('Check yout network connection')
@@ -78,7 +98,7 @@ const BuyerLogin = () => {
             />
             <div className="flex w-full mt-4 items-center">
               <Button
-                title={isLoading ? 'Loading...' : 'Sign in'}
+                title={isLoading || loading ? 'Loading...' : 'Sign in'}
                 classNames="w-[220px] mr-4 text-[14px] py-3 rounded-[50px]"
               />
               <span className="font-poppins text-[14px] leading-[20px] text-bd-blue">

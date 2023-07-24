@@ -9,7 +9,7 @@ function Footer() {
       <div className="w-full lg:max-w-[1250px] mx-auto grid py-20  px-4 lg:px-0 lg:grid-cols-6">
         <div className="lg:col-span-3 flex flex-col">
           <div className="flex mb-3 lg:mb-6 items-center">
-            <Logo img="/assets/logo_white.png" />
+            <Logo img="/assets/logo_white.svg" />
           </div>
           <h2 className="font-poppins text-white font-[500] mb-2 text-[22px] md:text-[28px] leading-[37px]">
             Sign Up To Our Newsletter
