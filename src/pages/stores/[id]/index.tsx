@@ -32,7 +32,7 @@ const StoreProducts = () => {
         <EmptyState showButton={false} message="No Store Detail" />
       )}
 
-      <div className="my-8 wrapper">
+      <div className="lg:my-8 wrapper">
         <div className="flex w-full justify-end mb-8 items-end">
           <DropSearch header="Sort By:" text="All" />
         </div>

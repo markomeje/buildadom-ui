@@ -13,6 +13,7 @@ import { decrementTotal, incrementTotal } from '@/redux/reducer/stepperReducer'
 import { deleteItem, getItems } from '@/hooks/useCartStorage'
 import { getUserCookie } from '@/hooks/useCookie'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 type ICart = {
   price: string
@@ -164,25 +165,23 @@ const CartDetails = () => {
               product_img={item.img}
             />
           ))
-        ) : null}
+        ) : (
+          <div className="pt-16 flex flex-col items-center justify-center">
+            <span className="w-[410px] text-[#667085] font-poppins pb-2 -mt-4 leading-[30px] text-center text-[20px] font-[500]">
+              No Product in cart
+            </span>
+            <Link
+              href="/explore"
+              className="py-3 mt-2 bg-bd-blue font-poppins text-white  rounded-[25px] px-8"
+            >
+              {' '}
+              Shop Now{' '}
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )
 }
 
 export default CartDetails
-
-//  (
-//           <div className="pt-16 flex flex-col items-center justify-center">
-//             <span className="w-[410px] text-[#667085] font-poppins pb-2 -mt-4 leading-[30px] text-center text-[20px] font-[500]">
-//               No Product in cart
-//             </span>
-//             <Link
-//               href="/explore"
-//               className="py-3 mt-2 bg-bd-blue font-poppins text-white  rounded-[25px] px-8"
-//             >
-//               {' '}
-//               Shop Now{' '}
-//             </Link>
-//           </div>
-//         )

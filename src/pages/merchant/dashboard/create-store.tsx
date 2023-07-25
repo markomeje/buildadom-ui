@@ -33,53 +33,6 @@ MerchantDashboard.getLayout = function getLayout(page: ReactElement) {
   return <Dashboard>{page}</Dashboard>
 }
 
-// const DisplayState = ({ data, loading }: { data: any; loading: boolean }) => {
-//   const router = useRouter()
-//   if (loading) return null
-//   if (data == null) {
-//     return (
-//       <Button
-//         onClick={() =>
-//           router.push({
-//             pathname: '/merchant/dashboard/verifyId',
-//             query: { stepper: 1 },
-//           })
-//         }
-//         classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"
-//         type="outlined"
-//         title="Start ID Validation Now"
-//       />
-//     )
-//   } else if (
-//     (data !== null && data?.image === null) ||
-//     data?.image === undefined
-//   ) {
-//     return (
-//       <Button
-//         classNames="w-[250px] py-4 px-4 border-gray-300 rounded-[50px] hover:border-bd-blue"
-//         onClick={() =>
-//           router.push({
-//             pathname: '/merchant/dashboard/verifyId',
-//             query: { stepper: 2 },
-//           })
-//         }
-//         type="outlined"
-//         title="Upload Verification ID"
-//       />
-//     )
-//   } else if (data !== null && data.verified === 0) {
-//     return (
-//       <Button
-//         type="outlined"
-//         title="Wait For Admin ID Verification "
-//         classNames="py-4 px-6 border-gray-300 rounded-[50px] hover:border-bd-blue"
-//       />
-//     )
-//   } else {
-//     return null
-//   }
-// }
-
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async ({ req, res }) => {
     const token = getCookie('user', { req, res })

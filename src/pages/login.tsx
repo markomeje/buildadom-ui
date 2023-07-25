@@ -42,6 +42,7 @@ const BuyerLogin = () => {
       toast.success('user logged in successfully')
       clearCartItems()
       router.push('/buyer/dashboard')
+      router.reload()
     })
   }
 
@@ -54,6 +55,7 @@ const BuyerLogin = () => {
       } else {
         toast.success('user logged in successfully')
         router.push('/buyer/dashboard')
+        router.reload()
       }
     } catch (err) {
       if (!(err as AuthError).data)

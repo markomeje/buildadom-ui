@@ -5,7 +5,7 @@ import { useTypedDispatch } from '@/redux/store'
 // import Button from '@/ui/button/Button'
 import ExploreSearch from '@/ui/input/MarketSearch'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 
 export const DropSearch = ({
   header,
@@ -29,14 +29,25 @@ const ProductLayout = ({ children }: { children: React.ReactNode }) => {
   const setDisplay = (type: string) => {
     dispatch(setDisplayType(type))
   }
-
+  const [showFilter, setShowFilter] = useState(false)
+  const toggleFilter = () => {
+    setShowFilter(!showFilter)
+  }
   return (
     <div className="mt-4 lg:mt-12 wrapper w-full pb-12">
-      <div className="flex w-full pb-16 justify-end items-end">
+      <div className="flex w-full px-4 lg:px-0 pb-8 lg:pb-16 justify-end items-end">
         <ExploreSearch />
       </div>
+      <div className="flex items-center lg:hidden px-5 justify-end">
+        <i className="ri-menu-2-fill  text-[25px] text-gray-700 mr-2"></i>
+        <i className="ri-grid-fill text-[25px] text-gray-700 mr-2"></i>
+        <i
+          className="ri-filter-line text-[25px] text-gray-700 mr-2"
+          onClick={toggleFilter}
+        ></i>
+      </div>
       <div className="md:my-3 w-full sticky  flex">
-        <ExploreFilter />
+        <ExploreFilter show={showFilter} />
         <div className="w-full px-4">
           {!id && (
             <div className="items-center hidden lg:flex">

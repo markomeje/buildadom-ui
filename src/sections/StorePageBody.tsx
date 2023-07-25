@@ -6,49 +6,11 @@ import { locateImg } from '@/util/locateImg'
 import React from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
-export const stores = [
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/logo2.png',
-  },
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/market.jpg',
-  },
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/logo2.png',
-  },
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/market.jpg',
-  },
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/logo2.png',
-  },
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/market.jpg',
-  },
-  {
-    name: 'cusotoBuilds',
-    desc: 'Brief description of the company and what kind of products or services they offer',
-    img: '/assets/market.jpg',
-  },
-]
-
 const StorePageBody = () => {
   const { data: stores, isLoading } = useAllStoresQuery(12)
 
   return (
-    <div className="py-12 wrapper">
+    <div className="lg:py-12 py-2 wrapper">
       {isLoading ? (
         <SkeletonTheme baseColor="#F5F5F5" highlightColor="#ffffff">
           <div className="flex gap-x-4">
@@ -59,7 +21,7 @@ const StorePageBody = () => {
           </div>
         </SkeletonTheme>
       ) : (
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 px-3 lg:px-0 lg:gap-6">
           {stores &&
             stores.map((store: IStore) => {
               return (
