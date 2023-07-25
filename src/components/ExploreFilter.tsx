@@ -5,7 +5,7 @@ import ListSkeleton from '@/ui/skeletonLoader/ListSkeleton'
 // import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-const ExploreFilter = () => {
+const ExploreFilter = ({ show }: { show: boolean }) => {
   const dispatch = useTypedDispatch()
   // const router = useRouter()
   const [expandCategory, setExpandCategory] = useState<boolean>(true)
@@ -23,11 +23,15 @@ const ExploreFilter = () => {
   // }, [router.query.id, dispatch])
 
   return (
-    <div className="basis-[20%]  mr-[50px]">
-      <h1 className="text-[28px] leading-[48px] font-poppins font-semibold">
+    <div
+      className={`md:basis-[20%]  ${
+        show ? 'absolute' : 'hidden'
+      } md:block md:mr-[50px]`}
+    >
+      <h1 className="text-[28px] hidden md:block leading-[48px] font-poppins font-semibold">
         Market Place
       </h1>
-      <div className="w-full bg-[#F5F7FF] py-3 px-6 mt-4 min-h-[80px]">
+      <div className="w-full bg-[#F5F7FF] py-3 px-6 mt-4 md:min-h-[80px]">
         <h2 className="w-full py-3 font-poppins font-[500] text-[16px] leading-[24px]">
           Filters
         </h2>

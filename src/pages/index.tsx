@@ -21,9 +21,9 @@ const Home = () => {
   return (
     <div className="lg:wrapper">
       <HomeBanner />
-      <div className="flex flex-col  px-6 lg:px-0 items-start py-8">
+      <div className="flex flex-col px-2 md:px-4 lg:px-0 items-start py-8">
         <div className="flex items-center w-full justify-between">
-          <h2 className="text-[22px] leading-[33px]   font-poppins font-semibold">
+          <h2 className="text-[17px] pl-2 lg:pl-0 md:text-[22px] leading-[33px] font-poppins font-semibold">
             New Products
           </h2>
           <Link
@@ -33,7 +33,7 @@ const Home = () => {
             see all products
           </Link>
         </div>
-        <div className="ml-5 w-full mt-4">
+        <div className="lg:ml-5 w-full mt-4">
           {isLoading && (
             <ProductSkeleton amount={5} className="lg:grid-cols-5" />
           )}{' '}

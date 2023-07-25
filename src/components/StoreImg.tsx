@@ -11,13 +11,13 @@ interface IStoreImg {
 
 const StoreImg = ({ name, img, id, like }: IStoreImg) => {
   return (
-    <div className="w-[232px] h-[350px] relative">
+    <div className="w-full lg:w-[232px] h-[200px] lg:h-[350px] relative">
       <img
         src={img}
         alt="store-img"
         width={232}
         height={350}
-        className="w-[232px] h-[350px] full object-cover"
+        className="w-full md:w-[232px] h-[200px] lg:h-[350px] full object-cover"
       />
       <div className="absolute top-0 left-0 bottom-0  cursor-pointer  right-0 backG">
         <div className="flex flex-col w-full h-full px-3 relative items-center justify-center">

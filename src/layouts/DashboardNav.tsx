@@ -122,7 +122,7 @@ const MobileDropDown = ({ show, close }: IDropdown) => {
           const active = router.pathname === link.href
           return (
             <Link
-              href={link.name}
+              href={link.href}
               onClick={close}
               key={index}
               className={`py-2  mb-2 ${

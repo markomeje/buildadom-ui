@@ -27,19 +27,18 @@ const ProductHeader = ({
   const { data, isLoading } = useGetProductsCategoriesQuery()
 
   return (
-    <div className="border-b mb-5 pt-12 border-gray-200">
-      <div className="flex flex-col wrapper ">
-        <div className="h-[280px] mt-4 w-full">
+    <div className="border-b lg:mb-5 lg:pt-12 border-gray-200">
+      <div className="flex flex-col lg:wrapper ">
+        <div className="h-[180px] lg:h-[280px] lg:mt-4 w-full">
           <img
             src={cover_img}
             alt="store-cover"
             width={0}
             height={350}
-            // sizes="(max-width: 768px) 100vw"
-            className="w-full h-[280px] full object-cover"
+            className="w-full h-[180px] lg:h-[280px] full object-cover"
           />
         </div>
-        <div className="flex  pt-12 justify-between">
+        <div className="flex lg:flex-row px-2 flex-col relative lg:pt-12 lg:justify-between">
           <StoreInfo
             address={city}
             name={name}
@@ -49,7 +48,7 @@ const ProductHeader = ({
           />
           <ExploreSearch />
         </div>
-        <div className="mt-8">
+        <div className="mt-4 lg:mt-8">
           {data && (
             <CategoryGroups
               isLoading={isLoading}
@@ -66,19 +65,19 @@ export default ProductHeader
 
 const StoreInfo = ({ name, img, rating, content }: IStore) => {
   return (
-    <div className="flex items-center">
+    <div className="flex flex-col  mb-8 lg:mb-0 lg:px-0 lg:flex-row relative lg:items-center">
       <img
         src={img}
         alt="src_logo"
         width={204}
         height={204}
-        className="w-[204px] h-[204px]"
+        className="lg:w-[204px] w-[160px] rounded-[204px] lg:rounded-[4px] h-[160px] absolute lg:relative lg:top-0 -top-[90px] lg:h-[204px]"
       />
-      <div className="flex flex-col ml-6 justify-center">
-        <h1 className="font-poppins font-semibold text-[24px] leading-[28px]">
+      <div className="flex flex-col mt-20 lg:mt-0 lg:ml-6 lg:justify-center">
+        <h1 className="font-poppins font-semibold text-[18px] lg:text-[24px] leading-[28px]">
           {name}
         </h1>
-        <div className="flex items-center py-3">
+        <div className="flex items-center py-1 lg:py-3">
           <span className="text-[14px] font-[600] font-poppins leading-[25px] mr-1 -mb-[3px]">
             Store Rating
           </span>
@@ -90,7 +89,7 @@ const StoreInfo = ({ name, img, rating, content }: IStore) => {
           </span>
           <span className="font-poppins">{address}</span>
         </div> */}
-        <span className="w-[500px] font-poppins leading-[27px] text-[14px]">
+        <span className="lg:w-[500px] font-poppins lg:leading-[27px] leading-[23px] text-[12px] lg:text-[14px]">
           {content}
         </span>
       </div>

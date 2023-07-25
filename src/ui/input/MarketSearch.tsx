@@ -2,7 +2,7 @@ import React from 'react'
 
 const ExploreSearch = () => {
   return (
-    <div className="relative w-[488px]">
+    <div className="relative w-full md:mx-0 md:w-[488px]">
       <input
         type="text"
         placeholder="Search products"

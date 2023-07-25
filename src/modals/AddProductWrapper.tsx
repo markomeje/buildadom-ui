@@ -129,6 +129,13 @@ const AddProductModal = () => {
           name="category_id"
         />
         <InputSelect
+          data={data && data}
+          control={control}
+          errors={errors}
+          label="Measuring Unit"
+          name="unit"
+        />
+        <InputSelect
           data={currencies && currencies}
           control={control}
           errors={errors}

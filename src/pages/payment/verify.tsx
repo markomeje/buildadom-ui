@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import React, { ReactElement, useEffect } from 'react'
 
 const PaymentVerification = () => {
-  const { query } = useRouter()
+  const { query, push } = useRouter()
   const [verifyPayment] = useVerifyPaymentMutation()
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const PaymentVerification = () => {
         try {
           const response = await verifyPayment(reference as string)
           console.log(response)
-          alert('track order')
+          push('/buyer/track')
         } catch (error) {
           console.log(error)
           alert('error')

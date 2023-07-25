@@ -8,7 +8,7 @@ const ProductSkeleton = ({ amount, className }: IProductSkeleton) => {
   for (let index = 0; index < amount; index++) {
     rows.push(
       <div
-        className="w-full items-center justify-center flex mx-auto"
+        className="w-full items-center justify-center flex-col lg:flex-row flex mx-auto"
         key={index}
       >
         <article className="lg:min-w-[200px] w-[400px] lg:w-[230px]  m-auto border-[2px] border-gray-100 rounded-[8px] p-4">
